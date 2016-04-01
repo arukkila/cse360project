@@ -11,5 +11,3 @@ As a scoring system, I want to be able to reset a player's current score so that
 As a scoring system, I want to be able to update a player's score so that I can accurately keep track of who is winning.
 
 As a scoring system, I want to be able to update a player's statistics so that I can accurately keep track of rankings.
-
-As a die, I want to be able to roll, so that I can produce a random number.
