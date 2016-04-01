@@ -6,7 +6,7 @@ As a player, I want to be able to win, so that I can have fun with the game.
 
 As a player, I want to be able to view player statistics, so I can check my ranking.
 
-As a scoring system, I want to be able to reset a player's current score so that the rules of the game are followed.
+As a scoring system, I want to be able to reset a player's current score so that the game can be restarted.
 
 As a scoring system, I want to be able to update a player's score so that I can accurately keep track of who is winning.
 
