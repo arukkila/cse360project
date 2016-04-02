@@ -2,12 +2,14 @@ As a player, I want to be able to roll dice so I can get points.
 
 As a player, I want to be able to pass my turn so I can avoid taking a risk.
 
-As a player, I want to be able to win, so that I can have fun with the game.
+As a player, I want to be able to view statistics, so I can check my ranking.
 
-As a player, I want to be able to view player statistics, so I can check my ranking.
+As a control system, I want to be able to add a player, so that more people can play.
 
-As a scoring system, I want to be able to reset a player's current score so that the game can be restarted.
+As a control system, I want to be able to remove a player, so that people can stop playing if they wish.
 
-As a scoring system, I want to be able to update a player's score so that I can accurately keep track of who is winning.
+As a control system, I want to be able to start the game, so that it can be played.
 
-As a scoring system, I want to be able to update a player's statistics so that I can accurately keep track of rankings.
+As a control system, I want to be able to end the game, so that people can win or lose.
+
+As a control system, I want to be able to update a player's score, so that I can accurately keep track of rankings.
