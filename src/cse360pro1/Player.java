@@ -34,34 +34,23 @@ public class Player
 	 * @param name - player name
 	 */
 	Player(String name)
-	{
-		//read from file to see if user exists 
-		boolean userExists = false;
+	{	
+		this.name = name;
+		score = 0;
+		lifeTimeScore = 0;
+		numberOfRolls = 0;
 		
-		if(!userExists)
-		{
-			this.name = name;
-			score = 0;
-			lifeTimeScore = 0;
-			numberOfRolls = 0;
-			
-			ones = 0;
-			twos = 0;
-			threes = 0;
-			fours = 0;
-			fives = 0; 
-			sixes = 0;
-			
-			wins = 0;
-			losses = 0;
-			
-			winLossRatio = 0.0;
-		}
-		else
-		{
-			System.out.println("Username already exists.");
-		}
+		ones = 0;
+		twos = 0;
+		threes = 0;
+		fours = 0;
+		fives = 0; 
+		sixes = 0;
 		
+		wins = 0;
+		losses = 0;
+		
+		winLossRatio = 0.0;	
 	}
 	
 	

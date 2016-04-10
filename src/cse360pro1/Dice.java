@@ -25,7 +25,7 @@ public class Dice
 	/**
 	 * Generates a number between 1 and the number of sides given.
 	 * 
-	 * @param numberOfSides - number of sides on the dice
+	 * @param sides - number of sides on the dice
 	 * @return number - integer that the dice rolls
 	 */
 	public int roll(int sides)
