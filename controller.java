@@ -2,8 +2,131 @@ package cse360pro1;
 
 import java.util.Arrays;
 
-public class controller
-{
+public class controller{
+	
+	public final String LOSERS = "ALL OF YOU LOST";
+	public final String WINNER = "CONGRATS YOU ARE THE WINNER";
+	
+	// private fields are not visible outside of the class
+	private String masterList[];
+	private String currentList[];
+	private int score = 0;
+	private boolean currentPlayer = true;
+	
+	// public variables are visible outside of the class
+	public String name;
+	
+	public String[] getMasterList()
+	{
+		return masterList;
+	}
+	
+	public String[] getCurrentList()
+	{
+		return currentList;
+	}
+	
+	public boolean checkCurrentPlayer()
+	{
+		
+	}
+	
+	
+	
+	public String getCurrentPlayer()
+	{
+		for(int i = 0; i < currentList.length; i++)
+		{
+			if(checkCurrentPlayer() == true)
+			{
+				return currentList[i];
+			}
+		}
+		return "Player not found";
+		
+	}
+	
+	public String[] getOtherPlayers()
+	{
+		String tempList[] = new String[3];
+		int playerPos = 0;
+		for(int listIndex = 0; listIndex < currentList.length; listIndex++)
+		{
+			while(checkCurrentPlayer() == false)
+			{
+				tempList[playerPos] = currentList[listIndex];
+				playerPos++;
+			}
+		}
+		return tempList;
+		
+	}
+	
+	public int getScore()
+	{
+		return score;
+	}
+	
+	
+	public void setMasterList(String[] players)
+	{
+		 masterList = new String[4];
+		 System.arraycopy(players, 0, masterList, 0, players.length);
+	}
+	
+	public void setCurrentList(String[] players)
+	{
+		currentList = new String[4];
+		 System.arraycopy(players, 0, masterList, 0, players.length);
+	}
+	
+	public void removePlayer(String player)
+	{
+		
+		if(Arrays.asList(currentList).contains(player))
+		{
+			Arrays.asList(currentList).remove(player);
+		}
+		
+	}
+	
+	public void exitProgram()
+	{
+		System.exit(0);
+	}
+	
+	public void gameOver(int choice)
+	{
+		// if player wants to play again 
+		// if player wants to exit program
+		// if player wants to view stats
+		switch(choice)
+		{
+	
+			case 1:
+				//start new game with same players
+				
+				break;
+		
+			case 2:
+				//terminate the program
+				exitProgram();
+				break;
+		
+			case 3:
+				//show the stats gui
+				break;
+			
+			default:
+				System.out.println("please choose a correct option");
+				break;
+
+		}
+		
+	}
+	
+	
+	
 	private boolean kickedOut = false;
 	private boolean gameWon = false;
 	private int placeholder = 0; //To be used for if/else statements that can't be implemented yet
@@ -67,5 +190,10 @@ public class controller
 			//Probably some GUI stuff needed here
 			roll(die1, die2, die3, name);
 		}		
+	}
+	
+	public controller()
+	{
+		
 	}
 }
