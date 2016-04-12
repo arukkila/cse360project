@@ -6,9 +6,11 @@
  * @pin 326
  */
 package cse360pro1;
+import java.io.Serializable;
 
-public class Player 
+public class Player implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	private String name; 
 	private int score;
 	private int lifeTimeScore;
@@ -97,7 +99,7 @@ public class Player
 		else
 			this.losses += 1;
 		
-		this.winLossRatio = this.wins / (this.wins + this.losses);	
+		this.winLossRatio = (double) (this.wins / (this.wins + this.losses));	
 	}
 	
 	/**
