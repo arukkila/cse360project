@@ -31,11 +31,11 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     @Override
     public void notifyModelChanged() {
         if (gameModel != null) {
-            Player currentPlayer = gameModel.getCurrentPlayer();
+            Player currentPlayer = gameModel.getCurrentPlayerInCurrentGame();
             currentPlayerNameLabel.setText(currentPlayer.getName());
             currentTotalValueLabel.setText(String.valueOf(currentPlayer.getScore()));
             int index = 0;
-            while (!currentPlayer.equals(gameModel.getPlayer(index))) {
+            while (!currentPlayer.equals(gameModel.getPlayerInCurrentGame(index))) {
                 index++;
             }
             playerTable.getSelectionModel().setSelectionInterval(index, index);
@@ -55,7 +55,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             if (gameModel == null) {
                 count = 0;
             } else {
-                count = gameModel.getPlayerCount();
+                count = gameModel.getPlayersInCurrentGameCount();
             }
             return count;
         }
@@ -93,7 +93,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             if (gameModel == null) {
                 value = null;
             } else {
-                Player player = gameModel.getPlayer(rowIndex);
+                Player player = gameModel.getPlayerInCurrentGame(rowIndex);
                 if (columnIndex == 0) {
                     value = player.getName();
                 } else {
@@ -258,15 +258,15 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 GameGui gui = new GameGui();
-                TestModel model = new TestModel();
-                model.setGui(gui);
+                TestGame model = new TestGame();
+                model.setGameGui(gui);
                 gui.setModel(model);
                 gui.setVisible(true);
             }
         });
     }
 
-    private static class TestModel implements GameModelInterface {
+    private static class TestGame implements GameModelInterface {
 
         private GameGuiInterface gui;
         private Player[] players = {
@@ -277,28 +277,28 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         private int player = 0;
 
         @Override
-        public void setGui(GameGuiInterface gameGui) {
+        public void setGameGui(GameGuiInterface gameGui) {
             gui = gameGui;
         }
 
         @Override
-        public int getPlayerCount() {
+        public int getPlayersInCurrentGameCount() {
             return players.length;
         }
 
         @Override
-        public Player getPlayer(int index) {
+        public Player getPlayerInCurrentGame(int index) {
             return players[index];
         }
 
         @Override
-        public Player getCurrentPlayer() {
+        public Player getCurrentPlayerInCurrentGame() {
             return players[player];
         }
 
         @Override
         public boolean roll() {
-            getCurrentPlayer().updateScore(5);
+            getCurrentPlayerInCurrentGame().updateScore(5);
             gui.notifyModelChanged();
             return false;
         }
