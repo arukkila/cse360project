@@ -127,9 +127,14 @@ public class controller{
 	
 	
 	
-	private boolean kickedOut = false;
+	private int kickedOut = 0;
 	private boolean gameWon = false;
 	private int placeholder = 0; //To be used for if/else statements that can't be implemented yet
+	
+	public boolean isGameWon()
+	{
+		return gameWon;
+	}
 	
 	//int returned is the number of the rule that is implemented, according to rules.doc
 	private int ruleCheck(int die1, int die2, int die3)
@@ -139,18 +144,19 @@ public class controller{
 	/*
 	 * 1. Players roll 3 dice at a time.
 	 * 2. Players must roll and record those stats every turn.
-	 * 3. The first player to roll 3 1s automatically loses and must wait for the next game.
+	 * 3. Any player to roll 3 1s automatically loses and must wait for the next game.
 	 * 4. The first player to roll all 6s wins the game no matter the scores.
 	 * 5. If a player rolls all 3s all other players scores reset to 0.
-	 * 6. If a player rolls two of a kind they can roll again with an option of recording their scores for each roll on that turn.
+	 * 6. If a player rolls two of a kind they can roll again.
 	 * 7. The first player with a total >= 100 wins the game.
 	 * 8. The end of the game will rank all of the players on who is closest to 100.
+	 * 9. Game requires four players to start.
 	 */
 		
 		if(die1 == die2 && die2 == die3)	//three of a kind
 			sameThree = true;
 		
-		if(sameThree && die1 == 1 && !kickedOut)	//player rolled three 1s
+		if(sameThree && die1 == 1)	//player rolled three 1s
 			rule = 3;
 		else if(sameThree && die1 == 6)	//player rolled three 6s
 			rule = 4;
@@ -172,14 +178,21 @@ public class controller{
 
 		int rule = ruleCheck(roll1, roll2, roll3);
 		
-		if(rule == 2 || (rule == 3 && kickedOut))
+		if(rule == 2)
 		{
 			name.updateScore(roll1 + roll2 + roll3);
 			if(name.getScore() >= 100)
 				gameWon = true;
 		}
 		else if(rule == 3)
-			kickedOut = true;
+		{
+			kickedOut++;
+			if(kickedOut == 3)
+			{
+				name.updateWinLoss(false);
+				gameWon = true;
+			}
+		}
 		else if(rule == 4)
 			gameWon = true;
 		else if(rule == 5)
