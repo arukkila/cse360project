@@ -23,11 +23,14 @@ public class Player implements Serializable
 	private int fives; 
 	private int sixes;
 	
-	
 	private int wins;
 	private int losses;
 	
 	private double winLossRatio;
+	
+	private boolean active;
+	private boolean won;
+	private boolean lost;
 	
 	/**
 	 * Creates a user to play the game and track statistics. If user has never played stats
@@ -53,11 +56,16 @@ public class Player implements Serializable
 		losses = 0;
 		
 		winLossRatio = 0.0;	
+		
+		active = true;
+		won = false;
+		lost = false;
 	}
 	
 	
 	/**
-	 * Updates the score of the user based on their roll.
+	 * Updates the score of the user based on their roll. Calls update rollStats
+	 * to update roll stats at same time.
 	 * 
 	 * @param roll - dice number that is rolled
 	 */
@@ -95,9 +103,15 @@ public class Player implements Serializable
 	public void updateWinLoss(boolean win)
 	{
 		if(win)
+		{
+			won = true;
 			wins += 1;
+		}
 		else
+		{
+			lost = true;
 			losses += 1;
+		}
 		
 		winLossRatio = (double) wins / (wins + losses);	
 	}
@@ -241,6 +255,16 @@ public class Player implements Serializable
 	public int getNumberOfGame()
 	{
 		return wins + losses;
+	}
+	
+	/**
+	 * Get player status.
+	 * 
+	 * @return active - status of it player is still in game or not
+	 */
+	public boolean getPlayerStauts()
+	{
+		return active;
 	}
 	
 }
