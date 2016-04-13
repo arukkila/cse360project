@@ -1,22 +1,107 @@
 package cse360pro1;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+
 
 /**
  *
  * @author Michael
  */
-public class GameGui extends javax.swing.JFrame {
+public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
+
+    private GameModelInterface gameModel;
+    private final TableModel tableModel;
 
     /**
-     * Creates new form NewJFrame
+     * Creates a new GameGui.
      */
     public GameGui() {
+        tableModel = new TableModel();
         initComponents();
+        notifyModelChanged();
+    }
+
+    @Override
+    public void setModel(GameModelInterface model) {
+        gameModel = model;
+        notifyModelChanged();
+    }
+
+    @Override
+    public void notifyModelChanged() {
+        if (gameModel != null) {
+            Player currentPlayer = gameModel.getCurrentPlayer();
+            currentPlayerNameLabel.setText(currentPlayer.getName());
+            currentTotalValueLabel.setText(String.valueOf(currentPlayer.getScore()));
+            int index = 0;
+            while (!currentPlayer.equals(gameModel.getPlayer(index))) {
+                index++;
+            }
+            playerTable.getSelectionModel().setSelectionInterval(index, index);
+            // if player has won, change the score color
+        } else {
+            currentPlayerNameLabel.setText("");
+            currentTotalValueLabel.setText("");
+        }
+        tableModel.fireTableRowsUpdated(0, 10);
+    }
+
+    private class TableModel extends AbstractTableModel {
+
+        @Override
+        public int getRowCount() {
+            int count;
+            if (gameModel == null) {
+                count = 0;
+            } else {
+                count = gameModel.getPlayerCount();
+            }
+            return count;
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 2;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            String name;
+            if (column == 0) {
+                name = "Player";
+            } else {
+                name = "Score";
+            }
+            return name;
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            Class cls;
+            if (columnIndex == 0) {
+                cls = String.class;
+            } else {
+                cls = Integer.class;
+            }
+            return cls;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Object value;
+            if (gameModel == null) {
+                value = null;
+            } else {
+                Player player = gameModel.getPlayer(rowIndex);
+                if (columnIndex == 0) {
+                    value = player.getName();
+                } else {
+                    value = player.getScore();
+                }
+            }
+            return value;
+        }
     }
 
     /**
@@ -28,95 +113,118 @@ public class GameGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        titlePanel = new javax.swing.JPanel();
+        currentPlayerLabel = new javax.swing.JLabel();
+        currentPlayerNameLabel = new javax.swing.JLabel();
+        tableScrollPane = new javax.swing.JScrollPane();
+        playerTable = new javax.swing.JTable();
+        scorePanel = new javax.swing.JPanel();
+        currentTotalLabel = new javax.swing.JLabel();
+        currentTotalValueLabel = new javax.swing.JLabel();
+        buttonPanel = new javax.swing.JPanel();
+        rollButton = new javax.swing.JButton();
+        dicePanel = new javax.swing.JPanel();
+        endGameButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
+        titlePanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Current player:");
-        jPanel1.add(jLabel1);
+        currentPlayerLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        currentPlayerLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        currentPlayerLabel.setText("Current player:");
+        titlePanel.add(currentPlayerLabel);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setText("Bob");
-        jPanel1.add(jLabel2);
+        currentPlayerNameLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        currentPlayerNameLabel.setText("Bob");
+        titlePanel.add(currentPlayerNameLabel);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
+        getContentPane().add(titlePanel, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setLayout(new java.awt.GridLayout(2, 0));
+        playerTable.setModel(tableModel);
+        playerTable.setEnabled(false);
+        tableScrollPane.setViewportView(playerTable);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Current total:");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel3);
+        getContentPane().add(tableScrollPane, java.awt.BorderLayout.CENTER);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("42");
-        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel2.add(jLabel4);
+        scorePanel.setLayout(new java.awt.GridLayout(2, 0));
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.EAST);
+        currentTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        currentTotalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentTotalLabel.setText("Current total:");
+        currentTotalLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        scorePanel.add(currentTotalLabel);
 
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        currentTotalValueLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        currentTotalValueLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentTotalValueLabel.setText("42");
+        currentTotalValueLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        scorePanel.add(currentTotalValueLabel);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton1.setText("Roll");
-        jButton1.setPreferredSize(new java.awt.Dimension(150, 37));
-        jPanel3.add(jButton1, java.awt.BorderLayout.WEST);
+        getContentPane().add(scorePanel, java.awt.BorderLayout.EAST);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton2.setText("End game");
-        jPanel3.add(jButton2, java.awt.BorderLayout.EAST);
+        buttonPanel.setLayout(new java.awt.BorderLayout());
 
-        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+        rollButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        rollButton.setText("Roll");
+        rollButton.setPreferredSize(new java.awt.Dimension(150, 37));
+        rollButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rollButtonActionPerformed(evt);
+            }
+        });
+        buttonPanel.add(rollButton, java.awt.BorderLayout.WEST);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
+        dicePanel.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout dicePanelLayout = new javax.swing.GroupLayout(dicePanel);
+        dicePanel.setLayout(dicePanelLayout);
+        dicePanelLayout.setHorizontalGroup(
+            dicePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 191, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dicePanelLayout.setVerticalGroup(
+            dicePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel4, java.awt.BorderLayout.CENTER);
+        buttonPanel.add(dicePanel, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(jPanel3, java.awt.BorderLayout.SOUTH);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Player", "Score"
+        endGameButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        endGameButton.setText("End game");
+        endGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endGameButtonActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        });
+        buttonPanel.add(endGameButton, java.awt.BorderLayout.EAST);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(buttonPanel, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
+        if (gameModel != null) {
+            boolean winner = gameModel.roll();
+            JOptionPane.showMessageDialog(this, gameModel.getLastMessageForPlayer());
+            if (!winner) {
+                gameModel.nextTurn();
+            }
+        }
+    }//GEN-LAST:event_rollButtonActionPerformed
+
+    private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "End the current game?", "End game?", JOptionPane.YES_NO_OPTION);
+        if (response == 0) {
+            if (gameModel != null) {
+                // let the gameModel know we are canceling the game
+                // so it can do what it needs to
+                gameModel.endGame();
+            }
+            // TODO: shut this GUI down
+        }
+    }//GEN-LAST:event_endGameButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,23 +257,82 @@ public class GameGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameGui().setVisible(true);
+                GameGui gui = new GameGui();
+                TestModel model = new TestModel();
+                model.setGui(gui);
+                gui.setModel(model);
+                gui.setVisible(true);
             }
         });
     }
 
+    private static class TestModel implements GameModelInterface {
+
+        private GameGuiInterface gui;
+        private Player[] players = {
+            new Player("Bob"),
+            new Player("Lisa"),
+            new Player("Ron"),
+        };
+        private int player = 0;
+
+        @Override
+        public void setGui(GameGuiInterface gameGui) {
+            gui = gameGui;
+        }
+
+        @Override
+        public int getPlayerCount() {
+            return players.length;
+        }
+
+        @Override
+        public Player getPlayer(int index) {
+            return players[index];
+        }
+
+        @Override
+        public Player getCurrentPlayer() {
+            return players[player];
+        }
+
+        @Override
+        public boolean roll() {
+            getCurrentPlayer().updateScore(5);
+            gui.notifyModelChanged();
+            return false;
+        }
+
+        @Override
+        public String getLastMessageForPlayer() {
+            return "Something happened";
+        }
+
+        @Override
+        public void nextTurn() {
+            player = (player + 1) % players.length;
+            gui.notifyModelChanged();
+        }
+
+        @Override
+        public void endGame() {
+            
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JLabel currentPlayerLabel;
+    private javax.swing.JLabel currentPlayerNameLabel;
+    private javax.swing.JLabel currentTotalLabel;
+    private javax.swing.JLabel currentTotalValueLabel;
+    private javax.swing.JPanel dicePanel;
+    private javax.swing.JButton endGameButton;
+    private javax.swing.JTable playerTable;
+    private javax.swing.JButton rollButton;
+    private javax.swing.JPanel scorePanel;
+    private javax.swing.JScrollPane tableScrollPane;
+    private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
 }
