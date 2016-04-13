@@ -63,7 +63,7 @@ public class Player implements Serializable
 	 */
 	public void updateScore(int roll)
 	{
-		this.score += roll;
+		score += roll;
 	}
 	
 	/**
@@ -74,17 +74,17 @@ public class Player implements Serializable
 	public void updateRollStats(int roll)
 	{
 		if(roll == 1)
-			this.ones += 1;
+			ones += 1;
 		else if(roll == 2)
-			this.twos += 1;
+			twos += 1;
 		else if(roll == 3)
-			this.threes += 1;
+			threes += 1;
 		else if(roll == 4)
-			this.fours += 1;
+			fours += 1;
 		else if(roll == 5)
-			this.fives += 1;
+			fives += 1;
 		else if(roll == 6)
-			this.sixes += 1;
+			sixes += 1;
 	}
 	
 	/**
@@ -95,11 +95,11 @@ public class Player implements Serializable
 	public void updateWinLoss(boolean win)
 	{
 		if(win)
-			this.wins += 1;
+			wins += 1;
 		else
-			this.losses += 1;
+			losses += 1;
 		
-		this.winLossRatio = (double) (this.wins / (this.wins + this.losses));	
+		winLossRatio = (double) wins / (wins + losses);	
 	}
 	
 	/**
@@ -109,7 +109,7 @@ public class Player implements Serializable
 	 */
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 	
 	/**
@@ -119,7 +119,7 @@ public class Player implements Serializable
 	 */
 	public int getScore()
 	{
-		return this.score;
+		return score;
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public class Player implements Serializable
 	 */
 	public int getLifeTimeScore()
 	{
-		return this.lifeTimeScore;
+		return lifeTimeScore;
 	}
 	
 	
@@ -140,7 +140,7 @@ public class Player implements Serializable
 	 */
 	public int getNumberOfRolls()
 	{
-		return this.numberOfRolls;
+		return numberOfRolls;
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public class Player implements Serializable
 	 */
 	public int getOnes()
 	{
-		return this.ones;
+		return ones;
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public class Player implements Serializable
 	 */
 	public int getTwos()
 	{
-		return this.twos;
+		return twos;
 	}
 	
 	/**
@@ -170,7 +170,7 @@ public class Player implements Serializable
 	 */
 	public int getThrees()
 	{
-		return this.threes;
+		return threes;
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public class Player implements Serializable
 	 */
 	public int getFours()
 	{
-		return this.fours;
+		return fours;
 	}
 	
 	/**
@@ -190,7 +190,7 @@ public class Player implements Serializable
 	 */
 	public int getFives()
 	{
-		return this.fives;
+		return fives;
 	}
 	
 	/**
@@ -200,7 +200,7 @@ public class Player implements Serializable
 	 */
 	public int getSixes()
 	{
-		return this.sixes;
+		return sixes;
 	}
 	
 	/**
@@ -210,7 +210,7 @@ public class Player implements Serializable
 	 */
 	public int getWins()
 	{
-		return this.wins;
+		return wins;
 	}
 	
 	/**
@@ -220,7 +220,7 @@ public class Player implements Serializable
 	 */
 	public int getLosses()  
 	{
-		return this.losses;
+		return losses;
 	}
 	
 	/**
@@ -230,7 +230,7 @@ public class Player implements Serializable
 	 */
 	public double getRatio()
 	{
-		return this.winLossRatio;
+		return winLossRatio;
 	}
 	
 	/**
@@ -240,7 +240,7 @@ public class Player implements Serializable
 	 */
 	public int getNumberOfGame()
 	{
-		return this.wins + this.losses;
+		return wins + losses;
 	}
 	
 }
