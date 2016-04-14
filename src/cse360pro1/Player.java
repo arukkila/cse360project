@@ -267,4 +267,13 @@ public class Player implements Serializable
 		return active;
 	}
 	
+	public boolean getWonStatus()
+	{
+		return won;
+	}
+	
+	public boolean getLostStatus()
+	{
+		return lost;
+	}
 }
