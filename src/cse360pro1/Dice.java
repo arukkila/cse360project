@@ -13,12 +13,14 @@ import java.util.Random;
 public class Dice 
 {
 	private Random number;
+	private int sides;
 	
 	/**
 	 * Creates a dice with a random number generator.
 	 */
-	Dice()
+	Dice(int sides)
 	{
+		this.sides = sides;
 		number = new Random(); 
 	}
 	
@@ -28,9 +30,9 @@ public class Dice
 	 * @param sides - number of sides on the dice
 	 * @return number - integer that the dice rolls
 	 */
-	public int roll(int sides)
+	public int roll()
 	{
-		return number.nextInt(sides) + 1; 
+		return number.nextInt(this.sides) + 1; 
 	}	
 
 }

@@ -10,7 +10,7 @@ public class DiceTester {
 	//Test Dice is not null
 	public void testDice() 
 	{
-		Dice die =  new Dice(); 
+		Dice die =  new Dice(6); 
 		
 		assertNotNull(die);
 	}
@@ -19,10 +19,10 @@ public class DiceTester {
 	//Test if dice roll in correct bounds
 	public void testRoll()
 	{
-		Dice die = new Dice();
+		Dice die = new Dice(2);
 		boolean outOfBounds = true;
 		
-		int rolledNumber = die.roll(2);
+		int rolledNumber = die.roll();
 		//System.out.println(rolledNumber);
 		
 		if( rolledNumber == 1 || rolledNumber == 2)

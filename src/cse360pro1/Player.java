@@ -6,9 +6,11 @@
  * @pin 326
  */
 package cse360pro1;
+import java.io.Serializable;
 
-public class Player 
+public class Player implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	private String name; 
 	private int score;
 	private int lifeTimeScore;
@@ -21,11 +23,14 @@ public class Player
 	private int fives; 
 	private int sixes;
 	
-	
 	private int wins;
 	private int losses;
 	
 	private double winLossRatio;
+	
+	private boolean active;
+	private boolean won;
+	private boolean lost;
 	
 	/**
 	 * Creates a user to play the game and track statistics. If user has never played stats
@@ -51,17 +56,22 @@ public class Player
 		losses = 0;
 		
 		winLossRatio = 0.0;	
+		
+		active = true;
+		won = false;
+		lost = false;
 	}
 	
 	
 	/**
-	 * Updates the score of the user based on their roll.
+	 * Updates the score of the user based on their roll. Calls update rollStats
+	 * to update roll stats at same time.
 	 * 
 	 * @param roll - dice number that is rolled
 	 */
 	public void updateScore(int roll)
 	{
-		this.score += roll;
+		score += roll;
 	}
 	
 	/**
@@ -72,17 +82,17 @@ public class Player
 	public void updateRollStats(int roll)
 	{
 		if(roll == 1)
-			this.ones += 1;
+			ones += 1;
 		else if(roll == 2)
-			this.twos += 1;
+			twos += 1;
 		else if(roll == 3)
-			this.threes += 1;
+			threes += 1;
 		else if(roll == 4)
-			this.fours += 1;
+			fours += 1;
 		else if(roll == 5)
-			this.fives += 1;
+			fives += 1;
 		else if(roll == 6)
-			this.sixes += 1;
+			sixes += 1;
 	}
 	
 	/**
@@ -93,11 +103,17 @@ public class Player
 	public void updateWinLoss(boolean win)
 	{
 		if(win)
-			this.wins += 1;
+		{
+			won = true;
+			wins += 1;
+		}
 		else
-			this.losses += 1;
+		{
+			lost = true;
+			losses += 1;
+		}
 		
-		this.winLossRatio = this.wins / (this.wins + this.losses);	
+		winLossRatio = (double) wins / (wins + losses);	
 	}
 	
 	/**
@@ -107,7 +123,7 @@ public class Player
 	 */
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 	
 	/**
@@ -117,7 +133,7 @@ public class Player
 	 */
 	public int getScore()
 	{
-		return this.score;
+		return score;
 	}
 	
 	/**
@@ -127,7 +143,7 @@ public class Player
 	 */
 	public int getLifeTimeScore()
 	{
-		return this.lifeTimeScore;
+		return lifeTimeScore;
 	}
 	
 	
@@ -138,7 +154,7 @@ public class Player
 	 */
 	public int getNumberOfRolls()
 	{
-		return this.numberOfRolls;
+		return numberOfRolls;
 	}
 	
 	/**
@@ -148,7 +164,7 @@ public class Player
 	 */
 	public int getOnes()
 	{
-		return this.ones;
+		return ones;
 	}
 	
 	/**
@@ -158,7 +174,7 @@ public class Player
 	 */
 	public int getTwos()
 	{
-		return this.twos;
+		return twos;
 	}
 	
 	/**
@@ -168,7 +184,7 @@ public class Player
 	 */
 	public int getThrees()
 	{
-		return this.threes;
+		return threes;
 	}
 	
 	/**
@@ -178,7 +194,7 @@ public class Player
 	 */
 	public int getFours()
 	{
-		return this.fours;
+		return fours;
 	}
 	
 	/**
@@ -188,7 +204,7 @@ public class Player
 	 */
 	public int getFives()
 	{
-		return this.fives;
+		return fives;
 	}
 	
 	/**
@@ -198,7 +214,7 @@ public class Player
 	 */
 	public int getSixes()
 	{
-		return this.sixes;
+		return sixes;
 	}
 	
 	/**
@@ -208,7 +224,7 @@ public class Player
 	 */
 	public int getWins()
 	{
-		return this.wins;
+		return wins;
 	}
 	
 	/**
@@ -218,7 +234,7 @@ public class Player
 	 */
 	public int getLosses()  
 	{
-		return this.losses;
+		return losses;
 	}
 	
 	/**
@@ -228,7 +244,7 @@ public class Player
 	 */
 	public double getRatio()
 	{
-		return this.winLossRatio;
+		return winLossRatio;
 	}
 	
 	/**
@@ -238,7 +254,26 @@ public class Player
 	 */
 	public int getNumberOfGame()
 	{
-		return this.wins + this.losses;
+		return wins + losses;
 	}
 	
+	/**
+	 * Get player status.
+	 * 
+	 * @return active - status of it player is still in game or not
+	 */
+	public boolean getPlayerStauts()
+	{
+		return active;
+	}
+	
+	public boolean getWonStatus()
+	{
+		return won;
+	}
+	
+	public boolean getLostStatus()
+	{
+		return lost;
+	}
 }
