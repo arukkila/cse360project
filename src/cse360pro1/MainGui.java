@@ -1,9 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cse360pro1;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -11,11 +9,35 @@ package cse360pro1;
  */
 public class MainGui extends javax.swing.JFrame {
 
+    private GameCreatorInterface creator;
+
     /**
      * Creates new form MainGui
      */
     public MainGui() {
         initComponents();
+    }
+
+    public void updatePlayerList(StatsModelInterface stats) {
+        String[] playerList = new String[stats.getAllPlayerEverCount()];
+        for (int index = 0; index < stats.getAllPlayerEverCount(); index++) {
+            playerList[index] = stats.getPlayer(index).getName();
+        }
+        JComboBox[] comboBoxes = {
+            player1Combo,
+            player2Combo,
+            player3Combo,
+            player4Combo,
+        };
+        for (int index = 0; index < 4; index++) {
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(playerList);
+            model.setSelectedItem("");
+            comboBoxes[index].setModel(model);
+        }
+    }
+
+    public void setGameCreator(GameCreatorInterface creator) {
+        this.creator = creator;
     }
 
     /**
@@ -27,83 +49,107 @@ public class MainGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        titleLabel = new javax.swing.JLabel();
+        playerListPanel = new javax.swing.JPanel();
+        player1Label = new javax.swing.JLabel();
+        player1Combo = new javax.swing.JComboBox<>();
+        player2Label = new javax.swing.JLabel();
+        player2Combo = new javax.swing.JComboBox<>();
+        player3Label = new javax.swing.JLabel();
+        player3Combo = new javax.swing.JComboBox<>();
+        player4Label = new javax.swing.JLabel();
+        player4Combo = new javax.swing.JComboBox<>();
+        buttonPanel = new javax.swing.JPanel();
+        startGameButton = new javax.swing.JButton();
+        rulesButton = new javax.swing.JButton();
+        statsButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Dice Simulator 2016");
-        getContentPane().add(jLabel5, java.awt.BorderLayout.NORTH);
+        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.setText("Dice Simulator 2016");
+        getContentPane().add(titleLabel, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setLayout(new java.awt.GridLayout(0, 1));
+        playerListPanel.setLayout(new java.awt.GridLayout(0, 2));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton1.setText("Start game");
-        jPanel1.add(jButton1);
+        player1Label.setText("Player 1");
+        playerListPanel.add(player1Label);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton2.setText("Rules");
-        jPanel1.add(jButton2);
+        player1Combo.setEditable(true);
+        playerListPanel.add(player1Combo);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton3.setText("Stats");
-        jPanel1.add(jButton3);
+        player2Label.setText("Player 2");
+        playerListPanel.add(player2Label);
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton4.setText("Exit");
-        jPanel1.add(jButton4);
+        player2Combo.setEditable(true);
+        playerListPanel.add(player2Combo);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.EAST);
+        player3Label.setText("Player 3");
+        playerListPanel.add(player3Label);
 
-        jPanel2.setLayout(new java.awt.GridLayout(0, 2));
+        player3Combo.setEditable(true);
+        playerListPanel.add(player3Combo);
 
-        jLabel1.setText("Player 1");
-        jPanel2.add(jLabel1);
+        player4Label.setText("Player 4");
+        playerListPanel.add(player4Label);
 
-        jComboBox1.setEditable(true);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jComboBox1);
+        player4Combo.setEditable(true);
+        playerListPanel.add(player4Combo);
 
-        jLabel2.setText("Player 2");
-        jPanel2.add(jLabel2);
+        getContentPane().add(playerListPanel, java.awt.BorderLayout.CENTER);
 
-        jComboBox2.setEditable(true);
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jComboBox2);
+        buttonPanel.setLayout(new java.awt.GridLayout(0, 1));
 
-        jLabel3.setText("Player 3");
-        jPanel2.add(jLabel3);
+        startGameButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        startGameButton.setText("Start game");
+        startGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startGameButtonActionPerformed(evt);
+            }
+        });
+        buttonPanel.add(startGameButton);
 
-        jComboBox3.setEditable(true);
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jComboBox3);
+        rulesButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        rulesButton.setText("Rules");
+        buttonPanel.add(rulesButton);
 
-        jLabel4.setText("Player 4");
-        jPanel2.add(jLabel4);
+        statsButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        statsButton.setText("Stats");
+        buttonPanel.add(statsButton);
 
-        jComboBox4.setEditable(true);
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jComboBox4);
+        exitButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        exitButton.setText("Exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
+        buttonPanel.add(exitButton);
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        getContentPane().add(buttonPanel, java.awt.BorderLayout.EAST);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
+        if (creator != null) {
+            String[] playerNames = {
+                player1Combo.getSelectedItem().toString(),
+                player2Combo.getSelectedItem().toString(),
+                player3Combo.getSelectedItem().toString(),
+                player4Combo.getSelectedItem().toString(),
+            };
+            // TODO: check for empty names
+            // TODO: check for duplicate names
+            GameModelInterface game = creator.createGame(playerNames);
+        }
+    }//GEN-LAST:event_startGameButtonActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,26 +181,50 @@ public class MainGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainGui().setVisible(true);
+                MainGui gui = new MainGui();
+                DummyStats stats = new DummyStats();
+                gui.updatePlayerList(stats);
+                gui.setVisible(true);
             }
         });
     }
 
+
+    private static class DummyStats implements StatsModelInterface {
+
+        private Player[] players = {
+            new Player("Bob"),
+            new Player("Lisa"),
+            new Player("Ron"),
+        };
+        
+        @Override
+        public Player getPlayer(int index) {
+            return players[index];
+        }
+
+        @Override
+        public int getAllPlayerEverCount() {
+            return players.length;
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JButton exitButton;
+    private javax.swing.JComboBox<String> player1Combo;
+    private javax.swing.JLabel player1Label;
+    private javax.swing.JComboBox<String> player2Combo;
+    private javax.swing.JLabel player2Label;
+    private javax.swing.JComboBox<String> player3Combo;
+    private javax.swing.JLabel player3Label;
+    private javax.swing.JComboBox<String> player4Combo;
+    private javax.swing.JLabel player4Label;
+    private javax.swing.JPanel playerListPanel;
+    private javax.swing.JButton rulesButton;
+    private javax.swing.JButton startGameButton;
+    private javax.swing.JButton statsButton;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
