@@ -39,7 +39,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 index++;
             }
             playerTable.getSelectionModel().setSelectionInterval(index, index);
-            // if player has won, change the score color
+            // TODO: if player has won, change the score color
         } else {
             currentPlayerNameLabel.setText("");
             currentTotalValueLabel.setText("");
@@ -78,13 +78,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         @Override
         public Class<?> getColumnClass(int columnIndex) {
-            Class cls;
-            if (columnIndex == 0) {
-                cls = String.class;
-            } else {
-                cls = Integer.class;
-            }
-            return cls;
+            return Object.class;
         }
 
         @Override
@@ -97,7 +91,13 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 if (columnIndex == 0) {
                     value = player.getName();
                 } else {
-                    value = player.getScore();
+                    if (player.getLostStatus()) {
+                        value = "Lost";
+                    } else if (player.getWonStatus()) {
+                        value = "Won";
+                    } else {
+                        value = player.getScore();
+                    }
                 }
             }
             return value;
