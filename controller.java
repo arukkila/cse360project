@@ -1,11 +1,10 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 
 /**
  * controller class controls the game functionality
- * @author Matt Dunning
- *
+ * @author Matt Dunning 
+ * pin 425
  */
 public class controller extends Player{
 	
@@ -14,7 +13,8 @@ public class controller extends Player{
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	// Class Variables or Fields
 	// You declare constants with final
 	
@@ -22,12 +22,13 @@ public class controller extends Player{
 	public final String WINNER = "CONGRATS YOU ARE THE WINNER";
 	
 	// private fields are not visible outside of the class
+
+	private int kickedOut = 0;
+	private boolean gameWon = false;
 	private Player[] masterList;
 	private Player[] currentList;
-	private int score = 0;
 	private int currentPlayer = 0;
-	// public variables are visible outside of the class
-	public String name;
+	
 	
 	/**
 	 * contains the master list
@@ -135,10 +136,13 @@ public class controller extends Player{
 	
 	/**
 	 * scores of players
-	 * @return returns the scores of individual player
+	 * @return returns the scores of current player
 	 */
 	public int getScore()
 	{
+		Player currentPlayer = currentPlayer();
+		int score  = currentPlayer.getScore();
+		
 		return score;
 	}
 	
@@ -187,6 +191,47 @@ public class controller extends Player{
 	}
 	
 	/**
+	 * sets the scores back to zero and returns the original players
+	 * for a new game
+	 * @return the original players with score set to 0
+	 */
+	public Player[] resetScores()
+	{
+		Player[] masterList = getMasterList();
+		
+		for(int player = 0; player < masterList.length; player++)
+		{
+			int resetScoreBy = masterList[player].getScore();
+			
+			masterList[player].updateScore(-resetScoreBy);
+		}
+		
+		return masterList;
+		
+	}
+	
+	/**
+	 * gets the stats of all the current players
+	 * @return an int array with the scores of the current players
+	 */
+	public int[] getStatsCurrentGame()
+	{
+		
+		Player[] playerStats = getCurrentList();
+		int ammountOfPlayers = (int) playerStats.length;
+		int[] stats = new int[ammountOfPlayers];
+				
+		for(int player = 0; player < playerStats.length; player++)
+		{
+			stats[player] = playerStats[player].getScore();
+			
+		}
+		
+		return stats;
+		
+	}
+	
+	/**
 	 * after the game is finished the choice is made to
 	 * start a new game, terminate the program, or view the stats
 	 * @param choice the option that is decided
@@ -200,17 +245,15 @@ public class controller extends Player{
 		{
 	
 			case 1:
-				//start new game with same players
-				
+				resetScores();
 				break;
 		
 			case 2:
-				//terminate the program
 				exitProgram();
 				break;
 		
 			case 3:
-				//show the stats gui
+				getStatsCurrentGame();
 				break;
 			
 			default:
@@ -221,44 +264,86 @@ public class controller extends Player{
 		
 	}
 	
-	/**
-	 * checks against the games rules and makes decisions based on 
-	 * the rule 
-	 * @param ruleNumber the rule that has happened from the roll
-	 */
-	public void ruleCheck(int ruleNumber)
-	{
 	
-		// if ruleNumber is -1 no rule match proceed normally
-		 if(ruleNumber == -1)
-		 {
-			 //add score to players overall
-			 //update gui
-		 }
-		 // if rule is 0 the player rolled
-		 else if(ruleNumber == 0)
-		 {
-					 
-			 //check who the current player is
-			
-			 
-			 // remove player from the game
-			
-		 }
-		 // player roled 3 1s reset everyone else
-		 else if(ruleNumber == 1)
-		 {
-			 
-			 
-			 
-		 }
-		
-		
+
+	public boolean isGameWon()
+	{
+		return gameWon;
 	}
 	
-	/**
-	 * default construct
+	//int returned is the number of the rule that is implemented, according to rules.doc
+	private int ruleCheck(int die1, int die2, int die3)
+	{
+		int rule = 0;
+		boolean sameThree = false;
+	/*
+	 * 1. Players roll 3 dice at a time.
+	 * 2. Players must roll and record those stats every turn.
+	 * 3. Any player to roll 3 1s automatically loses and must wait for the next game.
+	 * 4. The first player to roll all 6s wins the game no matter the scores.
+	 * 5. If a player rolls all 3s all other players scores reset to 0.
+	 * 6. If a player rolls two of a kind they can roll again.
+	 * 7. The first player with a total >= 100 wins the game.
+	 * 8. The end of the game will rank all of the players on who is closest to 100.
+	 * 9. Game requires four players to start.
 	 */
 		
+		if(die1 == die2 && die2 == die3)	//three of a kind
+			sameThree = true;
+		
+		if(sameThree && die1 == 1)	//player rolled three 1s
+			rule = 3;
+		else if(sameThree && die1 == 6)	//player rolled three 6s
+			rule = 4;
+		else if(sameThree && die1 == 3)	//player rolled three 3s
+			rule = 5;
+		else if(!sameThree && (die1 == die2 || die1 == die3 || die2 == die3))	//player rolled 2 of a kind 
+			rule = 6;
+		else
+			rule = 2;
+		
+		return rule;
+	}
 	
-}
+	public void roll(Dice die1, Dice die2, Dice die3)
+	{
+		Player[] others = new Player[3];
+		Player name = currentPlayer();
+		int roll1 = die1.roll();
+		int roll2 = die2.roll();
+		int roll3 = die3.roll();
+
+		int rule = ruleCheck(roll1, roll2, roll3);
+		
+		if(rule == 2)
+		{
+			name.updateScore(roll1 + roll2 + roll3);
+			if(name.getScore() >= 100)
+				gameWon = true;
+		}
+		else if(rule == 3)
+		{
+			removePlayer(name);
+			kickedOut++;
+			
+			if(kickedOut == 3)
+			{				
+				name.updateWinLoss(false);
+				gameWon = true;
+			}
+		}
+		else if(rule == 4)
+			gameWon = true;
+		else if(rule == 5)
+			others = getOtherPlayers();
+			//create a function for
+			
+		else if(rule == 6)
+		{
+			name.updateScore(roll1 + roll2 + roll3);
+			//Probably some GUI stuff needed here
+			roll(die1, die2, die3);
+		}		
+	}
+	
+	
