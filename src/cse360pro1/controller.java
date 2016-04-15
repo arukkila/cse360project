@@ -12,7 +12,7 @@ public class controller{
 	public Player[] playerList = new Player[4];
 	public int currentPlayer;
 	private int score = 0;
-	private boolean currentPlayer1 = true;
+	//private boolean currentPlayer1 = true;
 	
 	// public variables are visible outside of the class
 	public String name;
@@ -31,6 +31,22 @@ public class controller{
 	
 	public int getCurrentPlayer()
 	{
+		return currentPlayer;
+	}
+	
+	public int getNextPlayer()
+	{
+		if(currentPlayer == 3)
+			currentPlayer = 0;
+		else
+			currentPlayer++;
+		
+		while(!playerList[currentPlayer].getPlayerStatus())
+			if(currentPlayer > 3)
+				currentPlayer = 0;
+			else
+				currentPlayer++;
+		
 		return currentPlayer;
 	}
 	
