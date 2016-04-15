@@ -69,7 +69,7 @@ public class MainGui extends javax.swing.JFrame {
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel.setText("Dice Simulator 2016");
+        titleLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logov1a.png"))); // NOI18N
         getContentPane().add(titleLabel, java.awt.BorderLayout.NORTH);
 
         playerListPanel.setLayout(new java.awt.GridLayout(0, 2));
