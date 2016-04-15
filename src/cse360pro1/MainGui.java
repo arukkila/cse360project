@@ -135,7 +135,7 @@ public class MainGui extends javax.swing.JFrame {
 
     private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
         if (creator != null) {
-            String[] playerNames = {
+    		String[] playerNames = {
                 player1Combo.getSelectedItem().toString(),
                 player2Combo.getSelectedItem().toString(),
                 player3Combo.getSelectedItem().toString(),
