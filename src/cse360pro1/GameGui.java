@@ -264,8 +264,8 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         // TEMPORARY: randomize all rolls
-    	Random rand = new Random();
-    	Timer timer = new Timer();
+    	final Random rand = new Random();
+    	final Timer timer = new Timer();
     	final TimerTask task = new TimerTask()
     	{
     		private int count = 0;
