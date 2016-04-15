@@ -2,14 +2,13 @@ package cse360pro1;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 
 /**
  *
  * @author Michael
  */
 public class MainGui extends javax.swing.JFrame {
-
-    private GameCreatorInterface creator;
 
     /**
      * Creates new form MainGui
@@ -34,10 +33,6 @@ public class MainGui extends javax.swing.JFrame {
             model.setSelectedItem("");
             comboBoxes[index].setModel(model);
         }
-    }
-
-    public void setGameCreator(GameCreatorInterface creator) {
-        this.creator = creator;
     }
 
     /**
@@ -113,6 +108,11 @@ public class MainGui extends javax.swing.JFrame {
 
         rulesButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         rulesButton.setText("Rules");
+        rulesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rulesButtonActionPerformed(evt);
+            }
+        });
         buttonPanel.add(rulesButton);
 
         statsButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -134,22 +134,33 @@ public class MainGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
-        if (creator != null) {
-            String[] playerNames = {
-                player1Combo.getSelectedItem().toString(),
-                player2Combo.getSelectedItem().toString(),
-                player3Combo.getSelectedItem().toString(),
-                player4Combo.getSelectedItem().toString(),
-            };
-            // TODO: check for empty names
-            // TODO: check for duplicate names
-            GameModelInterface game = creator.createGame(playerNames);
-        }
+        String[] playerNames = {
+            player1Combo.getSelectedItem().toString(),
+            player2Combo.getSelectedItem().toString(),
+            player3Combo.getSelectedItem().toString(),
+            player4Combo.getSelectedItem().toString(),
+        };
+        // TODO: check for empty names
+        // TODO: check for duplicate names
+        GameGui gui = new GameGui(this);
+        GameGui.TestGame model = new GameGui.TestGame();
+        model.setGameGui(gui);
+        gui.setModel(model);
+        setVisible(false);
+        gui.setVisible(true);
     }//GEN-LAST:event_startGameButtonActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void rulesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rulesButtonActionPerformed
+        JDialog dialog = new JDialog(this, "Rules");
+        RulesGuiInterface panel = new RulesGuiInterface();
+        dialog.getContentPane().add(panel);
+        dialog.pack();
+        dialog.setVisible(true);
+    }//GEN-LAST:event_rulesButtonActionPerformed
 
     /**
      * @param args the command line arguments

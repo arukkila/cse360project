@@ -30,8 +30,9 @@ public class RulesGuiInterface extends JPanel
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(event.getSource() == okay)
-				System.exit(0);
+			if(event.getSource() == okay) {
+                            getRootPane().getParent().setVisible(false);
+                        }
 		}
 	}
 	

@@ -12,11 +12,16 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
     private GameModelInterface gameModel;
     private final TableModel tableModel;
+    private final MainGui mainGui;
 
+    public GameGui() {
+        this(null);
+    }
     /**
      * Creates a new GameGui.
      */
-    public GameGui() {
+    public GameGui(MainGui mainGui) {
+        this.mainGui = mainGui;
         tableModel = new TableModel();
         initComponents();
         notifyModelChanged();
@@ -126,7 +131,12 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         dicePanel = new javax.swing.JPanel();
         endGameButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         titlePanel.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -222,9 +232,16 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 // so it can do what it needs to
                 gameModel.endGame();
             }
-            // TODO: shut this GUI down
+            setVisible(false);
+            dispose();
         }
     }//GEN-LAST:event_endGameButtonActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if (mainGui != null) {
+            mainGui.setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -266,7 +283,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         });
     }
 
-    private static class TestGame implements GameModelInterface {
+    static class TestGame implements GameModelInterface {
 
         private GameGuiInterface gui;
         private Player[] players = {
