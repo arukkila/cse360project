@@ -41,7 +41,7 @@ public class RulesGuiInterface extends JPanel
 		page.setColor(Color.black);
 		page.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 		
-		String ruleList1 = "1. Players roll 3 die at a time.";
+		String ruleList1 = "1. Players roll 3 dice at a time.";
 		String ruleList2 = "2. Players must roll and record those stats every turn.";
 		String ruleList3 = "3. Any player to roll 3 1s automatically loses and";
 		String ruleList3a = "must wait for the next game.";
