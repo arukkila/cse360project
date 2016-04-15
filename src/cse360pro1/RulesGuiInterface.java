@@ -21,9 +21,14 @@ public class RulesGuiInterface extends JPanel
 
 		add(okay);
 
-		Color color = Color.decode("0xD6D9DF");
+		Color color = Color.decode("0xEEEEEE");
 		setBackground(color);
 		setPreferredSize(new Dimension(500, 500));
+		
+		this.setLayout(new BorderLayout());
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(okay);
+		this.add(buttonPanel,BorderLayout.SOUTH);
 	}
 	
 	private class ButtonListener implements ActionListener
@@ -40,26 +45,35 @@ public class RulesGuiInterface extends JPanel
 	{
 		super.paintComponent(page);
 		page.setColor(Color.black);
+		page.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 		
-		String ruleList1 = "1. Players roll 3 die at a time.\n";
-		String ruleList2 = "2. Players must roll and record those stats every turn.\n";
-		String ruleList3 = "3. Any player to roll 3 1s automatically loses and must wait for the next game.\n";
-		String ruleList4 = "4. The first player to roll all 6s wins the game no matter the scores.\n";
-		String ruleList5 = "5. If a player rolls all 3s all other players scores reset to 0.\n";
-		String ruleList6 = "6. If a player rolls two of a kind they can roll again.\n";
-		String ruleList7 = "7. The first player with a total ≥ 100 wins the game.\n";
-		String ruleList8 = "8. The end of the game will rank all of the players on who is closest to 100.\n";
+		String ruleList1 = "1. Players roll 3 dice at a time.";
+		String ruleList2 = "2. Players must roll and record those stats every turn.";
+		String ruleList3 = "3. Any player to roll 3 1s automatically loses and";
+		String ruleList3a = "must wait for the next game.";
+		String ruleList4 = "4. The first player to roll all 6s wins the game";
+		String ruleList4a = "no matter the scores.";
+		String ruleList5 = "5. If a player rolls all 3s all other players scores";
+		String ruleList5a = "reset to 0.";
+		String ruleList6 = "6. If a player rolls two of a kind they can roll again.";
+		String ruleList7 = "7. The first player with a total ≥ 100 wins the game.";
+		String ruleList8 = "8. The end of the game will rank all of the players on";
+		String ruleList8a = "who is closest to 100.";
 		String ruleList9 = "9. Game requires four players to start.";
 
-		page.drawString(ruleList1, WIDTH/2 - 30, HEIGHT/2 - 75);
-		page.drawString(ruleList2, WIDTH/2 - 75, HEIGHT/2 - 75 + 15);
-		page.drawString(ruleList3, WIDTH/2 - 100, HEIGHT/2 - 75 + 30);
-		page.drawString(ruleList4, WIDTH/2 - 140, HEIGHT/2 - 75 + 45);
-		page.drawString(ruleList5, WIDTH/2 - 130, HEIGHT/2 - 75 + 60);
-		page.drawString(ruleList6, WIDTH/2 - 110, HEIGHT/2 - 75 + 75);
-		page.drawString(ruleList7, WIDTH/2 - 50, HEIGHT/2 - 75 + 90);
-		page.drawString(ruleList8, WIDTH/2 - 50, HEIGHT/2 - 75 + 105);
-		page.drawString(ruleList9, WIDTH/2 - 50, HEIGHT/2 - 75 + 120);
+		page.drawString(ruleList1, WIDTH/2 - 200, HEIGHT/2 - 200);
+		page.drawString(ruleList2, WIDTH/2 - 200, HEIGHT/2 - 200 + 30);
+		page.drawString(ruleList3, WIDTH/2 - 200, HEIGHT/2 - 200 + 60);
+		page.drawString(ruleList3a, WIDTH/2 - 180, HEIGHT/2 - 200 + 90);
+		page.drawString(ruleList4, WIDTH/2 - 200, HEIGHT/2 - 200 + 120);
+		page.drawString(ruleList4a, WIDTH/2 - 180, HEIGHT/2 - 200 + 150);
+		page.drawString(ruleList5, WIDTH/2 - 200, HEIGHT/2 - 200 + 180);
+		page.drawString(ruleList5a, WIDTH/2 - 180, HEIGHT/2 - 200 + 210);
+		page.drawString(ruleList6, WIDTH/2 - 200, HEIGHT/2 - 200 + 240);
+		page.drawString(ruleList7, WIDTH/2 - 200, HEIGHT/2 - 200 + 270);
+		page.drawString(ruleList8, WIDTH/2 - 200, HEIGHT/2 - 200 + 300);
+		page.drawString(ruleList8a, WIDTH/2 - 180, HEIGHT/2 - 200 + 330);
+		page.drawString(ruleList9, WIDTH/2 - 200, HEIGHT/2 - 200 + 360);
 
 		}
 }
