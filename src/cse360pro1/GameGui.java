@@ -9,34 +9,60 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
+ * Graphical user interface for playing the game.
  * @author Michael
  */
 public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
+    /**
+     * Underlying game logic.
+     */
     private GameModelInterface gameModel;
-    private final TableModel tableModel;
+
+    /**
+     * Constant model for the player table.
+     */
+    private final PlayerTableModel tableModel;
+
+    /**
+     * Reference to the {@link MainGui} to return to it once the game is done.
+     * May be null.
+     */
     private final MainGui mainGui;
 
+    /**
+     * Creates a new GameGui without an associated {@link MainGui} to return to.
+     * Primarily used for testing.
+     */
     public GameGui() {
         this(null);
     }
     /**
      * Creates a new GameGui.
+     * @param mainGui {@link MainGui} to return to once the game has ended.
      */
     public GameGui(MainGui mainGui) {
         this.mainGui = mainGui;
-        tableModel = new TableModel();
+        tableModel = new PlayerTableModel();
         initComponents();
         notifyModelChanged();
     }
 
+    /**
+     * Sets the underlying logic model for the GUI.
+     * The GUI will have no functionality until the model is set.
+     * @param model The model. May be null.
+     */
     @Override
     public void setModel(GameModelInterface model) {
         gameModel = model;
         notifyModelChanged();
     }
 
+    /**
+     * Notifies the GUI the refresh the display, probably because the
+     * underlying model has changed in some way.
+     */
     @Override
     public void notifyModelChanged() {
         if (gameModel != null) {
@@ -56,8 +82,12 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         tableModel.fireTableRowsUpdated(0, 10);
     }
 
-    private class TableModel extends AbstractTableModel {
+    /**
+     * {@link javax.swing.table.TableModel} to use for {@link #playerTable}.
+     */
+    private class PlayerTableModel extends AbstractTableModel {
 
+        // documented in interface
         @Override
         public int getRowCount() {
             int count;
@@ -69,11 +99,13 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             return count;
         }
 
+        // documented in interface
         @Override
         public int getColumnCount() {
             return 2;
         }
 
+        // documented in interface
         @Override
         public String getColumnName(int column) {
             String name;
@@ -85,11 +117,13 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             return name;
         }
 
+        // documented in interface
         @Override
         public Class<?> getColumnClass(int columnIndex) {
             return Object.class;
         }
 
+        // documented in interface
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             Object value;
@@ -223,6 +257,11 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    /**
+     * Handles Roll button click.
+     * @param evt Event object.
+     */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         // TEMPORARY: randomize all rolls
     	Random rand = new Random();
@@ -263,6 +302,10 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     	timer.schedule(task, 0, 250);    	
     }//GEN-LAST:event_rollButtonActionPerformed
 
+    /**
+     * Handles End Game button click.
+     * @param evt Event object.
+     */
     private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
         int response = JOptionPane.showConfirmDialog(this, "End the current game?", "End game?", JOptionPane.YES_NO_OPTION);
         if (response == 0) {
@@ -276,6 +319,11 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         }
     }//GEN-LAST:event_endGameButtonActionPerformed
 
+
+    /**
+     * Called when the window closes..
+     * @param evt Event object.
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         if (mainGui != null) {
             mainGui.setVisible(true);
@@ -283,6 +331,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     }//GEN-LAST:event_formWindowClosed
 
     /**
+     * For testing.
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -322,6 +371,9 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         });
     }
 
+    /**
+     * For testing.
+     */
     static class TestGame implements GameModelInterface {
 
         private GameGuiInterface gui;
@@ -361,7 +413,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         @Override
         public String getLastMessageForPlayer() {
-            return "Something happened";
+            return "TODO: Message detailing the result of the roll.";
         }
 
         @Override
@@ -372,9 +424,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         @Override
         public void endGame() {
-            
         }
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
