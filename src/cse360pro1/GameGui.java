@@ -1,8 +1,12 @@
 package cse360pro1;
 
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
-
 
 /**
  * Graphical user interface for playing the game.
@@ -163,6 +167,9 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         buttonPanel = new javax.swing.JPanel();
         rollButton = new javax.swing.JButton();
         dicePanel = new javax.swing.JPanel();
+        diceImage1 = new DiceImage();
+        diceImage2 = new DiceImage();
+        diceImage3 = new DiceImage();
         endGameButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -210,7 +217,16 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         buttonPanel.setLayout(new java.awt.BorderLayout());
 
         rollButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        rollButton.setText("Roll");
+        try 
+		{
+        	// get proportionally sized image
+            rollButton.setIcon(new ImageIcon(DiceImage.getRollImage(90, 74)));
+            rollButton.setToolTipText("Roll");
+		}
+		catch (Exception e) 
+		{
+			rollButton.setText("Roll");
+		}
         rollButton.setPreferredSize(new java.awt.Dimension(150, 37));
         rollButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,21 +234,14 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             }
         });
         buttonPanel.add(rollButton, java.awt.BorderLayout.WEST);
-
-        dicePanel.setBackground(new java.awt.Color(0, 0, 0));
-
-        javax.swing.GroupLayout dicePanelLayout = new javax.swing.GroupLayout(dicePanel);
-        dicePanel.setLayout(dicePanelLayout);
-        dicePanelLayout.setHorizontalGroup(
-            dicePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 191, Short.MAX_VALUE)
-        );
-        dicePanelLayout.setVerticalGroup(
-            dicePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        
+        dicePanel.setLayout(new java.awt.GridLayout(1, 3));
 
         buttonPanel.add(dicePanel, java.awt.BorderLayout.CENTER);
+        
+        dicePanel.add(diceImage1);
+        dicePanel.add(diceImage2);
+        dicePanel.add(diceImage3);
 
         endGameButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         endGameButton.setText("End game");
@@ -254,13 +263,43 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param evt Event object.
      */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
-        if (gameModel != null) {
-            boolean winner = gameModel.roll();
-            JOptionPane.showMessageDialog(this, gameModel.getLastMessageForPlayer());
-            if (!winner) {
-                gameModel.nextTurn();
-            }
-        }
+        // TEMPORARY: randomize all rolls
+    	Random rand = new Random();
+    	Timer timer = new Timer();
+    	final TimerTask task = new TimerTask()
+    	{
+    		private int count = 0;
+    		
+    		@Override
+    		public void run() 
+    		{
+    			//TODO: clean this up
+    			count++;
+    			int side1;
+    			while ((side1 = rand.nextInt(6)+1) == diceImage1.getSide());
+    			int side2;
+    			while ((side2 = rand.nextInt(6)+1) == diceImage2.getSide());
+    			int side3;
+    			while ((side3 = rand.nextInt(6)+1) == diceImage3.getSide());
+    			diceImage1.setSide(side1);
+    			diceImage2.setSide(side2);
+    			diceImage3.setSide(side3);
+    			if (count >= 8) 
+    			{
+    				if (gameModel != null) {
+    		            boolean winner = gameModel.roll();
+    		            JOptionPane.showMessageDialog(null, gameModel.getLastMessageForPlayer());
+    		            if (!winner) {
+    		                gameModel.nextTurn();
+    		            }
+    		        }
+    				timer.cancel();
+    				timer.purge();
+    				return;
+    			}
+    		}
+    	};
+    	timer.schedule(task, 0, 250);    	
     }//GEN-LAST:event_rollButtonActionPerformed
 
     /**
@@ -395,6 +434,9 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     private javax.swing.JLabel currentTotalLabel;
     private javax.swing.JLabel currentTotalValueLabel;
     private javax.swing.JPanel dicePanel;
+    private DiceImage diceImage1;
+    private DiceImage diceImage2;
+    private DiceImage diceImage3;
     private javax.swing.JButton endGameButton;
     private javax.swing.JTable playerTable;
     private javax.swing.JButton rollButton;
