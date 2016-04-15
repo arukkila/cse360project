@@ -21,8 +21,6 @@ public class RulesGuiInterface extends JPanel
 
 		add(okay);
 
-		Color color = Color.decode("0xEEEEEE");
-		setBackground(color);
 		setPreferredSize(new Dimension(500, 500));
 		
 		this.setLayout(new BorderLayout());
