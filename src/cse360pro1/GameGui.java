@@ -167,9 +167,9 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         buttonPanel = new javax.swing.JPanel();
         rollButton = new javax.swing.JButton();
         dicePanel = new javax.swing.JPanel();
-        diceImage1 = new DiceImage();
-        diceImage2 = new DiceImage();
-        diceImage3 = new DiceImage();
+        diceImage1 = new cse360pro1.DiceImage();
+        diceImage2 = new cse360pro1.DiceImage();
+        diceImage3 = new cse360pro1.DiceImage();
         endGameButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -217,16 +217,8 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         buttonPanel.setLayout(new java.awt.BorderLayout());
 
         rollButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        try 
-		{
-        	// get proportionally sized image
-            rollButton.setIcon(new ImageIcon(DiceImage.getRollImage(90, 74)));
-            rollButton.setToolTipText("Roll");
-		}
-		catch (Exception e) 
-		{
-			rollButton.setText("Roll");
-		}
+        rollButton.setIcon(new ImageIcon(DiceImage.getRollImage(90, 74)));
+        rollButton.setToolTipText("Roll");
         rollButton.setPreferredSize(new java.awt.Dimension(150, 37));
         rollButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,14 +226,20 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             }
         });
         buttonPanel.add(rollButton, java.awt.BorderLayout.WEST);
-        
+
+        dicePanel.setBackground(new java.awt.Color(0, 0, 0));
         dicePanel.setLayout(new java.awt.GridLayout(1, 3));
 
-        buttonPanel.add(dicePanel, java.awt.BorderLayout.CENTER);
-        
+        diceImage1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         dicePanel.add(diceImage1);
+
+        diceImage2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         dicePanel.add(diceImage2);
+
+        diceImage3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         dicePanel.add(diceImage3);
+
+        buttonPanel.add(dicePanel, java.awt.BorderLayout.CENTER);
 
         endGameButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         endGameButton.setText("End game");
@@ -433,10 +431,10 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     private javax.swing.JLabel currentPlayerNameLabel;
     private javax.swing.JLabel currentTotalLabel;
     private javax.swing.JLabel currentTotalValueLabel;
+    private cse360pro1.DiceImage diceImage1;
+    private cse360pro1.DiceImage diceImage2;
+    private cse360pro1.DiceImage diceImage3;
     private javax.swing.JPanel dicePanel;
-    private DiceImage diceImage1;
-    private DiceImage diceImage2;
-    private DiceImage diceImage3;
     private javax.swing.JButton endGameButton;
     private javax.swing.JTable playerTable;
     private javax.swing.JButton rollButton;
