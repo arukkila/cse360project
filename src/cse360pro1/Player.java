@@ -262,16 +262,36 @@ public class Player implements Serializable
 	 * 
 	 * @return active - status of it player is still in game or not
 	 */
-	public boolean getPlayerStauts()
+	public boolean getPlayerStatus()
 	{
 		return active;
 	}
 	
+	/**
+	 * Get player status.
+	 * 
+	 * @return active - status of it player is still in game or not
+	 */
+	public void setPlayerStatus(boolean status)
+	{
+		this.active = status;
+	}
+	
+	/**
+	 * Get if player has won or not
+	 * 
+	 * @return won - true if player won
+	 */
 	public boolean getWonStatus()
 	{
 		return won;
 	}
 	
+	/**
+	 * Get if player lost or not
+	 * 
+	 * @return lost - true if player lost
+	 */
 	public boolean getLostStatus()
 	{
 		return lost;

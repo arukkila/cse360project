@@ -36,13 +36,13 @@ public class controller{
 	
 	public int getNextPlayer()
 	{
-		if(currentPlayer == 3)
+		if(currentPlayer >= 3)
 			currentPlayer = 0;
 		else
 			currentPlayer++;
 		
 		while(!playerList[currentPlayer].getPlayerStatus())
-			if(currentPlayer > 3)
+			if(currentPlayer >= 3)
 				currentPlayer = 0;
 			else
 				currentPlayer++;
@@ -69,7 +69,6 @@ public class controller{
 	 * 7. The first player with a total >= 100 wins the game.
 	 * 8. The end of the game will rank all of the players on who is closest to 100.
 	 */
-		
 		if(die1 == die2 && die2 == die3)	//three of a kind
 			sameThree = true;
 		

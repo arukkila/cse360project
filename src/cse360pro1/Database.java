@@ -46,7 +46,8 @@ public class Database
 			try 
 			{
 				loadedPlayer = (Player) data.readObject();
-			} catch (ClassNotFoundException e) 
+			} 
+			catch (ClassNotFoundException e) 
 			{
 				e.printStackTrace();
 			}
@@ -63,13 +64,14 @@ public class Database
 	}
 	
 	//Just testing stuffs
+	//seems to work to my knowledge
 	public static void main(String[] args) 
 	{
 		//Player JohnCena = new Player("John Cena");
 		Player test;
 		Database store = new Database();
 		
-		//JohnCena.updateScore(6);
+		//JohnCena.updateScore(9);
 		
 		//store.serializeObjece(JohnCena);
 		
