@@ -20,15 +20,15 @@ public class DiceImage extends JLabel
 	private final static int MIN_SIDE = 0;
 	private final static int MAX_SIDE = 6;
 	
-	// panel contents
+	// image contents
 	private BufferedImage curImage;
-	private int side;
+	private int curSide;
 	
 	public DiceImage() 
 	{
 		init();
 		
-		side = 0;
+		curSide = 0;
 		curImage = images.get(0);
 		setIcon(new ImageIcon(curImage));
 	}
@@ -62,8 +62,8 @@ public class DiceImage extends JLabel
 	 */
 	public static BufferedImage resize(BufferedImage img, int width, int height) 
 	{
-		// TODO: verify what happens if width or height is negative
-		if (img != null)
+		// Width or height and height must be positive
+		if (img != null && width > 0 && height > 0)
 		{
 		    Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		    BufferedImage newImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -84,7 +84,7 @@ public class DiceImage extends JLabel
 		}
 		if (side >= MIN_SIDE && side <= MAX_SIDE)
 		{
-			return images.get(side); // side will correspond to the image of that side here
+			return images.get(side); // curSide will correspond to the image of that curSide here
 		}
 		return null;
 	}
@@ -117,7 +117,11 @@ public class DiceImage extends JLabel
 	{
 		if (img != null)
 		{
-			curImage = resize(img, getWidth(), getHeight());
+			// can't resize without an actual width or height
+			if (getWidth() > 0 && getHeight() > 0)
+			{
+				curImage = resize(img, getWidth(), getHeight());
+			}
 			setIcon(new ImageIcon(curImage));
 		}
 	}
@@ -126,13 +130,13 @@ public class DiceImage extends JLabel
 	{
 		if (side >= MIN_SIDE && side <= MAX_SIDE)
 		{
-			this.side = side;
+			curSide = side;
 			setImage(getSideImage(side));
 		}
 	}
 	
 	public int getSide()
 	{
-		return side;
+		return curSide;
 	}
 }
