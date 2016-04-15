@@ -5,7 +5,8 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
 /**
- *
+ * Initial GUI displayed when program starts.
+ * Prompts the user to choose 4 players to start a game.
  * @author Michael
  */
 public class MainGui extends javax.swing.JFrame {
@@ -17,6 +18,10 @@ public class MainGui extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * Updates the list of players in the dropdown based on prior stats.
+     * @param stats Stats object.
+     */
     public void updatePlayerList(StatsModelInterface stats) {
         String[] playerList = new String[stats.getAllPlayerEverCount()];
         for (int index = 0; index < stats.getAllPlayerEverCount(); index++) {
@@ -133,6 +138,10 @@ public class MainGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Handles Start game button click.
+     * @param evt Associated event.
+     */
     private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
         String[] playerNames = {
             player1Combo.getSelectedItem().toString(),
@@ -150,10 +159,18 @@ public class MainGui extends javax.swing.JFrame {
         gui.setVisible(true);
     }//GEN-LAST:event_startGameButtonActionPerformed
 
+    /**
+     * Handles Exit button click.
+     * @param evt Associated event.
+     */
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
 
+    /**
+     * Handles Rules button click.
+     * @param evt Associated event.
+     */
     private void rulesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rulesButtonActionPerformed
         JDialog dialog = new JDialog(this, "Rules");
         RulesGuiInterface panel = new RulesGuiInterface();
@@ -163,6 +180,7 @@ public class MainGui extends javax.swing.JFrame {
     }//GEN-LAST:event_rulesButtonActionPerformed
 
     /**
+     * Main entry point of the program.
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -201,6 +219,9 @@ public class MainGui extends javax.swing.JFrame {
     }
 
 
+    /**
+     * For testing.
+     */
     private static class DummyStats implements StatsModelInterface {
 
         private Player[] players = {
@@ -218,7 +239,6 @@ public class MainGui extends javax.swing.JFrame {
         public int getAllPlayerEverCount() {
             return players.length;
         }
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
