@@ -21,9 +21,14 @@ public class RulesGuiInterface extends JPanel
 
 		add(okay);
 
-		Color color = Color.decode("0xD6D9DF");
+		Color color = Color.decode("0xEEEEEE");
 		setBackground(color);
 		setPreferredSize(new Dimension(500, 500));
+		
+		this.setLayout(new BorderLayout());
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(okay);
+		this.add(buttonPanel,BorderLayout.SOUTH);
 	}
 	
 	private class ButtonListener implements ActionListener
@@ -55,19 +60,19 @@ public class RulesGuiInterface extends JPanel
 		String ruleList8a = "who is closest to 100.";
 		String ruleList9 = "9. Game requires four players to start.";
 
-		page.drawString(ruleList1, WIDTH/2 - 200, HEIGHT/2 - 150);
-		page.drawString(ruleList2, WIDTH/2 - 200, HEIGHT/2 - 150 + 30);
-		page.drawString(ruleList3, WIDTH/2 - 200, HEIGHT/2 - 150 + 60);
-		page.drawString(ruleList3a, WIDTH/2 - 180, HEIGHT/2 - 150 + 90);
-		page.drawString(ruleList4, WIDTH/2 - 200, HEIGHT/2 - 150 + 120);
-		page.drawString(ruleList4a, WIDTH/2 - 180, HEIGHT/2 - 150 + 150);
-		page.drawString(ruleList5, WIDTH/2 - 200, HEIGHT/2 - 150 + 180);
-		page.drawString(ruleList5a, WIDTH/2 - 180, HEIGHT/2 - 150 + 210);
-		page.drawString(ruleList6, WIDTH/2 - 200, HEIGHT/2 - 150 + 240);
-		page.drawString(ruleList7, WIDTH/2 - 200, HEIGHT/2 - 150 + 270);
-		page.drawString(ruleList8, WIDTH/2 - 200, HEIGHT/2 - 150 + 300);
-		page.drawString(ruleList8a, WIDTH/2 - 180, HEIGHT/2 - 150 + 330);
-		page.drawString(ruleList9, WIDTH/2 - 200, HEIGHT/2 - 150 + 360);
+		page.drawString(ruleList1, WIDTH/2 - 200, HEIGHT/2 - 200);
+		page.drawString(ruleList2, WIDTH/2 - 200, HEIGHT/2 - 200 + 30);
+		page.drawString(ruleList3, WIDTH/2 - 200, HEIGHT/2 - 200 + 60);
+		page.drawString(ruleList3a, WIDTH/2 - 180, HEIGHT/2 - 200 + 90);
+		page.drawString(ruleList4, WIDTH/2 - 200, HEIGHT/2 - 200 + 120);
+		page.drawString(ruleList4a, WIDTH/2 - 180, HEIGHT/2 - 200 + 150);
+		page.drawString(ruleList5, WIDTH/2 - 200, HEIGHT/2 - 200 + 180);
+		page.drawString(ruleList5a, WIDTH/2 - 180, HEIGHT/2 - 200 + 210);
+		page.drawString(ruleList6, WIDTH/2 - 200, HEIGHT/2 - 200 + 240);
+		page.drawString(ruleList7, WIDTH/2 - 200, HEIGHT/2 - 200 + 270);
+		page.drawString(ruleList8, WIDTH/2 - 200, HEIGHT/2 - 200 + 300);
+		page.drawString(ruleList8a, WIDTH/2 - 180, HEIGHT/2 - 200 + 330);
+		page.drawString(ruleList9, WIDTH/2 - 200, HEIGHT/2 - 200 + 360);
 
 		}
 }
