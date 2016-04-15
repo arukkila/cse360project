@@ -1,0 +1,13 @@
+title Generic GUI sequence
+
+User -> GUI : Press button
+activate GUI
+GUI -> Control System : Do something
+deactivate GUI
+activate Control System
+Control System -> Control System : Process
+Control System -> GUI : Hey something changed, update
+deactivate Control System
+activate GUI
+GUI -> Control System : Gimmie the latest data
+GUI -> GUI : Update display
