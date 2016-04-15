@@ -1,15 +1,27 @@
-As a player, I want to be able to roll dice so I can get points.
+As an unregistered player, I want to be able to enter my name to become a new player.
 
-As a player, I want to be able to pass my turn so I can avoid taking a risk.
+As a current player, I want to be able to select my name from the player list to join a game.
 
-As a player, I want to be able to view statistics, so I can check my ranking.
+As a current player, I want to be able to roll dice so I can get points.
 
-As a control system, I want to be able to add a player, so that more people can play.
+As a current player, I want to have my score recorded after each round so I can have it added to my statistics.
 
-As a control system, I want to be able to remove a player, so that people can stop playing if they wish.
+As a current player, I want to be able to view statistics, so I can check my ranking from previously played games.
 
-As a control system, I want to be able to start the game, so that it can be played.
+As a current player, I want to be able to start a game so I can compete against other players and have fun. 
 
-As a control system, I want to be able to end the game, so that people can win or lose.
+As a current player, I want to be able to win a game so I can pump my fists in triumph. 
 
-As a control system, I want to be able to update a player's score, so that I can accurately keep track of rankings.
+As a current player, I want to be able to lose a game so I can be punished for my failures. 
+
+As a score keeper/database, I want to be able to run the underlying game model, so that the game can be played.
+
+As a score keeper/database, I want to be able to add players to the underlying game model, so that more players can play.
+
+As a score keeper/database, I want to be able to maintain a list of previous players so that they can select their name at startup.
+
+As a score keeper/database, I want to be able to remove a player from each game, so that players can stop playing if they violate a rule.
+
+As a score keeper/database, I want to be able to end each game, so that players can win or lose.
+
+As a score keeper/database, I want to be able to update a player's overall statistics, so that I can accurately keep track of rankings.
