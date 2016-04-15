@@ -55,7 +55,7 @@ public class RulesGuiInterface extends JPanel
 		String ruleList5 = "5. If a player rolls all 3s all other players scores";
 		String ruleList5a = "reset to 0.";
 		String ruleList6 = "6. If a player rolls two of a kind they can roll again.";
-		String ruleList7 = "7. The first player with a total ≥ 100 wins the game.";
+		String ruleList7 = "7. The first player with a total >= 100 wins the game.";
 		String ruleList8 = "8. The end of the game will rank all of the players on";
 		String ruleList8a = "who is closest to 100.";
 		String ruleList9 = "9. Game requires four players to start.";
