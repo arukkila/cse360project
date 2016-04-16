@@ -17,6 +17,10 @@ public interface GameGuiInterface {
      * and therefore should update the display.
      */
     public void notifyModelChanged();
-    
+
+    /**
+     * Tell the GUI to display a message to the user.
+     * @param messageYo The message to display, yo.
+     */
     public void showMessage(String messageYo);
 }

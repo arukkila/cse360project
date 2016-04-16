@@ -143,15 +143,17 @@ public class MainGui extends javax.swing.JFrame {
      * @param evt Associated event.
      */
     private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
-        String[] playerNames = {
-            player1Combo.getSelectedItem().toString(),
-            player2Combo.getSelectedItem().toString(),
-            player3Combo.getSelectedItem().toString(),
-            player4Combo.getSelectedItem().toString(),
-        };
         // TODO: check for empty names
         // TODO: check for duplicate names
         GameGui gui = new GameGui(this);
+        Controller model = new Controller(
+            player1Combo.getSelectedItem().toString(),
+            player2Combo.getSelectedItem().toString(),
+            player3Combo.getSelectedItem().toString(),
+            player4Combo.getSelectedItem().toString()
+        );
+        model.setGameGui(gui);
+        gui.setModel(model);
         setVisible(false);
         gui.setVisible(true);
     }//GEN-LAST:event_startGameButtonActionPerformed
