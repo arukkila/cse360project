@@ -54,6 +54,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 if (gameModel != null) {
                     gameModel.roll();
                 }
+                rollButton.setEnabled(true);
             }
         }
     });
@@ -109,10 +110,10 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             }
             playerTable.getSelectionModel().setSelectionInterval(index, index);
             
-            int side1 = 4, side2 = 3, side3 = 2;
-            diceImage1.setSide(side1);
-            diceImage2.setSide(side2);
-            diceImage3.setSide(side3);
+            int[] lastRoll = gameModel.getLastRoll();
+            diceImage1.setSide(lastRoll[0]);
+            diceImage2.setSide(lastRoll[1]);
+            diceImage3.setSide(lastRoll[2]);
 
             // TODO: if player has won, change the score color
         } else {
@@ -301,7 +302,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param evt Event object.
      */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
-        // TEMPORARY: randomize all rolls
+        rollButton.setEnabled(false);
         timer.start();
     }//GEN-LAST:event_rollButtonActionPerformed
 
@@ -422,6 +423,13 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         @Override
         public void endGame() {
         }
+
+        @Override
+        public int[] getLastRoll() {
+            return new int[] {1, 2, 3};
+        }
+
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

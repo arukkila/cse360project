@@ -46,4 +46,6 @@ public interface GameModelInterface {
      * @return if game is won or not
      */
     public boolean gameWon();
+
+    public int[] getLastRoll();
 }
