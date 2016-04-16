@@ -12,6 +12,7 @@ public class Controller_ implements GameModelInterface {
 	private int currentPlayer;
 	private GameGuiInterface guiInterface;
 	private Dice die; 
+	private int[] lastRoll;
 	private int kickedOut = 0;
 	
 	private boolean gameWon = false;
@@ -26,6 +27,10 @@ public class Controller_ implements GameModelInterface {
 		die = new Dice(6);
 		
 		Random rand = new Random();
+		
+		lastRoll = new int[3];
+		for(int index = 0; index < lastRoll.length; index++)
+			lastRoll[index] = 0;
 		
 		currentPlayer = rand.nextInt(4);	
 	}
@@ -88,16 +93,25 @@ public class Controller_ implements GameModelInterface {
 	public void roll()
 	{
 		//may need more sprankles 
+		//little buggy still but works
 		int roll1 = die.roll();
 		int roll2 = die.roll();
 		int roll3 = die.roll();
+		
+		lastRoll[0] = roll1;
+		lastRoll[1] = roll2;
+		lastRoll[2] = roll3;
+		
 		int total = roll1 + roll2 + roll3;
+		
+		
 		
 		int rule = ruleCheck(roll1, roll2, roll3);
 		
 		playerList[currentPlayer].updateRollStats(roll1);
 		playerList[currentPlayer].updateRollStats(roll2);
 		playerList[currentPlayer].updateRollStats(roll3);
+		guiInterface.notifyModelChanged();
 		
 		if(rule == 2)
 		{
@@ -108,9 +122,11 @@ public class Controller_ implements GameModelInterface {
 				guiInterface.notifyModelChanged();
 				guiInterface.showMessage(WINNER);
 			}
-			
-			guiInterface.notifyModelChanged();
-			guiInterface.showMessage("You rolled " + total + "points!");
+			else
+			{
+				guiInterface.notifyModelChanged();
+				guiInterface.showMessage("You rolled " + total + " points!");
+			}
 		}
 		else if(rule == 3)
 		{
@@ -126,9 +142,11 @@ public class Controller_ implements GameModelInterface {
 				guiInterface.notifyModelChanged();
 				guiInterface.showMessage("Three of you really suck.");
 			}
-			
-			guiInterface.notifyModelChanged();
-			guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
+			else
+			{
+				guiInterface.notifyModelChanged();
+				guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
+			}
 		}
 		else if(rule == 4)
 		{
@@ -149,15 +167,20 @@ public class Controller_ implements GameModelInterface {
 			guiInterface.showMessage("All your score are belong to us.");
 		}
 		
+		playerList[currentPlayer].updateScore(roll1 + roll2 + roll3);
+		guiInterface.notifyModelChanged();
+		
 		if(rule != 6)
+		{
+			guiInterface.notifyModelChanged();
 			getNextPlayer();
+			guiInterface.notifyModelChanged();
+		}
 		else
 		{
 			guiInterface.notifyModelChanged();
 			guiInterface.showMessage("You get to roll again!");
 		}
-		
-		playerList[currentPlayer].updateScore(roll1 + roll2 + roll3);
 		
 		//check if player is active and score is 100 or more
 		if(playerList[currentPlayer].getScore() >= 100 && 
@@ -167,7 +190,8 @@ public class Controller_ implements GameModelInterface {
 			guiInterface.notifyModelChanged();
 			guiInterface.showMessage(WINNER);
 		}
-					
+			
+		//guiInterface.notifyModelChanged();
 		//return gameWon;
 	}
 	
@@ -206,6 +230,12 @@ public class Controller_ implements GameModelInterface {
 	{
 		return gameWon;
 	}
+	
+	public int[] getLastRoll()
+	{
+		return lastRoll;
+	}
+	
 
 
 }

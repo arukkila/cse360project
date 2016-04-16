@@ -43,6 +43,7 @@ public class PlayerTester {
 	{
 		Player player =  new Player("Tom"); 
 		
+		player.updateWinLoss(true);
 		
 	}
 

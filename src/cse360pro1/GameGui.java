@@ -366,7 +366,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 GameGui gui = new GameGui();
-                TestGame model = new TestGame();
+                Controller model = new Controller("Batmane","John Cena", "Seth","Could");
                 model.setGameGui(gui);
                 gui.setModel(model);
                 gui.setVisible(true);
