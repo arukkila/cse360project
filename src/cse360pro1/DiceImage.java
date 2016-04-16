@@ -29,8 +29,7 @@ public class DiceImage extends JLabel
 	// handle resizing
 	class resizeListener extends ComponentAdapter {
         public void componentResized(ComponentEvent e) {
-        	if (e.getComponent().getWidth() > 0 && e.getComponent().getHeight() > 0)
-    		{
+        	if (e.getComponent().getWidth() > 0 && e.getComponent().getHeight() > 0) {
         		/*
         		 * This will trigger a resize, but the quality will be reduced for increasing sizes.
         		 * It's also possible that the resizing could happen after the icon is painted.
