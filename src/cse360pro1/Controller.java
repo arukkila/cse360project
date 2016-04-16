@@ -89,6 +89,7 @@ public class Controller implements GameModelInterface{
 	public void roll()
 	{
 		//may need more sprankles 
+		//little buggy still but works
 		int roll1 = die.roll();
 		int roll2 = die.roll();
 		int roll3 = die.roll();
@@ -99,6 +100,7 @@ public class Controller implements GameModelInterface{
 		playerList[currentPlayer].updateRollStats(roll1);
 		playerList[currentPlayer].updateRollStats(roll2);
 		playerList[currentPlayer].updateRollStats(roll3);
+		guiInterface.notifyModelChanged();
 		
 		if(rule == 2)
 		{
@@ -109,9 +111,11 @@ public class Controller implements GameModelInterface{
 				guiInterface.notifyModelChanged();
 				guiInterface.showMessage(WINNER);
 			}
-			
-			guiInterface.notifyModelChanged();
-			guiInterface.showMessage("You rolled " + total + "points!");
+			else
+			{
+				guiInterface.notifyModelChanged();
+				guiInterface.showMessage("You rolled " + total + " points!");
+			}
 		}
 		else if(rule == 3)
 		{
@@ -127,9 +131,11 @@ public class Controller implements GameModelInterface{
 				guiInterface.notifyModelChanged();
 				guiInterface.showMessage("Three of you really suck.");
 			}
-			
-			guiInterface.notifyModelChanged();
-			guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
+			else
+			{
+				guiInterface.notifyModelChanged();
+				guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
+			}
 		}
 		else if(rule == 4)
 		{
@@ -150,15 +156,20 @@ public class Controller implements GameModelInterface{
 			guiInterface.showMessage("All your score are belong to us.");
 		}
 		
+		playerList[currentPlayer].updateScore(roll1 + roll2 + roll3);
+		guiInterface.notifyModelChanged();
+		
 		if(rule != 6)
+		{
+			guiInterface.notifyModelChanged();
 			getNextPlayer();
+			guiInterface.notifyModelChanged();
+		}
 		else
 		{
 			guiInterface.notifyModelChanged();
 			guiInterface.showMessage("You get to roll again!");
 		}
-		
-		playerList[currentPlayer].updateScore(roll1 + roll2 + roll3);
 		
 		//check if player is active and score is 100 or more
 		if(playerList[currentPlayer].getScore() >= 100 && 
@@ -168,7 +179,8 @@ public class Controller implements GameModelInterface{
 			guiInterface.notifyModelChanged();
 			guiInterface.showMessage(WINNER);
 		}
-					
+			
+		//guiInterface.notifyModelChanged();
 		//return gameWon;
 	}
 	
