@@ -1,11 +1,18 @@
+/**
+ * Class that controls the inner workings of the dice game and its components.
+ * 
+ * @author Team 8 for CSE360
+ * @version Apr 15 2016 
+ */
 package cse360pro1;
 
 import java.util.Random;
 
-public class Controller implements GameModelInterface {
+public class Controller implements GameModelInterface 
+{
 	
-	public final String LOSERS = "ALL OF YOU LOST";
-	public final String WINNER = "CONGRATS YOU ARE THE WINNER";
+	private final String LOSERS = "ALL OF YOU LOST";
+	private final String WINNER = "CONGRATS YOU ARE THE WINNER";
 	
 	// private fields are not visible outside of the class
 	private Player[] playerList = new Player[4];
@@ -17,6 +24,16 @@ public class Controller implements GameModelInterface {
 	
 	private boolean gameWon = false;
 	
+	/**
+	 * Creates the controller for the game. The controller has a dice and an array
+	 * of four players to play the game. The controller has a array of the last three rolls
+	 * and the currentPlayer index position which is randomly selected.
+	 * 
+	 * @param name1 - player name 1
+	 * @param name2 - player name 2
+	 * @param name3 - player name 3
+	 * @param name4 - player name 4
+	 */
 	Controller(String name1, String name2, String name3, String name4)
 	{
 		playerList[0] = new Player(name1);
@@ -25,21 +42,32 @@ public class Controller implements GameModelInterface {
 		playerList[3] = new Player(name4);
 		
 		die = new Dice(6);
-		
 		Random rand = new Random();
 		
 		lastRoll = new int[3];
+		
 		for(int index = 0; index < lastRoll.length; index++)
 			lastRoll[index] = 0;
 		
 		currentPlayer = rand.nextInt(4);	
 	}
 	
+	/**
+	 * Gets the current player's index that they are stored in the array of players.
+	 * 
+	 * @return currentPlayer index position
+	 */
 	public int getCurrentPlayer()
 	{
 		return currentPlayer;
 	}
 	
+	/**
+	 * Get the next player's index position in the player array that is still active
+	 * in the game
+	 * 
+	 * @return nextPlayer index position
+	 */
 	public int getNextPlayer()
 	{
 		if(currentPlayer >= 3)
@@ -56,11 +84,16 @@ public class Controller implements GameModelInterface {
 		return currentPlayer;
 	}	
 	
-	//int returned is the number of the rule that is implemented, according to rules.doc
+	/**
+	 * Returns the number of the rule that is implemented, according to rules.doc
+	 * 
+	 * @param die1 - roll from dice 1
+	 * @param die2 - roll from dice 2
+	 * @param die3 - roll from dice 3
+	 * @return rule number - the rule that occurred based off three rolls
+	 */
 	private int ruleCheck(int die1, int die2, int die3)
 	{
-		int rule = 0;
-		boolean sameThree = false;
 	/*
 	 * 1. Players roll 3 dice at a time.
 	 * 2. Players must roll and record those stats every turn.
@@ -72,17 +105,19 @@ public class Controller implements GameModelInterface {
 	 * 8. The end of the game will rank all of the players on who is closest to 100.
 	 * 9. Game requires four players to start.
 	 */
+		int rule = 0;
+		boolean sameThree = false;
 		
-		if(die1 == die2 && die2 == die3)	//three of a kind
+		if(die1 == die2 && die2 == die3)//three of a kind
 			sameThree = true;
 		
-		if(sameThree && die1 == 1)	//player rolled three 1s
+		if(sameThree && die1 == 1)//player rolled three 1s
 			rule = 3;
-		else if(sameThree && die1 == 6)	//player rolled three 6s
+		else if(sameThree && die1 == 6)//player rolled three 6s
 			rule = 4;
-		else if(sameThree && die1 == 3)	//player rolled three 3s
+		else if(sameThree && die1 == 3)//player rolled three 3s
 			rule = 5;
-		else if(!sameThree && (die1 == die2 || die1 == die3 || die2 == die3))	//player rolled 2 of a kind 
+		else if(!sameThree && (die1 == die2 || die1 == die3 || die2 == die3))//player rolled 2 of a kind 
 			rule = 6;
 		else
 			rule = 2;
@@ -90,6 +125,10 @@ public class Controller implements GameModelInterface {
 		return rule;
 	}
 	
+	/**
+	 * Rolls three dice for the player and checks the rules that follow based off of the 
+	 * rolls.
+	 */
 	public void roll()
 	{
 		//may need more sprankles 
@@ -103,8 +142,6 @@ public class Controller implements GameModelInterface {
 		lastRoll[2] = roll3;
 		
 		int total = roll1 + roll2 + roll3;
-		
-		
 		
 		int rule = ruleCheck(roll1, roll2, roll3);
 		
@@ -190,35 +227,51 @@ public class Controller implements GameModelInterface {
 			guiInterface.notifyModelChanged();
 			guiInterface.showMessage(WINNER);
 		}
-			
-		//guiInterface.notifyModelChanged();
-		//return gameWon;
 	}
 	
+	/**
+	 * Sets the Game gui
+	 */
 	@Override
 	public void setGameGui(GameGuiInterface gameGui)
 	{
 		guiInterface = gameGui; 
 	}
 	
+	/**
+	 * Gets the number of players. Current version only has 4 total players
+	 * @return player list length
+	 */
 	@Override
 	public int getPlayersInCurrentGameCount()
 	{
 		return playerList.length;
 	}
 	
+	/**
+	 * Gets the current player
+	 * @return current player
+	 */
 	@Override
 	public Player getCurrentPlayerInCurrentGame() 
 	{
 		return playerList[currentPlayer];
 	}
 	
+	/**
+	 * Gets player of a specific index
+	 * @param index - specific index of player
+	 * @return player at index
+	 */
 	@Override
 	public Player getPlayerInCurrentGame(int index)
 	{
 		return playerList[index];
 	}
 
+	/**
+	 * Nothing to see here
+	 */
 	@Override
 	public void endGame() 
 	{
@@ -226,16 +279,22 @@ public class Controller implements GameModelInterface {
 		
 	}
 	
+	/**
+	 * Gets the status of the game. If the game is won or not
+	 * 
+	 * @return gameWon status
+	 */
 	public boolean gameWon()
 	{
 		return gameWon;
 	}
 	
+	/**
+	 * Gets the last three rolls made by the dice
+	 * @return array of last 3 dice rolls
+	 */
 	public int[] getLastRoll()
 	{
 		return lastRoll;
 	}
-	
-
-
 }
