@@ -7,7 +7,6 @@ import org.junit.Test;
 public class PlayerTester {
 			
 	@Test
-	//test player constructor
 	public void testPlayer() 
 	{
 		
@@ -17,7 +16,6 @@ public class PlayerTester {
 	}
 
 	@Test
-	//test update the score
 	public void testUpdateScore() 
 	{
 		Player player =  new Player("Batman"); 
@@ -27,7 +25,6 @@ public class PlayerTester {
 	}
 
 	@Test
-	//test updateRollStats
 	public void testUpdateRollStats() 
 	{
 		Player player =  new Player("Batman"); 
@@ -56,88 +53,206 @@ public class PlayerTester {
 	}
 
 	@Test
-	public void testGetScore() {
-		fail("Not yet implemented");
+	public void testGetScore() 
+	{
+		Player player = new Player("Yuo Ming");
+		player.updateScore(50);
+		
+		assertEquals(50, player.getScore());
+		
+	}
+	
+	@Test
+	public void testUpdateLifeTimeScore()
+	{
+		Player player = new Player("Ed");
+		player.updateScore(9);
+		player.updateLifeTimeScore();
+		
+		assertEquals(9, player.getLifeTimeScore());
 	}
 
 	@Test
-	public void testGetLifeTimeScore() {
-		fail("Not yet implemented");
+	public void testGetLifeTimeScore() 
+	{
+		Player player = new Player("Ed");
+		player.updateScore(9);
+		player.updateLifeTimeScore();
+		
+		assertEquals(9, player.getLifeTimeScore());
+	}
+	
+
+	@Test
+	public void testGetNumberOfRolls() 
+	{
+		Player player = new Player("Mr. Slave");
+		player.updateRollStats(1);
+		player.updateRollStats(5);
+		player.updateRollStats(3);
+		
+		assertEquals(3,player.getNumberOfRolls());
 	}
 
 	@Test
-	public void testGetNumberOfRolls() {
-		fail("Not yet implemented");
+	public void testGetOnes() 
+	{
+		Player player = new Player("Kyle");
+		player.updateRollStats(1);
+		player.updateRollStats(1);
+		
+		assertEquals(2, player.getOnes());
 	}
 
 	@Test
-	public void testGetOnes() {
-		fail("Not yet implemented");
+	public void testGetTwos() 
+	{
+		Player player = new Player("MJ");
+		player.updateRollStats(2);
+		player.updateRollStats(2);
+		player.updateRollStats(2);
+
+		assertEquals(3, player.getTwos());	
 	}
 
 	@Test
-	public void testGetTwos() {
-		fail("Not yet implemented");
+	public void testGetThrees() 
+	{
+		Player player = new Player("Louis");
+		player.updateRollStats(3);
+		
+		assertEquals(1, player.getThrees());	
 	}
 
 	@Test
-	public void testGetThrees() {
-		fail("Not yet implemented");
+	public void testGetFours() 
+	{
+		Player player = new Player("Gary");
+		player.updateRollStats(4);
+		player.updateRollStats(4);
+		player.updateRollStats(4);
+		player.updateRollStats(4);
+
+		assertEquals(4, player.getFours());	
 	}
 
 	@Test
-	public void testGetFours() {
-		fail("Not yet implemented");
+	public void testGetFives() 
+	{
+		Player player = new Player("Bill Bo");
+		player.updateRollStats(5);
+		
+		assertEquals(1, player.getFives());	
 	}
 
 	@Test
-	public void testGetFives() {
-		fail("Not yet implemented");
+	public void testGetSixes() 
+	{
+		Player player = new Player("Mr. Tumnus");
+		
+		player.updateRollStats(6);
+		player.updateRollStats(6);
+		player.updateRollStats(6);
+		player.updateRollStats(6);
+		
+		assertEquals(4, player.getSixes());	
 	}
 
 	@Test
-	public void testGetSixes() {
-		fail("Not yet implemented");
+	public void testGetWins() 
+	{
+		Player player = new Player("No more good names");
+		player.updateWinLoss(true);
+		player.updateWinLoss(true);
+
+		assertEquals(2, player.getWins());
 	}
 
 	@Test
-	public void testGetWins() {
-		fail("Not yet implemented");
+	public void testGetLosses() 
+	{
+		Player player = new Player("I lost");
+		player.updateWinLoss(false);
+		player.updateWinLoss(false);
+		player.updateWinLoss(false);
+		player.updateWinLoss(false);
+
+		assertEquals(4, player.getLosses());
 	}
 
 	@Test
-	public void testGetLosses() {
-		fail("Not yet implemented");
+	public void testGetRatio() 
+	{
+		Player player = new Player("Seth");
+		player.updateWinLoss(false);
+		player.updateWinLoss(false);
+		player.updateWinLoss(true);
+		player.updateWinLoss(false);
+		player.updateWinLoss(true);
+		player.updateWinLoss(false);
+		
+		assertEquals(2.0/6.0, player.getRatio(), .001);
 	}
 
 	@Test
-	public void testGetRatio() {
-		fail("Not yet implemented");
+	public void testGetNumberOfGame() 
+	{
+		Player player = new Player("Seth");
+		player.updateWinLoss(false);
+		player.updateWinLoss(false);
+		player.updateWinLoss(true);
+		player.updateWinLoss(false);
+		player.updateWinLoss(true);
+		player.updateWinLoss(false);
+		
+		assertEquals(6, player.getNumberOfGame());
 	}
 
 	@Test
-	public void testGetNumberOfGame() {
-		fail("Not yet implemented");
+	public void testGetPlayerStatus() 
+	{
+		Player player = new Player("Batmane");
+		player.setPlayerStatus(false);
+		
+		assertFalse(player.getPlayerStatus());
 	}
 
 	@Test
-	public void testGetPlayerStatus() {
-		fail("Not yet implemented");
+	public void testSetPlayerStatus() 
+	{
+		Player player = new Player("Gucci");
+		player.setPlayerStatus(false);
+		player.setPlayerStatus(true);
+		
+		assertTrue(player.getPlayerStatus());
 	}
 
 	@Test
-	public void testSetPlayerStatus() {
-		fail("Not yet implemented");
+	public void testGetWonStatus() 
+	{
+		Player player = new Player("Mike Jones");
+		player.updateWinLoss(true);
+		
+		assertTrue(player.getWonStatus());
 	}
 
 	@Test
-	public void testGetWonStatus() {
-		fail("Not yet implemented");
+	public void testGetLostStatus() 
+	{
+		Player player = new Player("Fred");
+		player.updateWinLoss(false);
+		
+		assertFalse(player.getWonStatus());
 	}
 
 	@Test
-	public void testGetLostStatus() {
-		fail("Not yet implemented");
+	public void testResetScore()
+	{
+		Player player = new Player("Score be gone");
+		player.updateScore(5);
+		
+		player.resetScore();
+		
+		assertEquals(0, player.getScore());
 	}
-
 }
