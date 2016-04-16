@@ -365,12 +365,62 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 GameGui gui = new GameGui();
-                Controller control = new Controller("Batmane","John Cena","Seth","Cloud");
-                gui.setModel(control);
-                control.setGameGui(gui);
+                TestGame model = new TestGame();
+                model.setGameGui(gui);
+                gui.setModel(model);
                 gui.setVisible(true);
             }
         });
+    }
+
+    /**
+     * For testing.
+     */
+    static class TestGame implements GameModelInterface {
+
+        private GameGuiInterface gui;
+        private Player[] players = {
+            new Player("Bob"),
+            new Player("Lisa"),
+            new Player("Ron"),
+        };
+        private int player = 0;
+
+        @Override
+        public void setGameGui(GameGuiInterface gameGui) {
+            gui = gameGui;
+        }
+
+        @Override
+        public int getPlayersInCurrentGameCount() {
+            return players.length;
+        }
+
+        @Override
+        public Player getPlayerInCurrentGame(int index) {
+            return players[index];
+        }
+
+        @Override
+        public Player getCurrentPlayerInCurrentGame() {
+            return players[player];
+        }
+
+        @Override
+        public void roll() {
+            getCurrentPlayerInCurrentGame().updateScore(5);
+            gui.notifyModelChanged();
+            gui.showMessage("Something happened");
+        }
+
+        @Override
+        public boolean gameWon() {
+            return false;
+        }
+
+        @Override
+        public void endGame() {
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -37,17 +37,6 @@ public interface GameModelInterface {
     public void roll();
 
     /**
-     * Gets the last message to be displayed to the user.
-     * @return a message (could be null)
-     */
-    //public String getLastMessageForPlayer();
-
-    /**
-     * Tells the current game to move to the next player's turn.
-     */
-   // public void nextTurn();
-
-    /**
      * Tells the game to end the game prematurely.
      */
     public void endGame();
@@ -57,7 +46,4 @@ public interface GameModelInterface {
      * @return if game is won or not
      */
     public boolean gameWon();
-    
-    
-    
 }
