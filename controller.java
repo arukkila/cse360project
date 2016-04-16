@@ -11,8 +11,9 @@ public class controller extends Player{
 	controller(String name)
 	{
 		super(name);
-		// TODO Auto-generated constructor stub
+		
 	}
+	
 	
 	
 	// Class Variables or Fields
@@ -309,15 +310,16 @@ public class controller extends Player{
 	{
 		Player[] others = new Player[3];
 		Player name = currentPlayer();
-		int roll1 = die1.roll();
-		int roll2 = die2.roll();
-		int roll3 = die3.roll();
+		int firstRoll = die1.roll();
+		int secondRoll = die2.roll();
+		int thirdRoll = die3.roll();
+		
 
-		int rule = ruleCheck(roll1, roll2, roll3);
+		int rule = ruleCheck(firstRoll,secondRoll, thirdRoll);
 		
 		if(rule == 2)
 		{
-			name.updateScore(roll1 + roll2 + roll3);
+			name.updateScore(firstRoll + secondRoll + thirdRoll);
 			if(name.getScore() >= 100)
 				gameWon = true;
 		}
@@ -333,17 +335,28 @@ public class controller extends Player{
 			}
 		}
 		else if(rule == 4)
+		{
 			gameWon = true;
+		}
 		else if(rule == 5)
+		{
 			others = getOtherPlayers();
-			//create a function for
+		
+			int resetBy = 0;
 			
+			for(int players = 0; players < others.length; players++)
+			{
+				resetBy = others[players].getScore();
+				others[players].updateScore(-resetBy);
+			}
+		
+		}
 		else if(rule == 6)
 		{
-			name.updateScore(roll1 + roll2 + roll3);
-			//Probably some GUI stuff needed here
+			name.updateScore(firstRoll + secondRoll + thirdRoll);
 			roll(die1, die2, die3);
 		}		
 	}
 	
 	
+}
