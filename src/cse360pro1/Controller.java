@@ -13,6 +13,7 @@ public class Controller implements GameModelInterface{
 	private int currentPlayer;
 	private GameGuiInterface guiInterface;
 	private Dice die; 
+	private int[] lastRoll;
 	private int kickedOut = 0;
 	
 	private boolean gameWon = false;
@@ -27,6 +28,10 @@ public class Controller implements GameModelInterface{
 		die = new Dice(6);
 		
 		Random rand = new Random();
+		
+		lastRoll = new int[3];
+		for(int index = 0; index < lastRoll.length; index++)
+			lastRoll[index] = 0;
 		
 		currentPlayer = rand.nextInt(4);	
 	}
@@ -93,7 +98,14 @@ public class Controller implements GameModelInterface{
 		int roll1 = die.roll();
 		int roll2 = die.roll();
 		int roll3 = die.roll();
+		
+		lastRoll[0] = roll1;
+		lastRoll[1] = roll2;
+		lastRoll[2] = roll3;
+		
 		int total = roll1 + roll2 + roll3;
+		
+		
 		
 		int rule = ruleCheck(roll1, roll2, roll3);
 		
@@ -219,6 +231,12 @@ public class Controller implements GameModelInterface{
 	{
 		return gameWon;
 	}
+	
+	public int[] getLastRoll()
+	{
+		return lastRoll;
+	}
+	
 
 
 }
