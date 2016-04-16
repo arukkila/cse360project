@@ -152,9 +152,6 @@ public class MainGui extends javax.swing.JFrame {
         // TODO: check for empty names
         // TODO: check for duplicate names
         GameGui gui = new GameGui(this);
-        GameGui.TestGame model = new GameGui.TestGame();
-        model.setGameGui(gui);
-        gui.setModel(model);
         setVisible(false);
         gui.setVisible(true);
     }//GEN-LAST:event_startGameButtonActionPerformed

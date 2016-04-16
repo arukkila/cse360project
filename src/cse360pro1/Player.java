@@ -74,6 +74,11 @@ public class Player implements Serializable
 		score += roll;
 	}
 	
+	public void resetScore()
+	{
+		score = 0;
+	}
+	
 	/**
 	 * Updates the number of times the player has rolled a specific number on the dice.
 	 * 

@@ -34,21 +34,30 @@ public interface GameModelInterface {
      * Rolls the dice for the current player.
     * @return if someone won the game.
      */
-    public boolean roll();
+    public void roll();
 
     /**
      * Gets the last message to be displayed to the user.
      * @return a message (could be null)
      */
-    public String getLastMessageForPlayer();
+    //public String getLastMessageForPlayer();
 
     /**
      * Tells the current game to move to the next player's turn.
      */
-    public void nextTurn();
+   // public void nextTurn();
 
     /**
      * Tells the game to end the game prematurely.
      */
     public void endGame();
+    
+    /**
+     * Gets win status of the game.
+     * @return if game is won or not
+     */
+    public boolean gameWon();
+    
+    
+    
 }
