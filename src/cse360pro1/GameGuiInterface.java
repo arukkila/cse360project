@@ -17,4 +17,6 @@ public interface GameGuiInterface {
      * and therefore should update the display.
      */
     public void notifyModelChanged();
+    
+    public void showMessage(String messageYo);
 }

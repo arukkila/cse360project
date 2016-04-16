@@ -58,6 +58,12 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         gameModel = model;
         notifyModelChanged();
     }
+    
+    @Override
+    public void showMessage(String messageYo)
+    {
+    	JOptionPane.showMessageDialog(this, messageYo);  
+    }
 
     /**
      * Notifies the GUI the refresh the display, probably because the
@@ -285,11 +291,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     			if (count >= 8) 
     			{
     				if (gameModel != null) {
-    		            boolean winner = gameModel.roll();
-    		            JOptionPane.showMessageDialog(null, gameModel.getLastMessageForPlayer());
-    		            if (!winner) {
-    		                gameModel.nextTurn();
-    		            }
+    		            gameModel.roll();
     		        }
     				timer.cancel();
     				timer.purge();
@@ -361,68 +363,12 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 GameGui gui = new GameGui();
-                TestGame model = new TestGame();
-                model.setGameGui(gui);
-                gui.setModel(model);
+                Controller control = new Controller("Batmane","John Cena","Seth","Cloud");
+                gui.setModel(control);
+                control.setGameGui(gui);
                 gui.setVisible(true);
             }
         });
-    }
-
-    /**
-     * For testing.
-     */
-    static class TestGame implements GameModelInterface {
-
-        private GameGuiInterface gui;
-        private Player[] players = {
-            new Player("Bob"),
-            new Player("Lisa"),
-            new Player("Ron"),
-        };
-        private int player = 0;
-
-        @Override
-        public void setGameGui(GameGuiInterface gameGui) {
-            gui = gameGui;
-        }
-
-        @Override
-        public int getPlayersInCurrentGameCount() {
-            return players.length;
-        }
-
-        @Override
-        public Player getPlayerInCurrentGame(int index) {
-            return players[index];
-        }
-
-        @Override
-        public Player getCurrentPlayerInCurrentGame() {
-            return players[player];
-        }
-
-        @Override
-        public boolean roll() {
-            getCurrentPlayerInCurrentGame().updateScore(5);
-            gui.notifyModelChanged();
-            return false;
-        }
-
-        @Override
-        public String getLastMessageForPlayer() {
-            return "TODO: Message detailing the result of the roll.";
-        }
-
-        @Override
-        public void nextTurn() {
-            player = (player + 1) % players.length;
-            gui.notifyModelChanged();
-        }
-
-        @Override
-        public void endGame() {
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
