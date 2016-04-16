@@ -74,6 +74,14 @@ public class Player implements Serializable
 		score += roll;
 	}
 	
+	/**
+	 * Update life time score of player
+	 */
+	public void updateLifeTimeScore()
+	{
+		lifeTimeScore += score;
+	}
+	
 	public void resetScore()
 	{
 		score = 0;
@@ -86,6 +94,8 @@ public class Player implements Serializable
 	 */
 	public void updateRollStats(int roll)
 	{
+		numberOfRolls++;
+		
 		if(roll == 1)
 			ones += 1;
 		else if(roll == 2)
