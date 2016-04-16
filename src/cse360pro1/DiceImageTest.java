@@ -54,10 +54,24 @@ public class DiceImageTest
 	 * Test method for {@link cse360pro1.DiceImage#resize(java.awt.image.BufferedImage, int, int)}.
 	 */
 	@Test
-	public final void testResizeBufferedImageIntInt() 
+	public final void testResize() 
 	{
 		BufferedImage img = DiceImage.resize(DiceImage.getSideImage(0), 50, 50);
 		assertNotNull(img);
+	}
+	
+	/**
+	 * Test method for {@link cse360pro1.DiceImage#resize(java.awt.image.BufferedImage, int, int)}.
+	 */
+	@Test
+	public final void testResizeBufferedImageIntInt() 
+	{
+		BufferedImage img = DiceImage.getSideImage(0);
+		
+		// resize down to 50x60
+		img = DiceImage.resize(DiceImage.getSideImage(0), 50, 60);
+		assertEquals(50, img.getWidth());
+		assertEquals(60, img.getHeight());
 	}
 
 	/**
