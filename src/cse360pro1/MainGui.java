@@ -146,7 +146,7 @@ public class MainGui extends javax.swing.JFrame {
         // TODO: check for empty names
         // TODO: check for duplicate names
         GameGui gui = new GameGui(this);
-        Controller_ model = new Controller_(
+        Controller model = new Controller(
             player1Combo.getSelectedItem().toString(),
             player2Combo.getSelectedItem().toString(),
             player3Combo.getSelectedItem().toString(),
