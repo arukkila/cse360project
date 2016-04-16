@@ -1,9 +1,8 @@
 package cse360pro1;
 
-//import java.util.Arrays;
 import java.util.Random;
 
-public class Controller implements GameModelInterface{
+public class Controller_ implements GameModelInterface {
 	
 	public final String LOSERS = "ALL OF YOU LOST";
 	public final String WINNER = "CONGRATS YOU ARE THE WINNER";
@@ -17,7 +16,7 @@ public class Controller implements GameModelInterface{
 	
 	private boolean gameWon = false;
 	
-	Controller(String name1, String name2, String name3, String name4)
+	Controller_(String name1, String name2, String name3, String name4)
 	{
 		playerList[0] = new Player(name1);
 		playerList[1] = new Player(name2);

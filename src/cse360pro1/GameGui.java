@@ -1,8 +1,9 @@
 package cse360pro1;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -30,7 +31,34 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     private final MainGui mainGui;
 
-    /**
+    private final Timer timer = new Timer(250, new ActionListener() {
+        final Random rand = new Random();
+        private int count = 0;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //TODO: clean this up
+            count++;
+            int side1;
+            while ((side1 = rand.nextInt(6) + 1) == diceImage1.getSide());
+            int side2;
+            while ((side2 = rand.nextInt(6) + 1) == diceImage2.getSide());
+            int side3;
+            while ((side3 = rand.nextInt(6) + 1) == diceImage3.getSide());
+            diceImage1.setSide(side1);
+            diceImage2.setSide(side2);
+            diceImage3.setSide(side3);
+            if (count >= 8) {
+                timer.stop();
+                count = 0;
+                if (gameModel != null) {
+                    gameModel.roll();
+                }
+            }
+        }
+    });
+    
+        /**
      * Creates a new GameGui without an associated {@link MainGui} to return to.
      * Primarily used for testing.
      */
@@ -80,6 +108,12 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 index++;
             }
             playerTable.getSelectionModel().setSelectionInterval(index, index);
+            
+            int side1 = 4, side2 = 3, side3 = 2;
+            diceImage1.setSide(side1);
+            diceImage2.setSide(side2);
+            diceImage3.setSide(side3);
+
             // TODO: if player has won, change the score color
         } else {
             currentPlayerNameLabel.setText("");
@@ -268,38 +302,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         // TEMPORARY: randomize all rolls
-    	final Random rand = new Random();
-    	final Timer timer = new Timer();
-    	final TimerTask task = new TimerTask()
-    	{
-    		private int count = 0;
-    		
-    		@Override
-    		public void run() 
-    		{
-    			//TODO: clean this up
-    			count++;
-    			int side1;
-    			while ((side1 = rand.nextInt(6)+1) == diceImage1.getSide());
-    			int side2;
-    			while ((side2 = rand.nextInt(6)+1) == diceImage2.getSide());
-    			int side3;
-    			while ((side3 = rand.nextInt(6)+1) == diceImage3.getSide());
-    			diceImage1.setSide(side1);
-    			diceImage2.setSide(side2);
-    			diceImage3.setSide(side3);
-    			if (count >= 8) 
-    			{
-    				if (gameModel != null) {
-    		            gameModel.roll();
-    		        }
-    				timer.cancel();
-    				timer.purge();
-    				return;
-    			}
-    		}
-    	};
-    	timer.schedule(task, 0, 250);    	
+        timer.start();
     }//GEN-LAST:event_rollButtonActionPerformed
 
     /**
