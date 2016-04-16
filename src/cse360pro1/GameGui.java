@@ -2,11 +2,15 @@ package cse360pro1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -100,27 +104,40 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     @Override
     public void notifyModelChanged() {
-        if (gameModel != null) {
-            Player currentPlayer = gameModel.getCurrentPlayerInCurrentGame();
-            currentPlayerNameLabel.setText(currentPlayer.getName());
-            currentTotalValueLabel.setText(String.valueOf(currentPlayer.getScore()));
-            int index = 0;
-            while (!currentPlayer.equals(gameModel.getPlayerInCurrentGame(index))) {
-                index++;
+        if (!SwingUtilities.isEventDispatchThread()) {
+            try {
+                SwingUtilities.invokeAndWait(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyModelChanged();
+                    }
+                });
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            playerTable.getSelectionModel().setSelectionInterval(index, index);
-            
-            int[] lastRoll = gameModel.getLastRoll();
-            diceImage1.setSide(lastRoll[0]);
-            diceImage2.setSide(lastRoll[1]);
-            diceImage3.setSide(lastRoll[2]);
-
-            // TODO: if player has won, change the score color
         } else {
-            currentPlayerNameLabel.setText("");
-            currentTotalValueLabel.setText("");
+            if (gameModel != null) {
+                Player currentPlayer = gameModel.getCurrentPlayerInCurrentGame();
+                currentPlayerNameLabel.setText(currentPlayer.getName());
+                currentTotalValueLabel.setText(String.valueOf(currentPlayer.getScore()));
+                int index = 0;
+                while (!currentPlayer.equals(gameModel.getPlayerInCurrentGame(index))) {
+                    index++;
+                }
+                playerTable.getSelectionModel().setSelectionInterval(index, index);
+
+                int[] lastRoll = gameModel.getLastRoll();
+                diceImage1.setSide(lastRoll[0]);
+                diceImage2.setSide(lastRoll[1]);
+                diceImage3.setSide(lastRoll[2]);
+
+                // TODO: if player has won, change the score color
+            } else {
+                currentPlayerNameLabel.setText("");
+                currentTotalValueLabel.setText("");
+            }
+            tableModel.fireTableRowsUpdated(0, 10);
         }
-        tableModel.fireTableRowsUpdated(0, 10);
     }
 
     /**
