@@ -221,6 +221,9 @@ public class MainGui extends javax.swing.JFrame {
     /**
      * For testing.
      */
+    
+    
+    
     private static class DummyStats implements StatsModelInterface {
 
         private Player[] players = {
