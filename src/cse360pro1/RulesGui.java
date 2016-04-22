@@ -6,7 +6,6 @@ import javax.swing.*;
  * 
  * @author Denise Perry
  */
-
 public class RulesGui
 {
 	public static void main(String[] args)
