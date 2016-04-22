@@ -1,10 +1,11 @@
 package cse360pro1;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Database
 {
-	private Player[] playerData;
+	private ArrayList<Player> playerData;
 	private File folder;
 	private File[] fileList;
 	//private int playerIndex;
@@ -14,7 +15,7 @@ public class Database
 		folder = new File("./stats");
 		fileList = folder.listFiles();
 		//playerIndex = 0;
-		playerData =  new Player[1000];
+		playerData =  new ArrayList<Player>();
 	}
 	
 	public void serializeObjece(Player object)
@@ -71,7 +72,6 @@ public class Database
 	public void loadPlayers()
 	{
 		String extension;
-		int playerIndex = 0;
 		
 		for(int index = 0; index < fileList.length ; index++)
 		{
@@ -79,21 +79,28 @@ public class Database
 			
 			if(fileList[index].isFile() && extension.equals("stat"))
 			{
-				playerData[playerIndex] = deserializeObject( fileList[index].getName() );
-				playerIndex++;
+				playerData.add(deserializeObject( fileList[index].getName()));
 			}
 			
 		}	
+	}
+	
+	public void savePlayers(Player[] playerList)
+	{
+		for(int index = 0; index <= playerList.length; index++)
+		{
+			serializeObjece( playerList[index] );
+		}
 	}
 	
 	public Player getPlayerForName(String playerName)
 	{
 		Player temp = null;
 		
-		for(int index = 0; index < playerData.length; index++)
+		for(int index = 0; index <= playerData.size() ; index++)
 		{
-			if(playerData[index].getName().equals(playerName))
-				temp = playerData[index];
+			if(playerData.get(index).getName().equals(playerName))
+				temp = playerData.get(index);
 		}
 		
 		return temp;
@@ -103,15 +110,15 @@ public class Database
 	{
 		String[] playerNames = new String[1000];
 		
-		for(int index = 0; index < playerData.length; index++)
+		for(int index = 0; index <= playerData.size() ; index++)
 		{
-			playerNames[index] = playerData[index].getName();
+			playerNames[index] = playerData.get(index).getName();
 		}
 			
 		return playerNames;
 	}
 	
-	public Player[] getPlayerDatabase()
+	public ArrayList<Player> getPlayerDatabase()
 	{
 		return playerData;
 	}
@@ -130,16 +137,15 @@ public class Database
 		//store.serializeObjece(JohnCena);
 		//int playerIndex = 0;
 		store.loadPlayers();
-		//hi
 		
-		System.out.println("Name: " + store.getPlayerDatabase()[0].getName());
-		System.out.println("Score: " + store.getPlayerDatabase()[0].getScore());
-		System.out.println("Overall Score: " + store.getPlayerDatabase()[0].getLifeTimeScore());
+		System.out.println("Name: " + store.getPlayerDatabase().get(0).getName());
+		System.out.println("Score: " + store.getPlayerDatabase().get(0).getScore());
+		System.out.println("Overall Score: " + store.getPlayerDatabase().get(0).getLifeTimeScore());
 		
 
-		System.out.println("Name: " + store.getPlayerDatabase()[1].getName());
-		System.out.println("Score: " + store.getPlayerDatabase()[1].getScore());
-		System.out.println("Overall Score: " + store.getPlayerDatabase()[1].getLifeTimeScore());
+		System.out.println("Name: " + store.getPlayerDatabase().get(1).getName());
+		System.out.println("Score: " + store.getPlayerDatabase().get(1).getScore());
+		System.out.println("Overall Score: " + store.getPlayerDatabase().get(1).getLifeTimeScore());
 		
 	}
 	
