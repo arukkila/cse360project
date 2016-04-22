@@ -241,7 +241,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         currentPlayerLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         currentPlayerLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        currentPlayerLabel.setText("Current player:");
+        currentPlayerLabel.setText("Current player: ");
         titlePanel.add(currentPlayerLabel);
 
         currentPlayerNameLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
