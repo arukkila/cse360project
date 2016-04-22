@@ -88,7 +88,7 @@ public class Database
 	
 	public Player getPlayerForName(String playerName)
 	{
-		Player temp = null;
+		Player temp = new Player(playerName);
 		
 		for(int index = 0; index < playerData.length; index++)
 		{
@@ -97,6 +97,7 @@ public class Database
 		}
 		
 		return temp;
+		
 	}
 	
 	public String[] getAllPlayerNames()
@@ -111,7 +112,7 @@ public class Database
 		return playerNames;
 	}
 	
-	public Player[] getPlayerDatabase()
+	public Player[] getPlayerList()
 	{
 		return playerData;
 	}
@@ -132,14 +133,14 @@ public class Database
 		store.loadPlayers();
 		
 		
-		System.out.println("Name: " + store.getPlayerDatabase()[0].getName());
-		System.out.println("Score: " + store.getPlayerDatabase()[0].getScore());
-		System.out.println("Overall Score: " + store.getPlayerDatabase()[0].getLifeTimeScore());
+		System.out.println("Name: " + store.getPlayerList()[0].getName());
+		System.out.println("Score: " + store.getPlayerList()[0].getScore());
+		System.out.println("Overall Score: " + store.getPlayerList()[0].getLifeTimeScore());
 		
 
-		System.out.println("Name: " + store.getPlayerDatabase()[1].getName());
-		System.out.println("Score: " + store.getPlayerDatabase()[1].getScore());
-		System.out.println("Overall Score: " + store.getPlayerDatabase()[1].getLifeTimeScore());
+		System.out.println("Name: " + store.getPlayerList()[1].getName());
+		System.out.println("Score: " + store.getPlayerList()[1].getScore());
+		System.out.println("Overall Score: " + store.getPlayerList()[1].getLifeTimeScore());
 		
 	}
 	
