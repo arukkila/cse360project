@@ -7,8 +7,6 @@ import javax.swing.*;
  * @author Denise Perry
  */
 
-//Testing git stuff
-
 public class RulesGui
 {
 	public static void main(String[] args)
