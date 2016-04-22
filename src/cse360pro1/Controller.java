@@ -117,7 +117,7 @@ public class Controller implements GameModelInterface
 			rule = 4;
 		else if(sameThree && die1 == 3)//player rolled three 3s
 			rule = 5;
-		else if(!sameThree && (die1 == die2 || die1 == die3 || die2 == die3))//player rolled 2 of a kind 
+		else if(die1 == die2 || die1 == die3 || die2 == die3) //player rolled 2 of a kind 
 			rule = 6;
 		else
 			rule = 2;
