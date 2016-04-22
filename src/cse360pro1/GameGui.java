@@ -27,16 +27,16 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     /**
      * Constant model for the player table.
      */
-    private final PlayerTableModel tableModel;
+    private final PlayerTableModel TABLE_MODEL;
 
     /**
      * Reference to the {@link MainGui} to return to it once the game is done.
      * May be null.
      */
-    private final MainGui mainGui;
+    private final MainGui MAIN_GUI;
 
-    private final Timer timer = new Timer(250, new ActionListener() {
-        final Random rand = new Random();
+    private final Timer TIMER = new Timer(250, new ActionListener() {
+        final Random RAND = new Random();
         private int count = 0;
 
         @Override
@@ -44,16 +44,16 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             //TODO: clean this up
             count++;
             int side1;
-            while ((side1 = rand.nextInt(6) + 1) == diceImage1.getSide());
+            while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
             int side2;
-            while ((side2 = rand.nextInt(6) + 1) == diceImage2.getSide());
+            while ((side2 = RAND.nextInt(6) + 1) == diceImage2.getSide());
             int side3;
-            while ((side3 = rand.nextInt(6) + 1) == diceImage3.getSide());
+            while ((side3 = RAND.nextInt(6) + 1) == diceImage3.getSide());
             diceImage1.setSide(side1);
             diceImage2.setSide(side2);
             diceImage3.setSide(side3);
             if (count >= 8) {
-                timer.stop();
+                TIMER.stop();
                 count = 0;
                 if (gameModel != null) {
                     gameModel.roll();
@@ -75,8 +75,8 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param mainGui {@link MainGui} to return to once the game has ended.
      */
     public GameGui(MainGui mainGui) {
-        this.mainGui = mainGui;
-        tableModel = new PlayerTableModel();
+        this.MAIN_GUI = mainGui;
+        TABLE_MODEL = new PlayerTableModel();
         initComponents();
         notifyModelChanged();
     }
@@ -136,7 +136,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 currentPlayerNameLabel.setText("");
                 currentTotalValueLabel.setText("");
             }
-            tableModel.fireTableRowsUpdated(0, 10);
+            TABLE_MODEL.fireTableRowsUpdated(0, 10);
         }
     }
 
@@ -250,7 +250,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         getContentPane().add(titlePanel, java.awt.BorderLayout.NORTH);
 
-        playerTable.setModel(tableModel);
+        playerTable.setModel(TABLE_MODEL);
         playerTable.setEnabled(false);
         tableScrollPane.setViewportView(playerTable);
 
@@ -320,7 +320,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         rollButton.setEnabled(false);
-        timer.start();
+        TIMER.start();
     }//GEN-LAST:event_rollButtonActionPerformed
 
     /**
@@ -346,8 +346,8 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param evt Event object.
      */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        if (mainGui != null) {
-            mainGui.setVisible(true);
+        if (MAIN_GUI != null) {
+            MAIN_GUI.setVisible(true);
         }
     }//GEN-LAST:event_formWindowClosed
 
