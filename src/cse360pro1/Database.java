@@ -22,8 +22,9 @@ public class Database
 	{
 		folder = new File("./stats");
 		fileList = folder.listFiles();
-		//playerIndex = 0;
 		playerData =  new ArrayList<Player>();
+		
+		loadPlayers();
 	}
 	
 	/**
