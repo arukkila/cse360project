@@ -150,6 +150,8 @@ public class Controller implements GameModelInterface
 		playerList[currentPlayer].updateRollStats(roll3);
 		guiInterface.notifyModelChanged();
 		
+                playerList[currentPlayer].updateScore(roll1 + roll2 + roll3);
+                
 		if(rule == 2)
 		{
 			if(playerList[currentPlayer].getScore() >= 100)
@@ -204,7 +206,6 @@ public class Controller implements GameModelInterface
 			guiInterface.showMessage("All your score are belong to us.");
 		}
 		
-		playerList[currentPlayer].updateScore(roll1 + roll2 + roll3);
 		guiInterface.notifyModelChanged();
 		
 		if(rule != 6)
