@@ -1,3 +1,9 @@
+/**
+ * Class that store player data such as score and other various statistics.
+ * 
+ * @author Thomas Gottschlich for CSE360
+ * @version Apr 22 2016 
+ */
 package cse360pro1;
 
 import java.io.*;
@@ -8,8 +14,10 @@ public class Database
 	private ArrayList<Player> playerData;
 	private File folder;
 	private File[] fileList;
-	//private int playerIndex;
 
+	/**
+	 * Creates a Database of all players that have or will ever play the game.
+	 */
 	Database()
 	{
 		folder = new File("./stats");
@@ -18,11 +26,15 @@ public class Database
 		playerData =  new ArrayList<Player>();
 	}
 	
+	/**
+	 * Stores a player object into a file.
+	 * 
+	 * @param object - player to be serialize into a file
+	 */
 	public void serializeObjece(Player object)
 	{
 		if(object == null)
 			return;
-	
 		try
 		{
 			FileOutputStream outFile = new FileOutputStream("./stats/" + object.getName() +".stat");
@@ -36,10 +48,15 @@ public class Database
 		catch(IOException exception)
 		{
 			exception.printStackTrace();
-		}
-		
+		}	
 	}
 	
+	/**
+	 * Loads a player from file.
+	 * 
+	 * @param filename - name of the player object to load
+	 * @return loadedPlayer - player loaded from file
+	 */
 	public Player deserializeObject(String filename)  
 	{		
 		Player loadedPlayer = null;
@@ -69,6 +86,9 @@ public class Database
 		return loadedPlayer;			
 	}
 	
+	/**
+	 * Load all players file into an Player ArrayList
+	 */
 	public void loadPlayers()
 	{
 		String extension;
@@ -85,6 +105,11 @@ public class Database
 		}	
 	}
 	
+	/**
+	 * Save all players from last game into a their own unique file.
+	 * 
+	 * @param playerList
+	 */
 	public void savePlayers(Player[] playerList)
 	{
 		for(int index = 0; index <= playerList.length; index++)
@@ -93,9 +118,15 @@ public class Database
 		}
 	}
 	
+	/**
+	 * Gets a player of playerName if it exists else it creates a player with playerName
+	 * 
+	 * @param playerName - name of player being search for
+	 * @return existing player of with playerName or creates a player with playerName 
+	 */
 	public Player getPlayerForName(String playerName)
 	{
-		Player temp = null;
+		Player temp = new Player(playerName);
 		
 		for(int index = 0; index <= playerData.size() ; index++)
 		{
@@ -106,18 +137,28 @@ public class Database
 		return temp;
 	}
 	
-	public String[] getAllPlayerNames()
+	/**
+	 * Gets a arraylist of all player names
+	 * 
+	 * @return playerNames - an ArrayList of all player names
+	 */
+	public ArrayList<String> getAllPlayerNames()
 	{
-		String[] playerNames = new String[1000];
+		ArrayList<String> playerNames = new ArrayList<String>();
 		
 		for(int index = 0; index <= playerData.size() ; index++)
 		{
-			playerNames[index] = playerData.get(index).getName();
+			playerNames.add(playerData.get(index).getName());
 		}
 			
 		return playerNames;
 	}
 	
+	/**
+	 * Get an Arraylist of players
+	 * 
+	 * @return playerData - arraylist of players
+	 */
 	public ArrayList<Player> getPlayerDatabase()
 	{
 		return playerData;
