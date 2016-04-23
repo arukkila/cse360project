@@ -32,7 +32,7 @@ public class Database
 	 * 
 	 * @param object - player to be serialize into a file
 	 */
-	public void serializeObjece(Player object)
+	public void serializeObject(Player object)
 	{
 		if(object == null)
 			return;
@@ -93,6 +93,7 @@ public class Database
 	public void loadPlayers()
 	{
 		String extension;
+		playerData.clear();
 		
 		for(int index = 0; index < fileList.length ; index++)
 		{
@@ -100,7 +101,7 @@ public class Database
 			
 			if(fileList[index].isFile() && extension.equals("stat"))
 			{
-				playerData.add(deserializeObject( fileList[index].getName()));
+				playerData.add(index, deserializeObject(fileList[index].getName()));
 			}
 			
 		}	
@@ -113,9 +114,9 @@ public class Database
 	 */
 	public void savePlayers(Player[] playerList)
 	{
-		for(int index = 0; index <= playerList.length; index++)
+		for(int index = 0; index < playerList.length; index++)
 		{
-			serializeObjece( playerList[index] );
+			serializeObject( playerList[index] );
 		}
 	}
 	
@@ -129,7 +130,7 @@ public class Database
 	{
 		Player temp = new Player(playerName);
 		
-		for(int index = 0; index <= playerData.size() ; index++)
+		for(int index = 0; index < playerData.size() ; index++)
 		{
 			if(playerData.get(index).getName().equals(playerName))
 				temp = playerData.get(index);
@@ -147,7 +148,7 @@ public class Database
 	{
 		ArrayList<String> playerNames = new ArrayList<String>();
 		
-		for(int index = 0; index <= playerData.size() ; index++)
+		for(int index = 0; index < playerData.size() ; index++)
 		{
 			playerNames.add(playerData.get(index).getName());
 		}
