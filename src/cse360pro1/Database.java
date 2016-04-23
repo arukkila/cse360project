@@ -18,6 +18,11 @@ public class Database
 			singleton = new Database();
 		return singleton;
 	}
+
+	public static boolean isNameValid(String name)
+	{
+		return name.matches("[A-Za-z0-9 ]+");
+	}
 	
 	private ArrayList<Player> playerData;
 	private File folder;
