@@ -19,6 +19,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
+	private boolean gameWon = false;
+	
     /**
      * Underlying game logic.
      */
@@ -42,28 +44,38 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         @Override
         public void actionPerformed(ActionEvent e) {
             //TODO: clean this up
-            count++;
-            int side1;
-            while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
-            int side2;
-            while ((side2 = RAND.nextInt(6) + 1) == diceImage2.getSide());
-            int side3;
-            while ((side3 = RAND.nextInt(6) + 1) == diceImage3.getSide());
-            diceImage1.setSide(side1);
-            diceImage2.setSide(side2);
-            diceImage3.setSide(side3);
-            if (count >= 8) {
-                TIMER.stop();
-                count = 0;
-                if (gameModel != null) {
-                    gameModel.roll();
-                }
-                rollButton.setEnabled(true);
+            if(!gameWon)
+            {
+	        	count++;
+	            int side1;
+	            int side2;
+	            int side3;
+	            
+	            while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
+	            while ((side2 = RAND.nextInt(6) + 1) == diceImage2.getSide());
+	            while ((side3 = RAND.nextInt(6) + 1) == diceImage3.getSide());
+	            diceImage1.setSide(side1);
+	            diceImage2.setSide(side2);
+	            diceImage3.setSide(side3);
+	            if (count >= 8) {
+	                TIMER.stop();
+	                count = 0;
+	                if (gameModel != null) {
+	                    gameModel.roll();
+	                }
+	                rollButton.setEnabled(true);
+	            }
+            }
+            else
+            {
+            	TIMER.stop();
+            	gameModel.roll();
+            	rollButton.setEnabled(true);
             }
         }
     });
     
-        /**
+    /**
      * Creates a new GameGui without an associated {@link MainGui} to return to.
      * Primarily used for testing.
      */
@@ -196,6 +208,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                         value = "Lost";
                     } else if (player.getWonStatus()) {
                         value = "Won";
+                        gameWon = true;
                     } else {
                         value = player.getScore();
                     }
