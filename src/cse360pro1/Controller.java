@@ -206,7 +206,7 @@ public class Controller implements GameModelInterface
 			guiInterface.notifyModelChanged();
 
 			//check if player is active and score is 100 or more
-			if(playerList[currentPlayer].getScore() >= 100 &&
+			if(playerList[currentPlayer].getScore() >= 10 &&
 			   playerList[currentPlayer].getPlayerStatus())
 			{
 							gameWon = true;
@@ -243,6 +243,7 @@ public class Controller implements GameModelInterface
 						player.updateWinLoss(false);
 					}
 					player.updateLifeTimeScore();
+					database.savePlayers(playerList);
 				}
 			}
 		}
