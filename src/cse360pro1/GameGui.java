@@ -2,10 +2,7 @@ package cse360pro1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Timer;
 
 import javax.swing.ImageIcon;
@@ -19,8 +16,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
-	private boolean gameWon = false;
-	
     /**
      * Underlying game logic.
      */
@@ -43,39 +38,28 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //TODO: clean this up
-            if(!gameWon)
-            {
-	        	count++;
-	            int side1;
-	            int side2;
-	            int side3;
-	            
-	            while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
-	            while ((side2 = RAND.nextInt(6) + 1) == diceImage2.getSide());
-	            while ((side3 = RAND.nextInt(6) + 1) == diceImage3.getSide());
-	            diceImage1.setSide(side1);
-	            diceImage2.setSide(side2);
-	            diceImage3.setSide(side3);
-	            if (count >= 8) {
-	                TIMER.stop();
-	                count = 0;
-	                if (gameModel != null) {
-	                    gameModel.roll();
-	                }
-	                rollButton.setEnabled(true);
-	            }
-            }
-            else
-            {
-            	TIMER.stop();
-            	gameModel.roll();
-            	rollButton.setEnabled(true);
+            count++;
+            int side1;
+            while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
+            int side2;
+            while ((side2 = RAND.nextInt(6) + 1) == diceImage2.getSide());
+            int side3;
+            while ((side3 = RAND.nextInt(6) + 1) == diceImage3.getSide());
+            diceImage1.setSide(side1);
+            diceImage2.setSide(side2);
+            diceImage3.setSide(side3);
+            if (count >= 8) {
+                TIMER.stop();
+                count = 0;
+                if (gameModel != null) {
+                    gameModel.roll();
+                }
+                rollButton.setEnabled(true);
             }
         }
     });
     
-    /**
+        /**
      * Creates a new GameGui without an associated {@link MainGui} to return to.
      * Primarily used for testing.
      */
@@ -204,13 +188,10 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 if (columnIndex == 0) {
                     value = player.getName();
                 } else {
-                    if (player.getLostStatus()) {
-                        value = "Lost";
-                    } else if (player.getWonStatus()) {
-                        value = "Won";
-                        gameWon = true;
-                    } else {
+                    if (player.getPlayerStatus()) {
                         value = player.getScore();
+                    } else {
+                        value = "Lost";
                     }
                 }
             }
@@ -244,6 +225,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         endGameButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dice Simulator 2016");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
