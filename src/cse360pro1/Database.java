@@ -11,6 +11,14 @@ import java.util.ArrayList;
 
 public class Database
 {
+	private static Database singleton;
+	public static Database getSingleton()
+	{
+		if(singleton == null)
+			singleton = new Database();
+		return singleton;
+	}
+	
 	private ArrayList<Player> playerData;
 	private File folder;
 	private File[] fileList;
@@ -18,6 +26,7 @@ public class Database
 	/**
 	 * Creates a Database of all players that have or will ever play the game.
 	 */
+	
 	Database()
 	{
 		folder = new File("./stats");
@@ -26,6 +35,8 @@ public class Database
 		
 		loadPlayers();
 	}
+	
+	
 	
 	/**
 	 * Stores a player object into a file.
@@ -168,7 +179,7 @@ public class Database
 	
 	//Just testing stuffs
 	//seems to work to my knowledge
-	public static void main(String[] args) 
+	/*public static void main(String[] args) 
 	{
 		//Player JohnCena = new Player("John");
 		//Player[] test = new Player[100];
@@ -191,5 +202,5 @@ public class Database
 		System.out.println("Overall Score: " + store.getPlayerDatabase().get(1).getLifeTimeScore());
 		
 	}
-	
+	*/
 }
