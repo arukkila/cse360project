@@ -131,103 +131,122 @@ public class Controller implements GameModelInterface
 	 */
 	public void roll()
 	{
-		//may need more sprankles 
-		//little buggy still but works
-		int roll1 = die.roll();
-		int roll2 = die.roll();
-		int roll3 = die.roll();
-		
-		lastRoll[0] = roll1;
-		lastRoll[1] = roll2;
-		lastRoll[2] = roll3;
-		
-		int total = roll1 + roll2 + roll3;
-		
-		int rule = ruleCheck(roll1, roll2, roll3);
-		
-		playerList[currentPlayer].updateRollStats(roll1);
-		playerList[currentPlayer].updateRollStats(roll2);
-		playerList[currentPlayer].updateRollStats(roll3);
-		guiInterface.notifyModelChanged();
-		
-                playerList[currentPlayer].updateScore(roll1 + roll2 + roll3);
-                
-		if(rule == 2)
+		if (!gameWon)
 		{
-			if(playerList[currentPlayer].getScore() >= 100)
-			{
-				playerList[currentPlayer].updateWinLoss(true);
-				gameWon = true;	
-				guiInterface.notifyModelChanged();
-				guiInterface.showMessage(WINNER);
-			}
-			else
+			//may need more sprankles
+			//little buggy still but works
+			int roll1 = die.roll();
+			int roll2 = die.roll();
+			int roll3 = die.roll();
+
+			lastRoll[0] = roll1;
+			lastRoll[1] = roll2;
+			lastRoll[2] = roll3;
+
+			int total = roll1 + roll2 + roll3;
+
+			int rule = ruleCheck(roll1, roll2, roll3);
+
+			playerList[currentPlayer].updateRollStats(roll1);
+			playerList[currentPlayer].updateRollStats(roll2);
+			playerList[currentPlayer].updateRollStats(roll3);
+			playerList[currentPlayer].updateScore(roll1 + roll2 + roll3);
+
+			guiInterface.notifyModelChanged();
+
+			int winningPlayerIndex = -1;
+
+			if(rule == 2)
 			{
 				guiInterface.notifyModelChanged();
 				guiInterface.showMessage("You rolled " + total + " points!");
 			}
-		}
-		else if(rule == 3)
-		{
-			playerList[currentPlayer].setPlayerStatus(false);
-			kickedOut++;
-			
-			playerList[currentPlayer].updateWinLoss(false);
-			
-			if(kickedOut == 3)
+			else if(rule == 3)
 			{
-				playerList[getNextPlayer()].updateWinLoss(true);
+				playerList[currentPlayer].setPlayerStatus(false);
+				kickedOut++;
+
+				if(kickedOut == 3)
+				{
+					gameWon = true;
+					guiInterface.notifyModelChanged();
+					guiInterface.showMessage("Three of you really suck.");
+					for (int index = 0; winningPlayerIndex < 0 && index < playerList.length; index++)
+					{
+						if (playerList[index].getPlayerStatus())
+							winningPlayerIndex = index;
+					}
+				}
+				else
+				{
+					guiInterface.notifyModelChanged();
+					guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
+				}
+			}
+			else if(rule == 4)
+			{
 				gameWon = true;
+				winningPlayerIndex = currentPlayer;
+
 				guiInterface.notifyModelChanged();
-				guiInterface.showMessage("Three of you really suck.");
+				guiInterface.showMessage(WINNER);
+			}
+			else if(rule == 5)
+			{
+				for(int index = 0; index < 4; index++)
+				{
+					if(index != currentPlayer)
+						playerList[index].resetScore();
+				}
+				guiInterface.notifyModelChanged();
+				guiInterface.showMessage("All your score are belong to us.");
+			}
+
+			guiInterface.notifyModelChanged();
+
+			//check if player is active and score is 100 or more
+			if(playerList[currentPlayer].getScore() >= 100 &&
+			   playerList[currentPlayer].getPlayerStatus())
+			{
+							gameWon = true;
+				guiInterface.notifyModelChanged();
+				guiInterface.showMessage(WINNER);
+				winningPlayerIndex = currentPlayer;
 			}
 			else
 			{
-				guiInterface.notifyModelChanged();
-				guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
+				if(rule != 6)
+				{
+					guiInterface.notifyModelChanged();
+					getNextPlayer();
+					guiInterface.notifyModelChanged();
+				}
+				else
+				{
+					guiInterface.notifyModelChanged();
+					guiInterface.showMessage("You get to roll again!");
+				}
 			}
-		}
-		else if(rule == 4)
-		{
-			playerList[currentPlayer].updateWinLoss(true);
-			gameWon = true;
-			
-			guiInterface.notifyModelChanged();
-			guiInterface.showMessage(WINNER);	
-		}
-		else if(rule == 5)
-		{
-			for(int index = 0; index < 4; index++)
+
+			if (winningPlayerIndex >= 0)
 			{
-				if(index != currentPlayer)
-					playerList[index].resetScore();
+				for (int index = 0; index < playerList.length; index++)
+				{
+					Player player = playerList[index];
+					if (winningPlayerIndex == index)
+					{
+						player.updateWinLoss(true);
+					}
+					else
+					{
+						player.updateWinLoss(false);
+					}
+					player.updateLifeTimeScore();
+				}
 			}
-			guiInterface.notifyModelChanged();
-			guiInterface.showMessage("All your score are belong to us.");
-		}
-		
-		guiInterface.notifyModelChanged();
-		
-		if(rule != 6)
-		{
-			guiInterface.notifyModelChanged();
-			getNextPlayer();
-			guiInterface.notifyModelChanged();
 		}
 		else
-		{
-			guiInterface.notifyModelChanged();
-			guiInterface.showMessage("You get to roll again!");
-		}
-		
-		//check if player is active and score is 100 or more
-		if(playerList[currentPlayer].getScore() >= 100 && 
-				playerList[currentPlayer].getPlayerStatus())
-		{
-			playerList[currentPlayer].updateWinLoss(true);
-			guiInterface.notifyModelChanged();
-			guiInterface.showMessage(WINNER);
-		}
+			guiInterface.showMessage("What? You're still here?\nThe game's over. Go home.");
 	}
 	
 	/**

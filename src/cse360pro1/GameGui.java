@@ -2,10 +2,7 @@ package cse360pro1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Timer;
 
 import javax.swing.ImageIcon;
@@ -41,7 +38,6 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //TODO: clean this up
             count++;
             int side1;
             while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
@@ -192,12 +188,10 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 if (columnIndex == 0) {
                     value = player.getName();
                 } else {
-                    if (player.getLostStatus()) {
-                        value = "Lost";
-                    } else if (player.getWonStatus()) {
-                        value = "Won";
-                    } else {
+                    if (player.getPlayerStatus()) {
                         value = player.getScore();
+                    } else {
+                        value = "Lost";
                     }
                 }
             }
@@ -231,6 +225,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         endGameButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dice Simulator 2016");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
