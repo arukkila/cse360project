@@ -36,6 +36,8 @@ public class Database
 	{
 		folder = new File("./stats");
 		fileList = folder.listFiles();
+		if (fileList == null)
+			fileList = new File[0];
 		playerData =  new ArrayList<Player>();
 		
 		loadPlayers();
@@ -54,6 +56,8 @@ public class Database
 			return;
 		try
 		{
+			File directory = new File("./stats");
+			directory.mkdirs();
 			FileOutputStream outFile = new FileOutputStream("./stats/" + object.getName() +".stat");
 			ObjectOutputStream storage = new ObjectOutputStream(outFile);
 			
