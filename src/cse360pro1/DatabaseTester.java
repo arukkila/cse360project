@@ -84,9 +84,7 @@ public class DatabaseTester
 		assertEquals("BILL", playerNames.get(0));
 		assertEquals("EazyE", playerNames.get(1));
 		assertEquals("JIM", playerNames.get(2));
-		assertEquals("John Cena", playerNames.get(3));
-		assertEquals("John", playerNames.get(4));
-		assertEquals("STACY", playerNames.get(5));		
+		assertEquals("STACY", playerNames.get(3));		
 	}
 
 	@Test
@@ -95,12 +93,11 @@ public class DatabaseTester
 		Database database = new Database();
 		ArrayList<Player> list = database.getPlayerDatabase();
 		
+		
 		assertEquals("BILL", list.get(0).getName());
 		assertEquals("EazyE", list.get(1).getName());
 		assertEquals("JIM", list.get(2).getName());
-		assertEquals("John Cena", list.get(3).getName());
-		assertEquals("John", list.get(4).getName());
-		assertEquals("STACY", list.get(5).getName());		
+		assertEquals("STACY", list.get(3).getName());		
 	}
 
 }
