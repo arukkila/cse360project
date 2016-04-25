@@ -1,5 +1,7 @@
 package cse360pro1;
 
+import java.util.ArrayList;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -247,24 +249,23 @@ public class MainGui extends javax.swing.JFrame {
 
 
     /**
-     * For testing.
+     * For testing. 
+     * Added saved players in the drop down box in this. Dont know if there was a plan to 
+     * add it somewhere else but it works
      */
     private static class DummyStats implements StatsModelInterface {
 
-        private Player[] players = {
-            new Player("Bob"),
-            new Player("Lisa"),
-            new Player("Ron"),
-        };
+        private Database database = new Database();
+    	private ArrayList<Player> players = database.getPlayerDatabase();
         
         @Override
         public Player getPlayer(int index) {
-            return players[index];
+            return players.get(index);
         }
 
         @Override
         public int getAllPlayerEverCount() {
-            return players.length;
+            return players.size();
         }
     }
 
