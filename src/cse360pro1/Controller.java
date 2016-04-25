@@ -249,6 +249,7 @@ public class Controller implements GameModelInterface
 					}
 					player.updateLifeTimeScore();
 					database.savePlayers(playerList);
+					database.loadPlayers();
 				}
 			}
 		}
