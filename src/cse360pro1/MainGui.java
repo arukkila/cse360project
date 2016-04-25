@@ -3,6 +3,7 @@ package cse360pro1;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * Initial GUI displayed when program starts.
@@ -144,19 +145,45 @@ public class MainGui extends javax.swing.JFrame {
      * @param evt Associated event.
      */
     private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
-        // TODO: check for empty names
-        // TODO: check for duplicate names
-        GameGui gui = new GameGui(this);
-        Controller model = new Controller(
+		String[] names = {
             player1Combo.getSelectedItem().toString(),
             player2Combo.getSelectedItem().toString(),
             player3Combo.getSelectedItem().toString(),
             player4Combo.getSelectedItem().toString()
-        );
-        model.setGameGui(gui);
-        gui.setModel(model);
-        setVisible(false);
-        gui.setVisible(true);
+		};
+
+		boolean badPlayerName = false;
+		for (int index = 0; !badPlayerName && index < names.length; index++)
+		{
+			if (!Database.isNameValid(names[index]))
+			{
+				JOptionPane.showMessageDialog(this, "\"" + names[index] + "\" is not a valid player name");
+				badPlayerName = true;
+			}
+			for (int duplicateIndex = 0; !badPlayerName && duplicateIndex < index; duplicateIndex++)
+			{
+				if (names[duplicateIndex].equals(names[index]))
+				{
+					JOptionPane.showMessageDialog(this, "Cannot have duplicate names");
+					badPlayerName = true;
+				}
+			}
+		}
+
+		if (!badPlayerName)
+		{
+			GameGui gui = new GameGui(this);
+			Controller model = new Controller(
+				names[0],
+				names[1],
+				names[2],
+				names[3]
+			);
+			model.setGameGui(gui);
+			gui.setModel(model);
+			setVisible(false);
+			gui.setVisible(true);
+		}
     }//GEN-LAST:event_startGameButtonActionPerformed
 
     /**

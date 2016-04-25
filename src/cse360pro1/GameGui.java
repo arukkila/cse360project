@@ -126,8 +126,6 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 diceImage1.setSide(lastRoll[0]);
                 diceImage2.setSide(lastRoll[1]);
                 diceImage3.setSide(lastRoll[2]);
-
-                // TODO: if player has won, change the score color
             } else {
                 currentPlayerNameLabel.setText("");
                 currentTotalValueLabel.setText("");

@@ -16,12 +16,12 @@ public class Controller implements GameModelInterface
 	
 	// private fields are not visible outside of the class
 	private Player[] playerList = new Player[4];
+	private Database database;
 	private int currentPlayer;
 	private GameGuiInterface guiInterface;
 	private Dice die; 
 	private int[] lastRoll;
 	private int kickedOut = 0;
-	
 	private boolean gameWon = false;
 	
 	/**
@@ -36,10 +36,11 @@ public class Controller implements GameModelInterface
 	 */
 	Controller(String name1, String name2, String name3, String name4)
 	{
-		playerList[0] = new Player(name1);
-		playerList[1] = new Player(name2);
-		playerList[2] = new Player(name3);
-		playerList[3] = new Player(name4);
+		database = Database.getSingleton();
+		playerList[0] = database.getPlayerForName(name1);
+		playerList[1] = database.getPlayerForName(name2);
+		playerList[2] = database.getPlayerForName(name3);
+		playerList[3] = database.getPlayerForName(name4);
 		
 		die = new Dice(6);
 		Random rand = new Random();
@@ -205,7 +206,7 @@ public class Controller implements GameModelInterface
 			guiInterface.notifyModelChanged();
 
 			//check if player is active and score is 100 or more
-			if(playerList[currentPlayer].getScore() >= 100 &&
+			if(playerList[currentPlayer].getScore() >= 10 &&
 			   playerList[currentPlayer].getPlayerStatus())
 			{
 							gameWon = true;
@@ -242,6 +243,7 @@ public class Controller implements GameModelInterface
 						player.updateWinLoss(false);
 					}
 					player.updateLifeTimeScore();
+					database.savePlayers(playerList);
 				}
 			}
 		}
