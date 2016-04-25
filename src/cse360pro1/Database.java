@@ -115,7 +115,7 @@ public class Database
 		String extension;
 		playerData.clear();
 		
-		for(int index = 0; index < fileList.length; index++)
+		for(int index = 0; index < fileList.length - 1; index++)
 		{
 			extension = fileList[index].getName().substring(fileList[index].getName().lastIndexOf(".") + 1, fileList[index].getName().length());
 			
@@ -199,16 +199,16 @@ public class Database
 		//dfgd
 		//store.serializeObjece(JohnCena);
 		//int playerIndex = 0;
-		store.loadPlayers();
+		//store.loadPlayers();
 		
-		System.out.println("Name: " + store.getPlayerDatabase().get(0).getName());
-		System.out.println("Score: " + store.getPlayerDatabase().get(0).getScore());
-		System.out.println("Overall Score: " + store.getPlayerDatabase().get(0).getLifeTimeScore());
+		//System.out.println("Name: " + store.getPlayerDatabase().get(0).getName());
+		//System.out.println("Score: " + store.getPlayerDatabase().get(0).getScore());
+		//System.out.println("Overall Score: " + store.getPlayerDatabase().get(0).getLifeTimeScore());
 		
 
-		System.out.println("Name: " + store.getPlayerDatabase().get(1).getName());
-		System.out.println("Score: " + store.getPlayerDatabase().get(1).getScore());
-		System.out.println("Overall Score: " + store.getPlayerDatabase().get(1).getLifeTimeScore());
+		//System.out.println("Name: " + store.getPlayerDatabase().get(1).getName());
+		//System.out.println("Score: " + store.getPlayerDatabase().get(1).getScore());
+		//System.out.println("Overall Score: " + store.getPlayerDatabase().get(1).getLifeTimeScore());
 		
 	}
 	*/
