@@ -118,10 +118,10 @@ public class Controller implements GameModelInterface
 			rule = 4;
 		else if(sameThree && die1 == 3)//player rolled three 3s
 			rule = 5;
-		else if(die1 == die2 || die1 == die3 || die2 == die3) //player rolled 2 of a kind 
+		else if(die1 == die2 || die1 == die3 || die2 == die3) //player rolled at least 2 of a kind 
 			rule = 6;
 		else
-			rule = 2;
+			rule = 2; //normal roll
 		
 		return rule;
 	}
@@ -157,11 +157,13 @@ public class Controller implements GameModelInterface
 
 			int winningPlayerIndex = -1;
 
+			//2. Players must roll and record those stats every turn. (i.e. normal roll)
 			if(rule == 2)
 			{
 				guiInterface.notifyModelChanged();
 				guiInterface.showMessage("You rolled " + total + " points!");
 			}
+			//3. Any player to roll 3 1s automatically loses and must wait for the next game.
 			else if(rule == 3)
 			{
 				playerList[currentPlayer].setPlayerStatus(false);
@@ -184,6 +186,7 @@ public class Controller implements GameModelInterface
 					guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
 				}
 			}
+			//4. The first player to roll all 6s wins the game no matter the scores.
 			else if(rule == 4)
 			{
 				gameWon = true;
@@ -192,6 +195,7 @@ public class Controller implements GameModelInterface
 				guiInterface.notifyModelChanged();
 				guiInterface.showMessage(WINNER);
 			}
+			//5. If a player rolls all 3s all other players scores reset to 0.
 			else if(rule == 5)
 			{
 				for(int index = 0; index < 4; index++)
@@ -222,6 +226,7 @@ public class Controller implements GameModelInterface
 					getNextPlayer();
 					guiInterface.notifyModelChanged();
 				}
+				//6. If a player rolls two of a kind they can roll again.
 				else
 				{
 					guiInterface.notifyModelChanged();
