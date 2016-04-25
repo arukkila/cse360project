@@ -12,7 +12,7 @@ public class RulesGui
 	{
 		JFrame frame = new JFrame("Rules");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		RulesGuiInterface panel = new RulesGuiInterface();
+		RulesGuiPanel panel = new RulesGuiPanel();
 		frame.getContentPane().add(panel);
 		frame.pack();
 		frame.setVisible(true);

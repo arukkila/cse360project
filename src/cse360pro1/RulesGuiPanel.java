@@ -9,15 +9,15 @@ import javax.swing.*;
  * 
  * @author Denise Perry
  */
-public class RulesGuiInterface extends JPanel
+public class RulesGuiPanel extends JPanel
 {
 	private final int WIDTH = 500, HEIGHT = 500;
 	private JButton okay;
 
 	/**
-	 * Creates a new RulesGuiInterface
+	 * Creates a new RulesGuiPanel
 	 */
-	public RulesGuiInterface()
+	public RulesGuiPanel()
 	{
 		okay = new JButton("Got it");
 		okay.addActionListener(new ButtonListener());

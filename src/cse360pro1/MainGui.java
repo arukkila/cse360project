@@ -202,7 +202,7 @@ public class MainGui extends javax.swing.JFrame {
      */
     private void rulesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rulesButtonActionPerformed
         JDialog dialog = new JDialog(this, "Rules");
-        RulesGuiInterface panel = new RulesGuiInterface();
+        RulesGuiPanel panel = new RulesGuiPanel();
         dialog.getContentPane().add(panel);
         dialog.pack();
         dialog.setVisible(true);
