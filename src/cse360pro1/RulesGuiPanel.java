@@ -48,19 +48,19 @@ public class RulesGuiPanel extends JPanel
 		page.setColor(Color.black);
 		page.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 		
-		page.drawString("1. Players roll 3 dice at a time.", WIDTH/2 - 200, HEIGHT/2 - 200);
-		page.drawString("2. Players must roll and record those stats every turn.", WIDTH/2 - 200, HEIGHT/2 - 200 + 30);
-		page.drawString("3. Any player to roll 3 1s automatically loses and", WIDTH/2 - 200, HEIGHT/2 - 200 + 60);
-		page.drawString("must wait for the next game.", WIDTH/2 - 180, HEIGHT/2 - 200 + 90);
-		page.drawString("4. The first player to roll all 6s wins the game", WIDTH/2 - 200, HEIGHT/2 - 200 + 120);
-		page.drawString("no matter the scores.", WIDTH/2 - 180, HEIGHT/2 - 200 + 150);
-		page.drawString("5. If a player rolls all 3s all other players scores", WIDTH/2 - 200, HEIGHT/2 - 200 + 180);
-		page.drawString("reset to 0.", WIDTH/2 - 180, HEIGHT/2 - 200 + 210);
-		page.drawString("6. If a player rolls two of a kind they can roll again.", WIDTH/2 - 200, HEIGHT/2 - 200 + 240);
-		page.drawString("7. The first player with a total >= 100 wins the game.", WIDTH/2 - 200, HEIGHT/2 - 200 + 270);
-		page.drawString("8. The end of the game will rank all of the players on", WIDTH/2 - 200, HEIGHT/2 - 200 + 300);
-		page.drawString("who is closest to 100.", WIDTH/2 - 180, HEIGHT/2 - 200 + 330);
-		page.drawString("9. Game requires four players to start.", WIDTH/2 - 200, HEIGHT/2 - 200 + 360);
+		page.drawString("1. Players roll 3 dice at a time.", 50, 50);
+		page.drawString("2. Players must roll and record those stats every turn.", 50, 50 + 30);
+		page.drawString("3. Any player to roll 3 1s automatically loses and", 50, 50 + 60);
+		page.drawString("must wait for the next game.", 70, 50 + 90);
+		page.drawString("4. The first player to roll all 6s wins the game", 50, 50 + 120);
+		page.drawString("no matter the scores.", 70, 50 + 150);
+		page.drawString("5. If a player rolls all 3s all other players scores", 50, 50 + 180);
+		page.drawString("reset to 0.", 70, 50 + 210);
+		page.drawString("6. If a player rolls two of a kind they can roll again.", 50, 50 + 240);
+		page.drawString("7. The first player with a total >= 100 wins the game.", 50, 50 + 270);
+		page.drawString("8. The end of the game will rank all of the players on", 50, 50 + 300);
+		page.drawString("who is closest to 100.", 70, 50 + 330);
+		page.drawString("9. Game requires four players to start.", 50, 50 + 360);
 
 	}
 }
