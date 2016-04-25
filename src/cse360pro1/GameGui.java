@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
-    /**
+	/**
      * Underlying game logic.
      */
     private GameModelInterface gameModel;
@@ -37,25 +37,34 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         private int count = 0;
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            count++;
-            int side1;
-            while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
-            int side2;
-            while ((side2 = RAND.nextInt(6) + 1) == diceImage2.getSide());
-            int side3;
-            while ((side3 = RAND.nextInt(6) + 1) == diceImage3.getSide());
-            diceImage1.setSide(side1);
-            diceImage2.setSide(side2);
-            diceImage3.setSide(side3);
-            if (count >= 8) {
-                TIMER.stop();
-                count = 0;
-                if (gameModel != null) {
-                    gameModel.roll();
-                }
-                rollButton.setEnabled(true);
-            }
+        public void actionPerformed(ActionEvent e){
+        	if(!gameModel.gameWon())
+        	{
+	            count++;
+	            int side1;
+	            while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
+	            int side2;
+	            while ((side2 = RAND.nextInt(6) + 1) == diceImage2.getSide());
+	            int side3;
+	            while ((side3 = RAND.nextInt(6) + 1) == diceImage3.getSide());
+	            diceImage1.setSide(side1);
+	            diceImage2.setSide(side2);
+	            diceImage3.setSide(side3);
+	            if (count >= 8) {
+	                TIMER.stop();
+	                count = 0;
+	                if (gameModel != null) {
+	                    gameModel.roll();
+	                }
+	                rollButton.setEnabled(true);
+	            }
+        	}
+        	else
+        	{
+		    	TIMER.stop();
+		    	gameModel.roll();
+		    	rollButton.setEnabled(true);
+        	}
         }
     });
     
