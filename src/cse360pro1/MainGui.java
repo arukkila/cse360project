@@ -47,7 +47,8 @@ public class MainGui extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         titleLabel = new javax.swing.JLabel();
         playerListPanel = new javax.swing.JPanel();
@@ -67,6 +68,13 @@ public class MainGui extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dice Simulator 2016");
+        addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentShown(java.awt.event.ComponentEvent evt)
+            {
+                formComponentShown(evt);
+            }
+        });
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -105,8 +113,10 @@ public class MainGui extends javax.swing.JFrame {
 
         startGameButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         startGameButton.setText("Start game");
-        startGameButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        startGameButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 startGameButtonActionPerformed(evt);
             }
         });
@@ -114,8 +124,10 @@ public class MainGui extends javax.swing.JFrame {
 
         rulesButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         rulesButton.setText("Rules");
-        rulesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        rulesButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 rulesButtonActionPerformed(evt);
             }
         });
@@ -123,8 +135,10 @@ public class MainGui extends javax.swing.JFrame {
 
         statsButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         statsButton.setText("Stats");
-        statsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        statsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 statsButtonActionPerformed(evt);
             }
         });
@@ -132,8 +146,10 @@ public class MainGui extends javax.swing.JFrame {
 
         exitButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         exitButton.setText("Exit");
-        exitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        exitButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 exitButtonActionPerformed(evt);
             }
         });
@@ -209,6 +225,16 @@ public class MainGui extends javax.swing.JFrame {
         dialog.pack();
         dialog.setVisible(true);
     }//GEN-LAST:event_rulesButtonActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentShown
+    {//GEN-HEADEREND:event_formComponentShown
+        updatePlayerList();
+    }//GEN-LAST:event_formComponentShown
+
+    private void statsButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_statsButtonActionPerformed
+    {//GEN-HEADEREND:event_statsButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statsButtonActionPerformed
 
     /**
      * Handles Stats button click.
