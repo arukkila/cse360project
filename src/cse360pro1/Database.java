@@ -115,7 +115,7 @@ public class Database
 		String extension;
 		playerData.clear();
 		
-		for(int index = 0; index < fileList.length ; index++)
+		for(int index = 0; index < fileList.length; index++)
 		{
 			extension = fileList[index].getName().substring(fileList[index].getName().lastIndexOf(".") + 1, fileList[index].getName().length());
 			
