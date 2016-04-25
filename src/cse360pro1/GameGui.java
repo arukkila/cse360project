@@ -336,6 +336,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
                 // let the gameModel know we are canceling the game
                 // so it can do what it needs to
                 gameModel.endGame();
+                
             }
             setVisible(false);
             dispose();

@@ -126,6 +126,11 @@ public class MainGui extends javax.swing.JFrame {
 
         statsButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         statsButton.setText("Stats");
+        statsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statsButtonActionPerformed(evt);
+            }
+        });
         buttonPanel.add(statsButton);
 
         exitButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -208,6 +213,19 @@ public class MainGui extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_rulesButtonActionPerformed
 
+    /**
+     * Handles Stats button click.
+     * @param evt Associated event.
+     */
+    private void statsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsButtonActionPerformed
+        JDialog dialog = new JDialog(this, "Statistics");
+        StatsGuiPanel panel = new StatsGuiPanel();
+        dialog.getContentPane().add(panel);
+        dialog.pack();
+        dialog.setVisible(true);
+    }//GEN-LAST:event_statsButtonActionPerformed
+    
+    
     /**
      * Main entry point of the program.
      * @param args the command line arguments
