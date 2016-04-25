@@ -113,18 +113,22 @@ public class Database
 	public void loadPlayers()
 	{
 		String extension;
+		int index = 0;
+		int arrayIndex = 0;
 		playerData.clear();
 		
-		for(int index = 0; index < fileList.length - 1; index++)
+		while(index < fileList.length)
 		{
 			extension = fileList[index].getName().substring(fileList[index].getName().lastIndexOf(".") + 1, fileList[index].getName().length());
 			
 			if(fileList[index].isFile() && extension.equals("stat"))
 			{
-				playerData.add(index, deserializeObject(fileList[index].getName()));
+				playerData.add(arrayIndex, deserializeObject(fileList[index].getName()));
+				arrayIndex++;
 			}
-			
-		}	
+			index++;
+		}
+		
 	}
 	
 	/**
@@ -188,7 +192,7 @@ public class Database
 	
 	//Just testing stuffs
 	//seems to work to my knowledge
-	/*public static void main(String[] args) 
+/*	public static void main(String[] args) 
 	{
 		//Player JohnCena = new Player("John");
 		//Player[] test = new Player[100];
@@ -211,5 +215,6 @@ public class Database
 		//System.out.println("Overall Score: " + store.getPlayerDatabase().get(1).getLifeTimeScore());
 		
 	}
-	*/
+*/
+	
 }
