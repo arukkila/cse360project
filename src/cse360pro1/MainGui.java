@@ -23,13 +23,10 @@ public class MainGui extends javax.swing.JFrame {
 
     /**
      * Updates the list of players in the dropdown based on prior stats.
-     * @param stats Stats object.
      */
-    public void updatePlayerList(StatsModelInterface stats) {
-        String[] playerList = new String[stats.getAllPlayerEverCount()];
-        for (int index = 0; index < stats.getAllPlayerEverCount(); index++) {
-            playerList[index] = stats.getPlayer(index).getName();
-        }
+    private void updatePlayerList() {
+		ArrayList<String> playerNameList = Database.getSingleton().getAllPlayerNames();
+        String[] playerNameArray = playerNameList.toArray(new String[playerNameList.size()]);
         JComboBox[] comboBoxes = {
             player1Combo,
             player2Combo,
@@ -37,7 +34,7 @@ public class MainGui extends javax.swing.JFrame {
             player4Combo,
         };
         for (int index = 0; index < 4; index++) {
-            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(playerList);
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(playerNameArray);
             model.setSelectedItem("");
             comboBoxes[index].setModel(model);
         }
@@ -258,34 +255,12 @@ public class MainGui extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 MainGui gui = new MainGui();
-                DummyStats stats = new DummyStats();
-                gui.updatePlayerList(stats);
                 gui.setVisible(true);
             }
         });
     }
 
 
-    /**
-     * For testing. 
-     * Added saved players in the drop down box in this. Dont know if there was a plan to 
-     * add it somewhere else but it works
-     */
-    private static class DummyStats implements StatsModelInterface {
-
-        private Database database = new Database();
-    	private ArrayList<Player> players = database.getPlayerDatabase();
-        
-        @Override
-        public Player getPlayer(int index) {
-            return players.get(index);
-        }
-
-        @Override
-        public int getAllPlayerEverCount() {
-            return players.size();
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonPanel;
