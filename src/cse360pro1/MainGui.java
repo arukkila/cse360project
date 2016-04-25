@@ -231,24 +231,19 @@ public class MainGui extends javax.swing.JFrame {
         updatePlayerList();
     }//GEN-LAST:event_formComponentShown
 
-    private void statsButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_statsButtonActionPerformed
-    {//GEN-HEADEREND:event_statsButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statsButtonActionPerformed
-
-    /**
+	/**
      * Handles Stats button click.
      * @param evt Associated event.
      */
-    private void statsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsButtonActionPerformed
+    private void statsButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_statsButtonActionPerformed
+    {//GEN-HEADEREND:event_statsButtonActionPerformed
         JDialog dialog = new JDialog(this, "Statistics");
         StatsGuiPanel panel = new StatsGuiPanel();
         dialog.getContentPane().add(panel);
         dialog.pack();
         dialog.setVisible(true);
     }//GEN-LAST:event_statsButtonActionPerformed
-    
-    
+
     /**
      * Main entry point of the program.
      * @param args the command line arguments
