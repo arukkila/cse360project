@@ -115,6 +115,9 @@ public class Database
 		String extension;
 		int index = 0;
 		int arrayIndex = 0;
+		folder = new File("./stats");
+		fileList = folder.listFiles();
+		
 		playerData.clear();
 		
 		while(index < fileList.length)
