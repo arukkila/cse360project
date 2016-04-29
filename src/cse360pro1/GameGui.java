@@ -325,9 +325,9 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param evt Event object.
      */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
-        rollButton.setEnabled(false);
-        if(!gameModel.gameWon())
-        {
+    	if(!gameModel.gameWon()) {
+        	rollButton.setEnabled(false);
+        	
 	        // play dice rolling audio
 	        Clip clip = null;
 			try {
@@ -351,11 +351,9 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 				e.printStackTrace();
 			}
 	        
-	        clip.start();
+	        clip.start(); 
         }
-	    
         TIMER.start();
-        
     }//GEN-LAST:event_rollButtonActionPerformed
 
     /**
