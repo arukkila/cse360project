@@ -1,1 +1,7 @@
-/bin/
+#folders
+bin/
+stats/
+
+# eclipse files
+.classpath
+.project
