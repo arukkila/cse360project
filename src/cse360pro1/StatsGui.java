@@ -10,11 +10,21 @@ public class StatsGui
 {
 	public static void main(String[] args)
 	{
-		JFrame frame = new JFrame("Statistics");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		StatsGuiPanel panel = new StatsGuiPanel();
-		frame.getContentPane().add(panel);
-		frame.pack();
-		frame.setVisible(true);       
+		java.awt.EventQueue.invokeLater(new Runnable()
+		{
+            public void run()
+            {
+                try
+                {
+                    UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+                                //  "com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+                                //UIManager.getCrossPlatformLookAndFeelClassName());
+                } catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+                new StatsGuiPanel().setVisible(true);
+            }
+        });       
 	}
 }
