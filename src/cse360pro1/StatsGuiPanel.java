@@ -66,7 +66,7 @@ public class StatsGuiPanel extends JPanel
 			@Override
 			public int compare(Integer arg0, Integer arg1)
 			{
-				return arg0.intValue() - arg1.intValue();
+				return arg1.intValue() - arg0.intValue();
 			}
 		};
 		Comparator<String> stringComparator = new Comparator<String>()
@@ -83,8 +83,8 @@ public class StatsGuiPanel extends JPanel
 			public int compare(String arg0, String arg1)
 			{
 				// there are better ways to do this
-				return Integer.valueOf(arg0.substring(0, arg0.length()-1)).
-						compareTo(Integer.valueOf(arg1.substring(0, arg1.length()-1)));
+				return Integer.valueOf(arg1.substring(0, arg1.length()-1)).
+						compareTo(Integer.valueOf(arg0.substring(0, arg0.length()-1)));
 			}
 		};
 		sorter.setComparator(0, intComparator);
@@ -101,7 +101,6 @@ public class StatsGuiPanel extends JPanel
 		sorter.setComparator(1, stringComparator);
 		sorter.setComparator(4, percentComparator);
 		sorter.toggleSortOrder(0);
-		sorter.toggleSortOrder(0); // for descending
 
 		JTable tableStats = new JTable(dataModel);
 		tableStats.getColumnModel().getColumn(0).setPreferredWidth(100);
