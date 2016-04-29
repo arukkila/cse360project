@@ -34,12 +34,7 @@ public class Database
 	
 	Database()
 	{
-		folder = new File("./stats");
-		fileList = folder.listFiles();
-		if (fileList == null)
-			fileList = new File[0];
 		playerData =  new ArrayList<Player>();
-		
 		loadPlayers();
 	}
 	
@@ -115,6 +110,12 @@ public class Database
 		String extension;
 		int index = 0;
 		int arrayIndex = 0;
+		
+		folder = new File("./stats");
+		fileList = folder.listFiles();
+		if (fileList == null)
+			fileList = new File[0];
+		
 		playerData.clear();
 		
 		while(index < fileList.length)
