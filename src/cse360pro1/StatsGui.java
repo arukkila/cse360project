@@ -15,6 +15,6 @@ public class StatsGui
 		StatsGuiPanel panel = new StatsGuiPanel();
 		frame.getContentPane().add(panel);
 		frame.pack();
-		frame.setVisible(true);
+		frame.setVisible(true);       
 	}
 }

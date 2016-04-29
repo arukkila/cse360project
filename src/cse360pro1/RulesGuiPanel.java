@@ -11,7 +11,6 @@ import javax.swing.*;
  */
 public class RulesGuiPanel extends JPanel
 {
-	private final int WIDTH = 500, HEIGHT = 500;
 	private JButton okay;
 
 	/**
