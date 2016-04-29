@@ -1,180 +1,127 @@
 package cse360pro1;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
-import javax.swing.*;
-
-import static javax.swing.GroupLayout.Alignment.*;
+import java.util.Comparator;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  * Graphic User Interface for viewing the rules of the game
  * 
  * @author Denise Perry
  */
-public class StatsGuiPanel extends JFrame
+public class StatsGuiPanel extends JPanel
 {
-	private final int WIDTH = 500;
-	private final int HEIGHT = 500;
-	private JButton okay;
-	private JButton compare;
-	private JTextField player1Stats;
-	private JTextField player2Stats;
-	private JComboBox<String> player1Combo;
-	private JComboBox<String> player2Combo;
-	private JLabel player1Label;
-	private JLabel player2Label;
-	private JLabel player1Name;
-	private JLabel player2Name;
-	private JLabel player1Temp;
-	private JLabel player2Temp;
-	private JLabel instructions1;
-	private JLabel instructions2;
-	private JFrame layout;
-	
-	
+	private final int WIDTH = 800;
+	private final int HEIGHT = 300;
+	private JButton btnDone;
+
 	/**
 	 * Creates a new StatsGuiPanel
 	 */
 	public StatsGuiPanel()
 	{
-		setPreferredSize(new Dimension(500, 500));
+		btnDone = new JButton("Done");
+		btnDone.addActionListener(new ButtonListener());
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		
-		GroupLayout layout = new GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setAutoCreateGaps(true);
-		layout.setAutoCreateContainerGaps(true);
+		this.setLayout(new BorderLayout());
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(btnDone);
+		this.add(buttonPanel,BorderLayout.SOUTH);
 		
-		player1Stats = new JTextField();
-		player2Stats = new JTextField();
-		okay = new JButton("Done");
-		okay.addActionListener(new ButtonListener());
-		compare = new JButton("Compare Stats");
-		instructions1 = new JLabel("Select two players from the dropdown lists");
-		instructions2 = new JLabel("to compare statistics.");
-		player1Stats.setText("Player One's Stats here");
-		player1Stats.setEditable(false);
-		player2Stats.setText("Player Two's Stats here");
-		player2Stats.setEditable(false);
-		player1Label = new JLabel("Player 1");
-		player2Label = new JLabel("Player 2");
-		
-		player1Name = new JLabel("TempName 1");
-		player2Name = new JLabel("TempName 2");
-		player1Temp = new JLabel("Temp 1");
-		player2Temp = new JLabel("Temp 2");
+		Object[] columnNames = { "Score", "Player", "Wins", "Losses", "Ratio", "Games", 
+								 "Rolls", "1s", "2s", "3s", "4s", "5s", "6s" };
+		ArrayList<Player> players = Database.getSingleton().getPlayerDatabase();
+		DefaultTableModel dataModel = new DefaultTableModel(columnNames, 0);
 
-
-		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(instructions1)
-						.addComponent(instructions2)
-						.addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(player1Label)
-										.addComponent(player1Temp))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(player2Label)
-										.addComponent(player2Temp)))
-						.addComponent(compare)
-						.addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(player1Name)
-										.addComponent(player1Stats))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(player2Name)
-										.addComponent(player2Stats)))
-						.addComponent(okay)
-				)
-			);
-
-		layout.linkSize(SwingConstants.HORIZONTAL, okay, compare);
-		
-		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addComponent(instructions1)
-				.addComponent(instructions2)
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(player1Label)
-						.addComponent(player2Label))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(player1Temp)
-						.addComponent(player2Temp))
-				.addComponent(compare)
-				.addGroup(layout.createSequentialGroup()
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addComponent(player1Name)
-								.addComponent(player2Name))
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addComponent(player1Stats)
-								.addComponent(player2Stats))
-						)
-				.addComponent(okay)
-				);
-		
-        setTitle("Statistics");
-        pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	}
-	
-	private class ButtonListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			if(event.getSource() == okay) {
-                            getRootPane().getParent().setVisible(false);
-                        }
+		// add player data
+		for (Player p : players) {
+			Object[] data = new Object[13];
+			data[0] = p.getLifeTimeScore();
+			data[1] = p.getName();
+			data[2] = p.getWins();
+			data[3] = p.getLosses();
+			data[4] = Math.round(100*p.getRatio())+"%";
+			data[5] = p.getNumberOfGame();
+			data[6] = p.getNumberOfRolls();
+			data[7] = p.getOnes();
+			data[8] = p.getTwos();
+			data[9] = p.getThrees();
+			data[10] = p.getFours();
+			data[11] = p.getFives();
+			data[12] = p.getSixes();
+			dataModel.addRow(data);
+			dataModel.fireTableDataChanged();
 		}
-	}
-	
-/*	
-	private void updatePlayerList()
-	{
-		ArrayList<String> playerNameList = Database.getSingleton().getAllPlayerNames();
-		String[] playerNameArray = playerNameList.toArray(new String[playerNameList.size()]);
-		JComboBox[] comboBoxes =
+		
+		// create sorter
+		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(dataModel);
+		Comparator<Integer> intComparator = new Comparator<Integer>()
 		{
-				player1Combo,
-				player2Combo,
-		}:
-	
-	for (int index = 0; index < 2; index++)
-	{
-		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(playerNameArray);
-		model.setSelectedItem("");
-		comboBoxes[index].setModel(model);
+			@Override
+			public int compare(Integer arg0, Integer arg1)
+			{
+				return arg0.intValue() - arg1.intValue();
+			}
+		};
+		Comparator<String> stringComparator = new Comparator<String>()
+		{
+			@Override
+			public int compare(String arg0, String arg1)
+			{
+				return arg0.toLowerCase().compareTo(arg1.toLowerCase());
+			}
+		};
+		Comparator<String> percentComparator = new Comparator<String>()
+		{
+			@Override
+			public int compare(String arg0, String arg1)
+			{
+				// there are better ways to do this
+				return Integer.valueOf(arg0.substring(0, arg0.length()-1)).
+						compareTo(Integer.valueOf(arg1.substring(0, arg1.length()-1)));
+			}
+		};
+		sorter.setComparator(0, intComparator);
+		sorter.setComparator(2, intComparator);
+		sorter.setComparator(3, intComparator);
+		sorter.setComparator(5, intComparator);
+		sorter.setComparator(6, intComparator);
+		sorter.setComparator(7, intComparator);
+		sorter.setComparator(8, intComparator);
+		sorter.setComparator(9, intComparator);
+		sorter.setComparator(10, intComparator);
+		sorter.setComparator(11, intComparator);
+		sorter.setComparator(12, intComparator);
+		sorter.setComparator(1, stringComparator);
+		sorter.setComparator(4, percentComparator);
+		sorter.toggleSortOrder(0);
+		sorter.toggleSortOrder(0); // for descending
+
+		JTable tableStats = new JTable(dataModel);
+		tableStats.getColumnModel().getColumn(0).setPreferredWidth(100);
+		tableStats.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tableStats.setRowSorter(sorter);
+		tableStats.setColumnSelectionAllowed(true);
+		tableStats.setShowVerticalLines(false);
+		tableStats.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JScrollPane scrollPane = new JScrollPane(tableStats);
+		this.add(scrollPane, BorderLayout.CENTER);
 	}
-	}
-	
 	
 	private class ButtonListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(event.getSource() == okay) {
+			if(event.getSource() == btnDone) {
 				getRootPane().getParent().setVisible(false);
 			}
 		}
 	}
-	protected void makebutton(String name,
-			GridBagLayout gridbag, GridBagConstraints c)
-		{
-			Button button = new Button(name);
-			gridbag.setConstraints(button, c);
-			add(button);
-		}
-	
-
-	public void paintComponent(Graphics page)
-	{
-		super.paintComponent(page);
-		page.setColor(Color.black);
-		page.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-		
-		page.drawString("Stats go here.", 50, 50);
-
-	}
-*/
 }
