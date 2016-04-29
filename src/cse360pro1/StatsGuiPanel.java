@@ -1,9 +1,11 @@
 package cse360pro1;
 
 import java.awt.*;
-import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
+
 import static javax.swing.GroupLayout.Alignment.*;
 
 import javax.swing.*;
@@ -29,7 +31,8 @@ public class StatsGuiPanel extends JFrame
 	private JLabel player2Name;
 	private JLabel player1Temp;
 	private JLabel player2Temp;
-	private JLabel instructions;
+	private JLabel instructions1;
+	private JLabel instructions2;
 	private JFrame layout;
 	
 	
@@ -38,6 +41,8 @@ public class StatsGuiPanel extends JFrame
 	 */
 	public StatsGuiPanel()
 	{
+		setPreferredSize(new Dimension(500, 500));
+		
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setAutoCreateGaps(true);
@@ -46,8 +51,10 @@ public class StatsGuiPanel extends JFrame
 		player1Stats = new JTextField();
 		player2Stats = new JTextField();
 		okay = new JButton("Done");
+		okay.addActionListener(new ButtonListener());
 		compare = new JButton("Compare Stats");
-		instructions = new JLabel("Select two players from the dropdown lists\nto compare statistics.");
+		instructions1 = new JLabel("Select two players from the dropdown lists");
+		instructions2 = new JLabel("to compare statistics.");
 		player1Stats.setText("Player One's Stats here");
 		player1Stats.setEditable(false);
 		player2Stats.setText("Player Two's Stats here");
@@ -63,7 +70,8 @@ public class StatsGuiPanel extends JFrame
 
 		layout.setHorizontalGroup(layout.createSequentialGroup()
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(instructions)
+						.addComponent(instructions1)
+						.addComponent(instructions2)
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 										.addComponent(player1Label)
@@ -83,11 +91,11 @@ public class StatsGuiPanel extends JFrame
 				)
 			);
 
-		setPreferredSize(new Dimension(500, 500));
 		layout.linkSize(SwingConstants.HORIZONTAL, okay, compare);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addComponent(instructions)
+				.addComponent(instructions1)
+				.addComponent(instructions2)
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addComponent(player1Label)
 						.addComponent(player2Label))
@@ -103,12 +111,24 @@ public class StatsGuiPanel extends JFrame
 								.addComponent(player1Stats)
 								.addComponent(player2Stats))
 						)
+				.addComponent(okay)
 				);
 		
         setTitle("Statistics");
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
+	
+	private class ButtonListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent event)
+		{
+			if(event.getSource() == okay) {
+                            getRootPane().getParent().setVisible(false);
+                        }
+		}
+	}
+	
 /*	
 	private void updatePlayerList()
 	{
