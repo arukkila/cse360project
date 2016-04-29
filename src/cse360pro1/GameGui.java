@@ -326,32 +326,36 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         rollButton.setEnabled(false);
-        
-        // play dice rolling audio
-        Clip clip = null;
-		try {
-			clip = AudioSystem.getClip();
-		} catch (LineUnavailableException e1) {
-			e1.printStackTrace();
-		}
-        AudioInputStream inputStream = null;
-		try {
-			inputStream = AudioSystem.getAudioInputStream(GameGui.class.getResourceAsStream("/res/d6_roll.wav"));
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        try {
-			clip.open(inputStream);
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        clip.start(); 
+        if(!gameModel.gameWon())
+        {
+	        // play dice rolling audio
+	        Clip clip = null;
+			try {
+				clip = AudioSystem.getClip();
+			} catch (LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
+	        AudioInputStream inputStream = null;
+			try {
+				inputStream = AudioSystem.getAudioInputStream(GameGui.class.getResourceAsStream("/res/d6_roll.wav"));
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	        try {
+				clip.open(inputStream);
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	        
+	        clip.start();
+        }
+	    
         TIMER.start();
+        
     }//GEN-LAST:event_rollButtonActionPerformed
 
     /**

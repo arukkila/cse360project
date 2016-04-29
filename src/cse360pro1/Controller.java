@@ -210,7 +210,7 @@ public class Controller implements GameModelInterface
 			guiInterface.notifyModelChanged();
 
 			//check if player is active and score is 100 or more
-			if(playerList[currentPlayer].getScore() >= 10 &&
+			if(playerList[currentPlayer].getScore() >= 100 &&
 			   playerList[currentPlayer].getPlayerStatus())
 			{
 							gameWon = true;
