@@ -2,9 +2,16 @@ package cse360pro1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.Random;
-import javax.swing.Timer;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.Timer;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -32,7 +39,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     private final MainGui MAIN_GUI;
 
-    private final Timer TIMER = new Timer(250, new ActionListener() {
+    private final Timer TIMER = new Timer(115, new ActionListener() {
         final Random RAND = new Random();
         private int count = 0;
 
@@ -41,12 +48,10 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         	if(!gameModel.gameWon())
         	{
 	            count++;
-	            int side1;
-	            while ((side1 = RAND.nextInt(6) + 1) == diceImage1.getSide());
-	            int side2;
-	            while ((side2 = RAND.nextInt(6) + 1) == diceImage2.getSide());
-	            int side3;
-	            while ((side3 = RAND.nextInt(6) + 1) == diceImage3.getSide());
+	            // works better with the audio when they're not unique
+	            int side1 = RAND.nextInt(6) + 1;
+	            int side2 = RAND.nextInt(6) + 1;
+	            int side3 = RAND.nextInt(6) + 1;
 	            diceImage1.setSide(side1);
 	            diceImage2.setSide(side2);
 	            diceImage3.setSide(side3);
@@ -97,6 +102,13 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         notifyModelChanged();
     }
     
+    
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+        	rollButton.doClick();
+        }
+
+    }
     @Override
     public void showMessage(String messageYo)
     {
@@ -279,12 +291,13 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         rollButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         rollButton.setIcon(new ImageIcon(DiceImage.getRollImage(90, 74)));
         rollButton.setToolTipText("Roll");
-        rollButton.setPreferredSize(new java.awt.Dimension(150, 37));
+        rollButton.setPreferredSize(new java.awt.Dimension(150, 37));        
         rollButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rollButtonActionPerformed(evt);
             }
         });
+        getRootPane().setDefaultButton(rollButton);
         buttonPanel.add(rollButton, java.awt.BorderLayout.WEST);
 
         dicePanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -321,7 +334,34 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param evt Event object.
      */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
-        rollButton.setEnabled(false);
+    	if(!gameModel.gameWon()) {
+        	rollButton.setEnabled(false);
+        	
+	        // play dice rolling audio
+	        Clip clip = null;
+			try {
+				clip = AudioSystem.getClip();
+			} catch (LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
+	        AudioInputStream inputStream = null;
+			try {
+				inputStream = AudioSystem.getAudioInputStream(GameGui.class.getResourceAsStream("/res/d6_roll.wav"));
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	        try {
+				clip.open(inputStream);
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	        
+	        clip.start(); 
+        }
         TIMER.start();
     }//GEN-LAST:event_rollButtonActionPerformed
 
