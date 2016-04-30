@@ -75,6 +75,8 @@ public class DatabaseTester
 	}
 
 	@Test
+	// must be run with an empty stats folder to pass. otherwise the player will
+	// be loaded in a different order than is being tested for
 	public void testGetAllPlayerNames() 
 	{
 		Database database = new Database();
@@ -88,6 +90,8 @@ public class DatabaseTester
 	}
 
 	@Test
+	//This test need to be run twice to pass.
+	//Players are not saved in the stats folder until the test is run once.
 	public void testGetPlayerDatabase() 
 	{
 		Database database = new Database();
