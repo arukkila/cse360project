@@ -32,7 +32,7 @@ public class Dice
 	 */
 	public int roll()
 	{
-		return number.nextInt(this.sides) + 4; 
+		return number.nextInt(this.sides) + 1; 
 	}	
 
 }

@@ -42,7 +42,7 @@ public class Controller implements GameModelInterface
 		playerList[2] = database.getPlayerForName(name3);
 		playerList[3] = database.getPlayerForName(name4);
 		
-		die = new Dice(3);
+		die = new Dice(6);
 		Random rand = new Random();
 		
 		lastRoll = new int[3];
@@ -50,7 +50,10 @@ public class Controller implements GameModelInterface
 		for(int index = 0; index < lastRoll.length; index++)
 			lastRoll[index] = 0;
 		
-		currentPlayer = rand.nextInt(4);	
+		currentPlayer = rand.nextInt(4);
+		
+		for(int index = 0; index < 4; index++)
+			playerList[index].resetScore();
 	}
 	
 	/**
