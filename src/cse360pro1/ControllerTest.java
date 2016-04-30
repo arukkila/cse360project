@@ -48,7 +48,7 @@ public class ControllerTest {
         controller.setGameGui(new DummyGameGuiInterface());
         int currentPlayer = controller.getCurrentPlayer();
         int nextPlayer = controller.getNextPlayer();
-        assertEquals(currentPlayer + 1, nextPlayer);
+        assertEquals((currentPlayer + 1) % 4, nextPlayer);
     }
 
     @Test
