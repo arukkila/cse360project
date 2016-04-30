@@ -1,5 +1,6 @@
 package cse360pro1;
 
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -203,6 +204,9 @@ public class MainGui extends javax.swing.JFrame {
 			gui.setModel(model);
 			setVisible(false);
 			gui.setVisible(true);
+			// start centered in the screen
+			gui.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 - gui.getSize().width/2, 
+					Toolkit.getDefaultToolkit().getScreenSize().height/2 - gui.getSize().height/2);
 		}
     }//GEN-LAST:event_startGameButtonActionPerformed
 
@@ -224,6 +228,8 @@ public class MainGui extends javax.swing.JFrame {
         dialog.getContentPane().add(panel);
         dialog.pack();
         dialog.setVisible(true);
+        dialog.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 - dialog.getSize().width/2, 
+				Toolkit.getDefaultToolkit().getScreenSize().height/2 - dialog.getSize().height/2);
     }//GEN-LAST:event_rulesButtonActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentShown
@@ -242,6 +248,8 @@ public class MainGui extends javax.swing.JFrame {
         dialog.getContentPane().add(panel);
         dialog.pack();
         dialog.setVisible(true);
+        dialog.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 - dialog.getSize().width/2, 
+				Toolkit.getDefaultToolkit().getScreenSize().height/2 - dialog.getSize().height/2);
     }//GEN-LAST:event_statsButtonActionPerformed
 
     /**
@@ -277,6 +285,9 @@ public class MainGui extends javax.swing.JFrame {
             public void run() {
                 MainGui gui = new MainGui();
                 gui.setVisible(true);
+                // start centered in the screen
+    			gui.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 - gui.getSize().width/2, 
+    					Toolkit.getDefaultToolkit().getScreenSize().height/2 - gui.getSize().height/2);
             }
         });
     }
