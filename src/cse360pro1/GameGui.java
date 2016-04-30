@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 
 /**
  * Graphical user interface for playing the game.
@@ -202,28 +204,26 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     private void playAudio(String filename)
     {
-    	 Clip clip = null;
 			try {
-				clip = AudioSystem.getClip();
+				Clip clip = clip = AudioSystem.getClip();
+				AudioInputStream inputStream =
+						AudioSystem.getAudioInputStream(GameGui.class.getResourceAsStream("/res/" + filename));
+				clip.open(inputStream);
+				clip.addLineListener(new LineListener(){
+					public void update(LineEvent event){
+						if(event.getType() == LineEvent.Type.STOP){
+							event.getLine().close();
+						}
+					}
+				});
+				clip.start();
 			} catch (LineUnavailableException e1) {
 				e1.printStackTrace();
-			}
-	        AudioInputStream inputStream = null;
-			try {
-				inputStream = AudioSystem.getAudioInputStream(GameGui.class.getResourceAsStream("/res/" + filename));
 			} catch (UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	        try {
-				clip.open(inputStream);
-			} catch (LineUnavailableException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	        clip.start();
     }
 
     /**
