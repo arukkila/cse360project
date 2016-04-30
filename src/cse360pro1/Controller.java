@@ -54,9 +54,8 @@ public class Controller implements GameModelInterface
 		
 		for(int index = 0; index < 4; index++)
 		{
-			playerList[index].setPlayerStatus(true);
-			playerList[index].resetStatus();
 			playerList[index].resetScore();
+			playerList[index].setPlayerStatus(true);
 		}
 	}
 	
