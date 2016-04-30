@@ -207,7 +207,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 			try {
 				Clip clip = clip = AudioSystem.getClip();
 				AudioInputStream inputStream =
-						AudioSystem.getAudioInputStream(GameGui.class.getResourceAsStream("/res/" + filename));
+						AudioSystem.getAudioInputStream(GameGui.class.getResource("/res/" + filename));
 				clip.open(inputStream);
 				clip.addLineListener(new LineListener(){
 					public void update(LineEvent event){
