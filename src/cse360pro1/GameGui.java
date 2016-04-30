@@ -138,25 +138,77 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             }
         } else {
             if (gameModel != null) {
-                Player currentPlayer = gameModel.getCurrentPlayerInCurrentGame();
-                currentPlayerNameLabel.setText(currentPlayer.getName());
-                currentTotalValueLabel.setText(String.valueOf(currentPlayer.getScore()));
-                int index = 0;
-                while (!currentPlayer.equals(gameModel.getPlayerInCurrentGame(index))) {
-                    index++;
-                }
-                playerTable.getSelectionModel().setSelectionInterval(index, index);
-
-                int[] lastRoll = gameModel.getLastRoll();
-                diceImage1.setSide(lastRoll[0]);
-                diceImage2.setSide(lastRoll[1]);
-                diceImage3.setSide(lastRoll[2]);
+            	if (gameModel.gameWon()) {
+            		playVictoryAudio();
+            	} else {
+	                Player currentPlayer = gameModel.getCurrentPlayerInCurrentGame();
+	                currentPlayerNameLabel.setText(currentPlayer.getName());
+	                currentTotalValueLabel.setText(String.valueOf(currentPlayer.getScore()));
+	                int index = 0;
+	                while (!currentPlayer.equals(gameModel.getPlayerInCurrentGame(index))) {
+	                    index++;
+	                }
+	                playerTable.getSelectionModel().setSelectionInterval(index, index);
+	
+	                int[] lastRoll = gameModel.getLastRoll();
+	                diceImage1.setSide(lastRoll[0]);
+	                diceImage2.setSide(lastRoll[1]);
+	                diceImage3.setSide(lastRoll[2]);
+            	}
             } else {
                 currentPlayerNameLabel.setText("");
                 currentTotalValueLabel.setText("");
             }
             TABLE_MODEL.fireTableRowsUpdated(0, 10);
         }
+    }
+    
+    /**
+     * Plays a randomly selected victory audio file
+     */
+    private void playVictoryAudio()
+    {
+    	Random rand = new Random();
+    	int winNum = rand.nextInt(3)+1;
+    	playAudio("win"+winNum+".wav");
+    }
+    
+    /**
+     * Plays the dice rolling audio file
+     */
+    private void playRollAudio()
+    {
+    	playAudio("d6_roll.wav");
+    }
+    
+    /**
+     * Plays an audio file from the res directory
+     * @param filename
+     */
+    private void playAudio(String filename)
+    {
+    	 Clip clip = null;
+			try {
+				clip = AudioSystem.getClip();
+			} catch (LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
+	        AudioInputStream inputStream = null;
+			try {
+				inputStream = AudioSystem.getAudioInputStream(GameGui.class.getResourceAsStream("/res/" + filename));
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	        try {
+				clip.open(inputStream);
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	        clip.start();
     }
 
     /**
@@ -346,31 +398,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
     	if(!gameModel.gameWon()) {
         	rollButton.setEnabled(false);
-        	
-	        // play dice rolling audio
-	        Clip clip = null;
-			try {
-				clip = AudioSystem.getClip();
-			} catch (LineUnavailableException e1) {
-				e1.printStackTrace();
-			}
-	        AudioInputStream inputStream = null;
-			try {
-				inputStream = AudioSystem.getAudioInputStream(GameGui.class.getResourceAsStream("/res/d6_roll.wav"));
-			} catch (UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	        try {
-				clip.open(inputStream);
-			} catch (LineUnavailableException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	        
-	        clip.start(); 
+        	playRollAudio();
         }
         TIMER.start();
     }//GEN-LAST:event_rollButtonActionPerformed
