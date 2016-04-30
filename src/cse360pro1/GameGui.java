@@ -468,6 +468,12 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 			if (gameModel != null) {
 				// let the gameModel know we are canceling the game
 				// so it can do what it needs to
+				for(int index = 0; index < 4; index++)
+				{
+					Player currentPlayer = gameModel.getPlayerInCurrentGame(index);
+					currentPlayer.resetScore();
+					currentPlayer.setPlayerStatus(true);
+				}
 				gameModel.endGame();
 
 			}
