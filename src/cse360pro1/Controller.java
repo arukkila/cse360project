@@ -250,7 +250,6 @@ public class Controller implements GameModelInterface
 						player.updateWinLoss(false);
 					}
 					player.updateLifeTimeScore();
-					player.resetScore();
 					player.setPlayerStatus(true);
 				}
 				database.savePlayers(playerList);
