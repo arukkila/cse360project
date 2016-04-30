@@ -183,7 +183,7 @@ public class MainGui extends javax.swing.JFrame {
 			}
 			for (int duplicateIndex = 0; !badPlayerName && duplicateIndex < index; duplicateIndex++)
 			{
-				if (names[duplicateIndex].equals(names[index]))
+				if (names[duplicateIndex].equalsIgnoreCase(names[index]))
 				{
 					JOptionPane.showMessageDialog(this, "Cannot have duplicate names");
 					badPlayerName = true;

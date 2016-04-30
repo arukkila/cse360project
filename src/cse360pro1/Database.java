@@ -157,7 +157,7 @@ public class Database
 		
 		for(int index = 0; index < playerData.size() ; index++)
 		{
-			if(playerData.get(index).getName().equals(playerName))
+			if(playerData.get(index).getName().equalsIgnoreCase(playerName))
 				temp = playerData.get(index);
 		}
 		
