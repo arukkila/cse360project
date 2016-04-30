@@ -1,5 +1,6 @@
 package cse360pro1;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,14 +12,15 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.AbstractAction;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
-import java.awt.Rectangle;
 import java.awt.Dimension;
-import java.awt.Font;
 
 /**
  * Graphical user interface for playing the game.
@@ -88,11 +90,31 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param mainGui {@link MainGui} to return to once the game has ended.
      */
     public GameGui(MainGui mainGui) {
-    	setPreferredSize(new Dimension(900, 450));
-        this.MAIN_GUI = mainGui;
-        TABLE_MODEL = new PlayerTableModel();
-        initComponents();
-        notifyModelChanged();
+		this.MAIN_GUI = mainGui;
+		TABLE_MODEL = new PlayerTableModel();
+		initComponents();
+
+		getRootPane().setDefaultButton(rollButton);
+
+		Container contentPane = getContentPane();
+		if (contentPane instanceof JComponent)
+		{
+			JComponent jContentPane = (JComponent) contentPane;
+			jContentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+						.put(
+							KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0),
+							new AbstractAction()
+							{
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									rollButton.doClick();
+								}
+							}
+						);
+		}
+
+		notifyModelChanged();
     }
 
     /**
@@ -107,12 +129,6 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     }
     
     
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ENTER){
-        	rollButton.doClick();
-        }
-
-    }
     @Override
     public void showMessage(String messageYo)
     {
@@ -281,23 +297,18 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         titlePanel = new javax.swing.JPanel();
-        titlePanel.setPreferredSize(new Dimension(900, 50));
         currentPlayerLabel = new javax.swing.JLabel();
         currentPlayerNameLabel = new javax.swing.JLabel();
         tableScrollPane = new javax.swing.JScrollPane();
-        tableScrollPane.setPreferredSize(new Dimension(2, 200));
         playerTable = new javax.swing.JTable();
-        playerTable.setRowHeight(32);
-        playerTable.setFont(new Font("Tahoma", Font.PLAIN, 18));
         scorePanel = new javax.swing.JPanel();
-        scorePanel.setPreferredSize(new Dimension(130, 100));
         currentTotalLabel = new javax.swing.JLabel();
         currentTotalValueLabel = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
-        buttonPanel.setPreferredSize(new Dimension(10, 200));
         rollButton = new javax.swing.JButton();
         dicePanel = new javax.swing.JPanel();
         diceImage1 = new cse360pro1.DiceImage();
@@ -307,12 +318,15 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dice Simulator 2016");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosed(java.awt.event.WindowEvent evt)
+            {
                 formWindowClosed(evt);
             }
         });
 
+        titlePanel.setPreferredSize(new java.awt.Dimension(900, 50));
         titlePanel.setLayout(new java.awt.GridLayout(1, 0));
 
         currentPlayerLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -326,8 +340,12 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         getContentPane().add(titlePanel, java.awt.BorderLayout.NORTH);
 
+        tableScrollPane.setPreferredSize(new java.awt.Dimension(2, 200));
+
+        playerTable.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         playerTable.setModel(TABLE_MODEL);
         playerTable.setEnabled(false);
+        playerTable.setRowHeight(32);
         tableScrollPane.setViewportView(playerTable);
 
         getContentPane().add(tableScrollPane, java.awt.BorderLayout.CENTER);
@@ -348,18 +366,20 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         getContentPane().add(scorePanel, java.awt.BorderLayout.EAST);
 
+        buttonPanel.setPreferredSize(new java.awt.Dimension(10, 200));
         buttonPanel.setLayout(new java.awt.BorderLayout());
 
         rollButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         rollButton.setIcon(new ImageIcon(DiceImage.getRollImage(90, 74)));
         rollButton.setToolTipText("Roll");
-        rollButton.setPreferredSize(new java.awt.Dimension(150, 37));        
-        rollButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        rollButton.setPreferredSize(new java.awt.Dimension(150, 37));
+        rollButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 rollButtonActionPerformed(evt);
             }
         });
-        getRootPane().setDefaultButton(rollButton);
         buttonPanel.add(rollButton, java.awt.BorderLayout.WEST);
 
         dicePanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -378,8 +398,10 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         endGameButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         endGameButton.setText("End game");
-        endGameButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        endGameButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 endGameButtonActionPerformed(evt);
             }
         });
