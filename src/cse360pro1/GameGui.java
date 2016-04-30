@@ -15,6 +15,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import java.awt.Rectangle;
+import java.awt.Dimension;
+import java.awt.Font;
 
 /**
  * Graphical user interface for playing the game.
@@ -84,6 +87,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param mainGui {@link MainGui} to return to once the game has ended.
      */
     public GameGui(MainGui mainGui) {
+    	setPreferredSize(new Dimension(900, 450));
         this.MAIN_GUI = mainGui;
         TABLE_MODEL = new PlayerTableModel();
         initComponents();
@@ -220,14 +224,20 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
     private void initComponents() {
 
         titlePanel = new javax.swing.JPanel();
+        titlePanel.setPreferredSize(new Dimension(900, 50));
         currentPlayerLabel = new javax.swing.JLabel();
         currentPlayerNameLabel = new javax.swing.JLabel();
         tableScrollPane = new javax.swing.JScrollPane();
+        tableScrollPane.setPreferredSize(new Dimension(2, 200));
         playerTable = new javax.swing.JTable();
+        playerTable.setRowHeight(32);
+        playerTable.setFont(new Font("Tahoma", Font.PLAIN, 18));
         scorePanel = new javax.swing.JPanel();
+        scorePanel.setPreferredSize(new Dimension(130, 100));
         currentTotalLabel = new javax.swing.JLabel();
         currentTotalValueLabel = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
+        buttonPanel.setPreferredSize(new Dimension(10, 200));
         rollButton = new javax.swing.JButton();
         dicePanel = new javax.swing.JPanel();
         diceImage1 = new cse360pro1.DiceImage();
@@ -266,7 +276,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         currentTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         currentTotalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentTotalLabel.setText("Current total:");
+        currentTotalLabel.setText("Total:");
         currentTotalLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         scorePanel.add(currentTotalLabel);
 
