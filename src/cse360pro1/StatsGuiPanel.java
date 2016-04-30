@@ -103,6 +103,7 @@ public class StatsGuiPanel extends JPanel
 		sorter.toggleSortOrder(0);
 
 		JTable tableStats = new JTable(dataModel);
+		tableStats.setEnabled(false);
 		tableStats.getColumnModel().getColumn(0).setPreferredWidth(100);
 		tableStats.getColumnModel().getColumn(1).setPreferredWidth(200);
 		tableStats.setRowSorter(sorter);
