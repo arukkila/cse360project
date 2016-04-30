@@ -315,7 +315,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         diceImage3 = new cse360pro1.DiceImage();
         endGameButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Dice Simulator 2016");
         setPreferredSize(new java.awt.Dimension(900, 450));
         addWindowListener(new java.awt.event.WindowAdapter()
@@ -323,6 +323,10 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             public void windowClosed(java.awt.event.WindowEvent evt)
             {
                 formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
             }
         });
 
@@ -431,17 +435,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
      * @param evt Event object.
      */
     private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
-        int response = JOptionPane.showConfirmDialog(this, "End the current game?", "End game?", JOptionPane.YES_NO_OPTION);
-        if (response == 0) {
-            if (gameModel != null) {
-                // let the gameModel know we are canceling the game
-                // so it can do what it needs to
-                gameModel.endGame();
-                
-            }
-            setVisible(false);
-            dispose();
-        }
+		promptToEndGame();
     }//GEN-LAST:event_endGameButtonActionPerformed
 
 
@@ -454,6 +448,34 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
             MAIN_GUI.setVisible(true);
         }
     }//GEN-LAST:event_formWindowClosed
+
+	/**
+	 * Called when the X button is pressed.
+	 * @param evt Event object.
+	 */
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+		promptToEndGame();
+    }//GEN-LAST:event_formWindowClosing
+
+	/***
+	 * Prompt the user if they want to end the game before closing the window.
+	 */
+	private void promptToEndGame()
+	{
+		int response = JOptionPane.showConfirmDialog(this, "End the current game?", "End game?", JOptionPane.YES_NO_OPTION);
+		if (response == 0) {
+			if (gameModel != null) {
+				// let the gameModel know we are canceling the game
+				// so it can do what it needs to
+				gameModel.endGame();
+
+			}
+			setVisible(false);
+			dispose();
+		}
+	}
+
 
     /**
      * For testing.
