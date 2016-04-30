@@ -9,34 +9,21 @@ package cse360pro1;
 import java.io.*;
 import java.util.ArrayList;
 
-
-
 public class Database
 {
-	
 	private static Database singleton;
-	
 	public static Database getSingleton()
 	{
 		if(singleton == null)
-		{
 			singleton = new Database();
-		}
-		
 		return singleton;
 	}
 
-	/** checks to see if their is a player with particular name
-	* @param name to check for
-	*/
 	public static boolean isNameValid(String name)
 	{
 		return name.matches("[A-Za-z0-9 ]+");
 	}
 	
-	/** playerData is the players to be stored along with their data
-	*   the file is where the information will be stored
-	*/
 	private ArrayList<Player> playerData;
 	private File folder;
 	private File[] fileList;
@@ -44,11 +31,14 @@ public class Database
 	/**
 	 * Creates a Database of all players that have or will ever play the game.
 	 */
+	
 	Database()
 	{
 		playerData =  new ArrayList<Player>();
 		loadPlayers();
 	}
+	
+	
 	
 	/**
 	 * Stores a player object into a file.
@@ -58,9 +48,7 @@ public class Database
 	public void serializeObject(Player object)
 	{
 		if(object == null)
-		{
 			return;
-		}
 		try
 		{
 			File directory = new File("./stats");
@@ -98,9 +86,9 @@ public class Database
 			{
 				loadedPlayer = (Player) data.readObject();
 			} 
-			catch (ClassNotFoundException exception) 
+			catch (ClassNotFoundException e) 
 			{
-				exception.printStackTrace();
+				e.printStackTrace();
 			}
 			
 			data.close();
@@ -153,7 +141,7 @@ public class Database
 	{
 		for(int index = 0; index < playerList.length; index++)
 		{
-			serializeObject(playerList[index]);
+			serializeObject( playerList[index] );
 		}
 	}
 	
@@ -167,12 +155,10 @@ public class Database
 	{
 		Player temp = new Player(playerName);
 		
-		for(int index = 0; index < playerData.size(); index++)
+		for(int index = 0; index < playerData.size() ; index++)
 		{
 			if(playerData.get(index).getName().equals(playerName))
-			{
 				temp = playerData.get(index);
-			}
 		}
 		
 		return temp;
@@ -187,7 +173,7 @@ public class Database
 	{
 		ArrayList<String> playerNames = new ArrayList<String>();
 		
-		for(int index = 0; index < playerData.size(); index++)
+		for(int index = 0; index < playerData.size() ; index++)
 		{
 			playerNames.add(playerData.get(index).getName());
 		}
@@ -204,5 +190,32 @@ public class Database
 	{
 		return playerData;
 	}
+	
+	//Just testing stuffs
+	//seems to work to my knowledge
+/*	public static void main(String[] args) 
+	{
+		//Player JohnCena = new Player("John");
+		//Player[] test = new Player[100];
+		//String extension;
+		Database store = new Database();
+		
+		//JohnCena.updateScore(9);
+		//dfgd
+		//store.serializeObjece(JohnCena);
+		//int playerIndex = 0;
+		//store.loadPlayers();
+		
+		//System.out.println("Name: " + store.getPlayerDatabase().get(0).getName());
+		//System.out.println("Score: " + store.getPlayerDatabase().get(0).getScore());
+		//System.out.println("Overall Score: " + store.getPlayerDatabase().get(0).getLifeTimeScore());
+		
+
+		//System.out.println("Name: " + store.getPlayerDatabase().get(1).getName());
+		//System.out.println("Score: " + store.getPlayerDatabase().get(1).getScore());
+		//System.out.println("Overall Score: " + store.getPlayerDatabase().get(1).getLifeTimeScore());
+		
+	}
+*/
 	
 }

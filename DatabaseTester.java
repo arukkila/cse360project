@@ -8,12 +8,11 @@ import org.junit.Test;
 
 public class DatabaseTester 
 {
-	
+
 	@Test
 	public void testDatabase() 
 	{
 		Database database =  new Database(); 
-		
 		assertNotNull(database);
 	}
 
@@ -37,7 +36,6 @@ public class DatabaseTester
 		Player deserialPlayer;
 		
 		deserialPlayer = database.deserializeObject("EazyE.stat");
-		
 		assertNotNull(deserialPlayer);
 	}
 
@@ -55,14 +53,12 @@ public class DatabaseTester
 	{
 		Database database = new Database();
 		Player[] playerList = new Player[3];
-		
 		playerList[0] = new Player("JIM");
 		playerList[1] = new Player("BILL");
 		playerList[2] = new Player("STACY");
 		
 		database.savePlayers(playerList);
 		database.loadPlayers();
-		
 		assertEquals("JIM", database.getPlayerForName("JIM").getName());
 		assertEquals("BILL", database.getPlayerForName("BILL").getName());
 		assertEquals("STACY", database.getPlayerForName("STACY").getName());

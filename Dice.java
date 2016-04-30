@@ -12,10 +12,6 @@ import java.util.Random;
 
 public class Dice 
 {
-	/**
-	*number stores dice rolled value 
-	*sides keeps the allotted dice faces
-	*/
 	private Random number;
 	private int sides;
 	
