@@ -317,6 +317,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dice Simulator 2016");
+        setPreferredSize(new java.awt.Dimension(900, 450));
         addWindowListener(new java.awt.event.WindowAdapter()
         {
             public void windowClosed(java.awt.event.WindowEvent evt)
@@ -349,6 +350,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
 
         getContentPane().add(tableScrollPane, java.awt.BorderLayout.CENTER);
 
+        scorePanel.setPreferredSize(new java.awt.Dimension(130, 100));
         scorePanel.setLayout(new java.awt.GridLayout(2, 0));
 
         currentTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
