@@ -1,23 +1,36 @@
 package cse360pro1;
 
+import java.io.File;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import org.junit.*;
 
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DatabaseTester 
 {
 
+    @BeforeClass
+    public static void setUp() {
+		File statsDir = new File("./stats");
+		for (File file : statsDir.listFiles())
+		{
+			file.delete();
+		}
+	}
+
 	@Test
-	public void testDatabase() 
+	public void test1_Database()
 	{
 		Database database =  new Database(); 
 		assertNotNull(database);
 	}
 
 	@Test
-	public void testSerializeObject() 
+	public void test2_SerializeObject()
 	{
 		Database database =  new Database();
 		Player serialPlayer = new Player("EazyE");
@@ -30,7 +43,7 @@ public class DatabaseTester
 	}
 
 	@Test
-	public void testDeserializeObject() 
+	public void test3_DeserializeObject()
 	{
 		Database database =  new Database();
 		Player deserialPlayer;
@@ -40,7 +53,7 @@ public class DatabaseTester
 	}
 
 	@Test
-	public void testLoadPlayers() 
+	public void test4_LoadPlayers()
 	{
 		Database database =  new Database();
 		database.loadPlayers();
@@ -49,7 +62,7 @@ public class DatabaseTester
 	}
 
 	@Test
-	public void testSavePlayers() 
+	public void test5_SavePlayers()
 	{
 		Database database = new Database();
 		Player[] playerList = new Player[3];
@@ -65,7 +78,7 @@ public class DatabaseTester
 	}
 
 	@Test
-	public void testGetPlayerForName() 
+	public void test6_GetPlayerForName()
 	{
 		Database database = new Database();
 		Player serialPlayer = new Player("FindMe");
@@ -77,7 +90,7 @@ public class DatabaseTester
 	@Test
 	// must be run with an empty stats folder to pass. otherwise the player will
 	// be loaded in a different order than is being tested for
-	public void testGetAllPlayerNames() 
+	public void test7_GetAllPlayerNames()
 	{
 		Database database = new Database();
 		
@@ -92,7 +105,7 @@ public class DatabaseTester
 	@Test
 	//This test need to be run twice to pass.
 	//Players are not saved in the stats folder until the test is run once.
-	public void testGetPlayerDatabase() 
+	public void test8_GetPlayerDatabase()
 	{
 		Database database = new Database();
 		ArrayList<Player> list = database.getPlayerDatabase();
