@@ -53,7 +53,10 @@ public class Controller implements GameModelInterface
 		currentPlayer = rand.nextInt(4);
 		
 		for(int index = 0; index < 4; index++)
+		{
 			playerList[index].resetScore();
+			playerList[index].setPlayerStatus(true);
+		}
 	}
 	
 	/**
