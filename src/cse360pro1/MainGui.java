@@ -1,5 +1,6 @@
 package cse360pro1;
 
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -203,6 +204,9 @@ public class MainGui extends javax.swing.JFrame {
 			gui.setModel(model);
 			setVisible(false);
 			gui.setVisible(true);
+			// start centered in the screen
+			gui.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 - gui.getSize().width/2, 
+					Toolkit.getDefaultToolkit().getScreenSize().height/2 - gui.getSize().height/2);
 		}
     }//GEN-LAST:event_startGameButtonActionPerformed
 
