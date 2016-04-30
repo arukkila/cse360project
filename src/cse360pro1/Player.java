@@ -82,9 +82,21 @@ public class Player implements Serializable
 		lifeTimeScore += score;
 	}
 	
+	/**
+	 * Resets the player's score to zero
+	 */
 	public void resetScore()
 	{
 		score = 0;
+	}
+	
+	/**
+	 * Resets the player's status to have neither won nor lost
+	 */
+	public void resetStatus()
+	{
+		won = false;
+		lost = false;
 	}
 	
 	/**
