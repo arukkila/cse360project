@@ -42,7 +42,7 @@ public class Controller implements GameModelInterface
 		playerList[2] = database.getPlayerForName(name3);
 		playerList[3] = database.getPlayerForName(name4);
 		
-		die = new Dice(6);
+		die = new Dice(3);
 		Random rand = new Random();
 		
 		lastRoll = new int[3];
@@ -169,22 +169,8 @@ public class Controller implements GameModelInterface
 				playerList[currentPlayer].setPlayerStatus(false);
 				kickedOut++;
 
-				if(kickedOut == 3)
-				{
-					gameWon = true;
-					guiInterface.notifyModelChanged();
-					guiInterface.showMessage("Three of you really suck.");
-					for (int index = 0; winningPlayerIndex < 0 && index < playerList.length; index++)
-					{
-						if (playerList[index].getPlayerStatus())
-							winningPlayerIndex = index;
-					}
-				}
-				else
-				{
-					guiInterface.notifyModelChanged();
-					guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
-				}
+				guiInterface.notifyModelChanged();
+				guiInterface.showMessage(playerList[currentPlayer].getName() + ", you just lost! Woohoo!");
 			}
 			//4. The first player to roll all 6s wins the game no matter the scores.
 			else if(rule == 4)
@@ -218,6 +204,18 @@ public class Controller implements GameModelInterface
 				guiInterface.showMessage(WINNER);
 				winningPlayerIndex = currentPlayer;
 			}
+			//Check if three people were kicked out
+			else if(kickedOut == 3)
+			{
+				gameWon = true;
+				guiInterface.notifyModelChanged();
+				guiInterface.showMessage("Three of you really suck.");
+				for (int index = 0; winningPlayerIndex < 0 && index < playerList.length; index++)
+				{
+					if (playerList[index].getPlayerStatus())
+						winningPlayerIndex = index;
+				}
+			}
 			else
 			{
 				if(rule != 6)
@@ -234,6 +232,7 @@ public class Controller implements GameModelInterface
 				}
 			}
 
+			
 			if (winningPlayerIndex >= 0)
 			{
 				for (int index = 0; index < playerList.length; index++)
