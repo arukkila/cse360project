@@ -1,29 +1,46 @@
-/**
- * Class that store player data such as score and other various statistics.
- * 
- * @author Thomas Gottschlich for CSE360
- * @version Apr 22 2016 
- */
 package cse360pro1;
 
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class that store player data such as score and other various statistics.
+ * 
+ * @author team 8
+ */
 public class Database
 {
+	/**
+	 * variables to store player info 
+	 */
 	private static Database singleton;
+	
+	/**
+	 * creates the data to be written to disk
+	 * @return returns the variable to be written to disk
+	 */
 	public static Database getSingleton()
 	{
 		if(singleton == null)
+		{
 			singleton = new Database();
+		}
 		return singleton;
 	}
 
+	/**
+	 * validate it is an appropriate name to store
+	 * @param the name of the player
+	 * @return the name of the player
+	 */
 	public static boolean isNameValid(String name)
 	{
 		return name.matches("[A-Za-z0-9 ]+");
 	}
 	
+	/**
+	 * variables of current players and location the data will be stored
+	 */
 	private ArrayList<Player> playerData;
 	private File folder;
 	private File[] fileList;
@@ -31,13 +48,11 @@ public class Database
 	/**
 	 * Creates a Database of all players that have or will ever play the game.
 	 */
-	
 	Database()
 	{
 		playerData =  new ArrayList<Player>();
 		loadPlayers();
 	}
-	
 	
 	
 	/**
@@ -48,11 +63,14 @@ public class Database
 	public void serializeObject(Player object)
 	{
 		if(object == null)
+		{
 			return;
+		}
 		try
 		{
 			File directory = new File("./stats");
 			directory.mkdirs();
+			
 			FileOutputStream outFile = new FileOutputStream("./stats/" + object.getName() +".stat");
 			ObjectOutputStream storage = new ObjectOutputStream(outFile);
 			
@@ -113,8 +131,11 @@ public class Database
 		
 		folder = new File("./stats");
 		fileList = folder.listFiles();
+		
 		if (fileList == null)
+		{
 			fileList = new File[0];
+		}
 		
 		playerData.clear();
 		
@@ -127,6 +148,7 @@ public class Database
 				playerData.add(arrayIndex, deserializeObject(fileList[index].getName()));
 				arrayIndex++;
 			}
+			
 			index++;
 		}
 		
@@ -190,32 +212,5 @@ public class Database
 	{
 		return playerData;
 	}
-	
-	//Just testing stuffs
-	//seems to work to my knowledge
-/*	public static void main(String[] args) 
-	{
-		//Player JohnCena = new Player("John");
-		//Player[] test = new Player[100];
-		//String extension;
-		Database store = new Database();
 		
-		//JohnCena.updateScore(9);
-		//dfgd
-		//store.serializeObjece(JohnCena);
-		//int playerIndex = 0;
-		//store.loadPlayers();
-		
-		//System.out.println("Name: " + store.getPlayerDatabase().get(0).getName());
-		//System.out.println("Score: " + store.getPlayerDatabase().get(0).getScore());
-		//System.out.println("Overall Score: " + store.getPlayerDatabase().get(0).getLifeTimeScore());
-		
-
-		//System.out.println("Name: " + store.getPlayerDatabase().get(1).getName());
-		//System.out.println("Score: " + store.getPlayerDatabase().get(1).getScore());
-		//System.out.println("Overall Score: " + store.getPlayerDatabase().get(1).getLifeTimeScore());
-		
-	}
-*/
-	
 }

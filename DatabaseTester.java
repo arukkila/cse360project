@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+/**
+ * junit test of the database 
+ */
 public class DatabaseTester 
 {
 
@@ -59,6 +62,7 @@ public class DatabaseTester
 		
 		database.savePlayers(playerList);
 		database.loadPlayers();
+		
 		assertEquals("JIM", database.getPlayerForName("JIM").getName());
 		assertEquals("BILL", database.getPlayerForName("BILL").getName());
 		assertEquals("STACY", database.getPlayerForName("STACY").getName());

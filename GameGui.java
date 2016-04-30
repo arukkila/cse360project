@@ -198,6 +198,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface
             {
                 count = gameModel.getPlayersInCurrentGameCount();
             }
+            
             return count;
         }
 
@@ -260,6 +261,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface
                     }
                 }
             }
+            
             return value;
         }
     }
@@ -399,6 +401,7 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface
                 // let the gameModel know we are canceling the game
                 gameModel.endGame();
             }
+            
             setVisible(false);
             dispose();
         }

@@ -12,30 +12,31 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-// TODO: handle window resizing
+/**
+ * creeate a 2d image of a die 
+ */
 public class DiceImage extends JLabel
 {
-	// image access
+	
+	/**
+	 * variables used to create the die image
+	 */
 	private static ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 	private final static String DICE_PATH = "/res/d%d_%d.png";
     private final static String ROLL_PATH = "/res/d%d_roll.png";
 	private final static int MIN_SIDE = 0;
 	private final static int MAX_SIDE = 6;
 	
-	// image contents
 	private BufferedImage curImage;
 	private int curSide;
 	
 	// handle resizing
-	class resizeListener extends ComponentAdapter {
-        public void componentResized(ComponentEvent e) {
-        	if (e.getComponent().getWidth() > 0 && e.getComponent().getHeight() > 0) {
-        		/*
-        		 * This will trigger a resize, but the quality will be reduced for increasing sizes.
-        		 * It's also possible that the resizing could happen after the icon is painted.
-        		 * TODO: A better way would be to handle upscales as grabbing the image from the static
-        		 * array and downscales as resizing, all in its own thread.
-        		 */
+	class resizeListener extends ComponentAdapter 
+	{
+        public void componentResized(ComponentEvent e)
+        {
+        	if (e.getComponent().getWidth() > 0 && e.getComponent().getHeight() > 0)
+        	{
     			setImage(curImage);
     		}
         }
@@ -44,7 +45,8 @@ public class DiceImage extends JLabel
 	/**
 	 * Creates a UI component that represents an image of a die
 	 */
-	public DiceImage() {
+	public DiceImage() 
+	{
 		init();
 		
 		curSide = 0;
@@ -57,16 +59,21 @@ public class DiceImage extends JLabel
 	/**
 	 * Initialize the image array with images for each side of a die
 	 */
-	public static void init() {
+	public static void init()
+	{
 		images.clear();
-		for (int index = MIN_SIDE; index <= MAX_SIDE; ++index) {
-			try {
+		
+		for (int index = MIN_SIDE; index <= MAX_SIDE; ++index) 
+		{
+			try
+			{
 				// get properly formatted filename e.g. "d6_0.png" for an empty die
 				String imgPath = String.format(DICE_PATH, MAX_SIDE, index);
 	        	InputStream inStream = GameGui.class.getResourceAsStream(imgPath);
 	        	images.add(ImageIO.read(inStream));
 			}
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				images.add(null);
 			}
 		}
@@ -78,10 +85,13 @@ public class DiceImage extends JLabel
 	 * @param img		BufferedImage to resize
 	 * @param width		New width (must be a positive integer)
 	 * @param height	New height (must be a positive integer)
+	 * @return 			returns a buffered image of the die
 	 */
-	public static BufferedImage resize(BufferedImage img, int width, int height) {
+	public static BufferedImage resize(BufferedImage img, int width, int height)
+	{
 		// Width and height must be positive
-		if (img == null || width <= 0 || height <= 0) {
+		if (img == null || width <= 0 || height <= 0) 
+		{
 			throw new IllegalArgumentException("Width = " + width + ", height = " + height);
 		}
 		
@@ -97,12 +107,16 @@ public class DiceImage extends JLabel
 	/**
 	 * Returns a BufferedImage representation of a side
 	 * @param side	Side to search for. If out of range, throws an IllegalArgumentException
+	 * @return an image of the die side
 	 */
-	public static BufferedImage getSideImage(int side) {
-		if (side < MIN_SIDE || side > MAX_SIDE) {
+	public static BufferedImage getSideImage(int side) 
+	{
+		if (side < MIN_SIDE || side > MAX_SIDE)
+		{
 			throw new IllegalArgumentException(Integer.toString(side));
 		}
-		if (images.isEmpty()) {
+		if (images.isEmpty()) 
+		{
 			init();
 		}
 		return images.get(side); // side will also be to the right index here
@@ -113,21 +127,27 @@ public class DiceImage extends JLabel
 	 * @param side		Side to search for
 	 * @param width		New width (must be a positive integer)
 	 * @param height	New height (must be a positive integer)
+	 * @return 			the side the die lands on
 	 */
-	public static BufferedImage getSideImage(int side, int width, int height) {
+	public static BufferedImage getSideImage(int side, int width, int height) 
+	{
 		return DiceImage.resize(getSideImage(side), width, height); // resize proportionally
 	}
 	
 	/**
 	 * Returns a BufferedImage representation of a dice roll action,
 	 * or null if that representation can't be found
+	 * @return  an image of the die rolled
 	 */
-	public static BufferedImage getRollImage() {
-		try {
+	public static BufferedImage getRollImage()
+	{
+		try 
+		{
 	    	InputStream inStream = GameGui.class.getResourceAsStream(String.format(ROLL_PATH, MAX_SIDE));
 			return ImageIO.read(inStream);
 		} 
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		} 
 	}
@@ -136,8 +156,10 @@ public class DiceImage extends JLabel
 	 * Returns a BufferedImage representation of a dice roll action resized to width x height
 	 * @param width		New width (must be a positive integer)
 	 * @param height	New height (must be a positive integer)
+	 * @return 			an image of the side of die rolled
 	 */
-	public static BufferedImage getRollImage(int width, int height) {
+	public static BufferedImage getRollImage(int width, int height)
+	{
 		return DiceImage.resize(getRollImage(), width, height); // resize proportionally
 	}
 	
@@ -145,15 +167,19 @@ public class DiceImage extends JLabel
 	 * Sets the current image to display, resized to fit inside the component
 	 * @param img	If null, throws an IllegalArgumentException
 	 */
-	private void setImage(BufferedImage img) {
-		if (img == null) {
+	private void setImage(BufferedImage img) 
+	{
+		if (img == null) 
+		{
 			throw new IllegalArgumentException();
 		}
 		
 		// can't resize without an actual width or height
-		if (getWidth() > 0 && getHeight() > 0) {
+		if (getWidth() > 0 && getHeight() > 0) 
+		{
 			curImage = resize(img, getWidth(), getHeight());
 		}
+		
 		setIcon(new ImageIcon(curImage));
 	}
 	
@@ -161,18 +187,23 @@ public class DiceImage extends JLabel
 	 * Sets the current side to display
 	 * @param side	If out of range, throws an IllegalArgumentException
 	 */
-	public void setSide(int side) {
-		if (side < MIN_SIDE || side > MAX_SIDE) {
+	public void setSide(int side)
+	{
+		if (side < MIN_SIDE || side > MAX_SIDE)
+		{
 			throw new IllegalArgumentException(Integer.toString(side));
 		}
+		
 		curSide = side;
 		setImage(getSideImage(side));
 	}
 	
 	/**
 	 * Returns the currently displayed side
+	 * @return the side the die lands on
 	 */
-	public int getSide() {
+	public int getSide()
+	{
 		return curSide;
 	}
 }

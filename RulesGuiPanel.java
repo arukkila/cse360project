@@ -14,7 +14,8 @@ public class RulesGuiPanel extends JPanel
 	/**
 	 * vairiables for displaying the rules gui
 	 */
-	private final int WIDTH = 500, HEIGHT = 500;
+	private final int WIDTH = 500;
+	private final int HEIGHT = 500;
 	private JButton okay;
 
 	/**

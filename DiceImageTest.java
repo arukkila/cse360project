@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 
 import org.junit.Test;
 
+/**
+ * junit test for the image of the die 
+ */
 public class DiceImageTest 
 {
 	/**
@@ -15,6 +18,7 @@ public class DiceImageTest
 	public final void testDiceImage() 
 	{
 		DiceImage dimg = new DiceImage();
+		
 		assertNotNull(dimg);
 	}
 	
@@ -26,6 +30,7 @@ public class DiceImageTest
 	{
 		DiceImage dimg = new DiceImage();
 		dimg.setSide(6);
+		
 		assertEquals(6, dimg.getSide());
 	}
 
@@ -37,6 +42,7 @@ public class DiceImageTest
 	{
 		// default side
 		DiceImage dimg = new DiceImage();
+		
 		assertEquals(0, dimg.getSide());
 	}
 	
@@ -47,6 +53,7 @@ public class DiceImageTest
 	public final void testGetSideImageInt() 
 	{
 		BufferedImage img = DiceImage.getSideImage(0);
+		
 		assertNotNull(img);
 	}
 
@@ -57,6 +64,7 @@ public class DiceImageTest
 	public final void testResize() 
 	{
 		BufferedImage img = DiceImage.resize(DiceImage.getSideImage(0), 50, 50);
+		
 		assertNotNull(img);
 	}
 	
@@ -70,6 +78,7 @@ public class DiceImageTest
 		
 		// resize down to 50x60
 		img = DiceImage.resize(DiceImage.getSideImage(0), 50, 60);
+		
 		assertEquals(50, img.getWidth());
 		assertEquals(60, img.getHeight());
 	}
@@ -81,6 +90,7 @@ public class DiceImageTest
 	public final void testGetSideImageIntIntInt() 
 	{
 		BufferedImage img = DiceImage.getSideImage(0, 50, 50);
+		
 		assertNotNull(img);
 	}
 
@@ -91,6 +101,7 @@ public class DiceImageTest
 	public final void testGetRollImage() 
 	{
 		BufferedImage img = DiceImage.getRollImage();
+		
 		assertNotNull(img);
 	}
 
@@ -101,6 +112,7 @@ public class DiceImageTest
 	public final void testGetRollImageIntInt() 
 	{
 		BufferedImage img = DiceImage.getRollImage(50, 50);
+		
 		assertNotNull(img);
 	}
 }

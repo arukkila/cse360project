@@ -14,7 +14,8 @@ public class StatsGuiPanel extends JPanel
 	/**
 	 * vairable sizes for the gui and button
 	 */
-	private final int WIDTH = 500, HEIGHT = 500;
+	private final int WIDTH = 500, 
+	private final int HEIGHT = 500;
 	private JButton okay;
 
 	/**

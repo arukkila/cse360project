@@ -1,12 +1,12 @@
-/**
- * Class that controls the inner workings of the dice game and its components.
- * 
- * @author Team 8 for CSE360
- * @version Apr 15 2016 
- */
 package cse360pro1;
 
 import java.util.Random;
+
+/**
+ * Class that controls the inner workings of the dice game and its components.
+ * 
+ * @author Team 8
+ */
 
 public class Controller implements GameModelInterface 
 {
@@ -41,6 +41,7 @@ public class Controller implements GameModelInterface
 	Controller(String name1, String name2, String name3, String name4)
 	{
 		database = Database.getSingleton();
+		
 		playerList[0] = database.getPlayerForName(name1);
 		playerList[1] = database.getPlayerForName(name2);
 		playerList[2] = database.getPlayerForName(name3);
@@ -285,7 +286,9 @@ public class Controller implements GameModelInterface
 			}
 		}
 		else
+		{
 			guiInterface.showMessage("What? You're still here?\nThe game's over. Go home.");
+		}
 	}
 	
 	/**
@@ -329,7 +332,7 @@ public class Controller implements GameModelInterface
 	}
 
 	/**
-	 * Nothing to see here
+	 * end of game
 	 */
 	@Override
 	public void endGame() 
