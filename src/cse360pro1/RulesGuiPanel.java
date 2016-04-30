@@ -11,23 +11,21 @@ import javax.swing.*;
  */
 public class RulesGuiPanel extends JPanel
 {
-	private JButton okay;
+	private JButton btnOkay;
 
 	/**
 	 * Creates a new RulesGuiPanel
 	 */
 	public RulesGuiPanel()
 	{
-		okay = new JButton("Got it");
-		okay.addActionListener(new ButtonListener());
-
-		add(okay);
+		btnOkay = new JButton("Got it");
+		btnOkay.addActionListener(new ButtonListener());
 
 		setPreferredSize(new Dimension(500, 500));
 		
 		this.setLayout(new BorderLayout());
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(okay);
+		buttonPanel.add(btnOkay);
 		this.add(buttonPanel,BorderLayout.SOUTH);
 	}
 	
@@ -35,9 +33,9 @@ public class RulesGuiPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(event.getSource() == okay) {
-                            getRootPane().getParent().setVisible(false);
-                        }
+			if (event.getSource() == btnOkay) {
+				getRootPane().getParent().setVisible(false);
+            }
 		}
 	}
 	

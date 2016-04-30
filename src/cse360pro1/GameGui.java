@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
-import java.awt.Dimension;
 
 /**
  * Graphical user interface for playing the game.
