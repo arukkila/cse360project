@@ -2,6 +2,7 @@ package cse360pro1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Random;
 
@@ -101,6 +102,13 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         notifyModelChanged();
     }
     
+    
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+        	rollButton.doClick();
+        }
+
+    }
     @Override
     public void showMessage(String messageYo)
     {
@@ -283,12 +291,13 @@ public class GameGui extends javax.swing.JFrame implements GameGuiInterface {
         rollButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         rollButton.setIcon(new ImageIcon(DiceImage.getRollImage(90, 74)));
         rollButton.setToolTipText("Roll");
-        rollButton.setPreferredSize(new java.awt.Dimension(150, 37));
+        rollButton.setPreferredSize(new java.awt.Dimension(150, 37));        
         rollButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rollButtonActionPerformed(evt);
             }
         });
+        getRootPane().setDefaultButton(rollButton);
         buttonPanel.add(rollButton, java.awt.BorderLayout.WEST);
 
         dicePanel.setBackground(new java.awt.Color(0, 0, 0));
