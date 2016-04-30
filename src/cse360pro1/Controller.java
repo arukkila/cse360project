@@ -230,7 +230,7 @@ public class Controller implements GameModelInterface
 				else
 				{
 					guiInterface.notifyModelChanged();
-					guiInterface.showMessage("You get to roll again!");
+					guiInterface.showMessage("You get to roll again!\nYou rolled " + total + " points!" );
 				}
 			}
 
@@ -249,6 +249,7 @@ public class Controller implements GameModelInterface
 					}
 					player.updateLifeTimeScore();
 					player.resetScore();
+					player.setPlayerStatus(true);
 				}
 				database.savePlayers(playerList);
 				database.loadPlayers();
